@@ -1,4 +1,3 @@
-import { faThinkPeaks } from "@fortawesome/free-brands-svg-icons";
 import firebase from "../firebase";
 const db = firebase.firestore();
 const str = firebase.storage();
@@ -23,7 +22,6 @@ export default {
   methods: {
     async getDefault() {
       if (this.defaultData) return Promise.resolve(this.defaultData);
-      console.log('lol')
       this.defaultData = {
         galerie: {
           name: '',
@@ -80,7 +78,6 @@ export default {
           return that.artistes;
         })
         .catch((error) => {
-          console.log("Error getting documents: ", error);
           return [];
         });
     },

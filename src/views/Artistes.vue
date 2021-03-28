@@ -18,7 +18,7 @@
     </parallax>
       <div class="section section-artistes">
         <div class="md-layout md-alignment-top-center md-gutter">
-          <artiste v-for="artiste in data.artistes" :key="artiste.id" :donnee="artiste" class="md-layout-item md-size-40 artiste"></artiste>
+          <artiste v-for="artiste in data.artistes" :key="artiste.id" :donnee="artiste" class="md-layout-item md-size-40 md-small-size-100 mx-auto artiste"></artiste>
         </div>
       </div>
       <!-- <div class="main main-raised">

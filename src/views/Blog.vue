@@ -1,9 +1,16 @@
 <template>
-  <div class="wrapper">
-    <parallax
-      class="section page-header header-filter"
-      :style="headerStyle"
-    ></parallax>
+  <div class="wrapper index-page">
+    <parallax class="page-header header-filter" :style="headerStyle">
+      <div class="md-layout">
+        <div class="md-layout-item">
+          <div class="image-wrapper">
+            <div class="brand">
+              <h1>Soon ...</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </parallax>
     <div class="main main-raised">
       <div class="section profile-content">
         <div class="container">

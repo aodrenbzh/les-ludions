@@ -32,7 +32,7 @@
               <!-- Here you can add your items from the section-start of your toolbar -->
             </mobile-menu>
             <md-list>
-              <li class="md-list-item" v-if="!showDownload">
+              <li class="md-list-item" v-if="isArtistes">
                 <a
                   href="javascript:void(0)"
                   class="md-list-item-router md-list-item-container md-button-clean dropdown"
@@ -48,11 +48,21 @@
                         <p>Nos artistes</p>
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
-                        <li v-for="item in data.artistes" :key="'menu_' + item.id">
-                          <a href="javascript:void(0)"
-                              @click="scrollToElement(item.id)">
-                            <i class="material-icons">{{iconArtiste(item)}}</i>
-                            <p>{{item.Prenom}} {{item.Nom}}  |  {{item.Metier}}</p>
+                        <li
+                          v-for="item in data.artistes"
+                          :key="'menu_' + item.id"
+                        >
+                          <a
+                            href="javascript:void(0)"
+                            @click="scrollToElement(item.id)"
+                          >
+                            <i class="material-icons">{{
+                              iconArtiste(item)
+                            }}</i>
+                            <p>
+                              {{ item.Prenom }} {{ item.Nom }} |
+                              {{ item.Metier }}
+                            </p>
                           </a>
                         </li>
                         <!-- <li>
@@ -66,84 +76,31 @@
                   </div>
                 </a>
               </li>
-
-              <md-list-item href="#/blog">
-                <i class="material-icons">art_track</i>
-                <p>Blog</p>
+              <md-list-item
+                href="javascript:void(0)"
+                @click="scrollToElement('boucheAOreille')"
+                v-if="isAparte"
+              >
+                <i class="material-icons">share</i>
+                <p>Bouche-à-oreille</p>
               </md-list-item>
               <md-list-item href="#/test" v-if="false">
                 <i class="material-icons">content_paste</i>
                 <p>test</p>
               </md-list-item>
-              <md-list-item href="#/aparte" v-if="!showDownload">
+              <md-list-item href="#/aparte" v-if="!isAparte">
                 <i class="material-icons">content_paste</i>
                 <p>Aparté</p>
               </md-list-item>
 
-              <md-list-item href="#/artistes" v-if="showDownload">
+              <md-list-item href="#/artistes" v-if="!isArtistes">
                 <i class="material-icons">content_paste</i>
                 <p>Demandez le programme !</p>
               </md-list-item>
-
-              <md-list-item
-                href="javascript:void(0)"
-                @click="scrollToElement('boucheAOreille')"
-                v-if="showDownload"
-              >
-                <i class="material-icons">share</i>
-                <p>Bouche-à-oreille</p>
+              <md-list-item href="#/blog">
+                <i class="material-icons">art_track</i>
+                <p>Blog</p>
               </md-list-item>
-              <!-- 
-              <li class="md-list-item" v-else>
-                <a
-                  href="javascript:void(0)"
-                  class="md-list-item-router md-list-item-container md-button-clean dropdown"
-                >
-                  <div class="md-list-item-content">
-                    <drop-down direction="down">
-                      <md-button
-                        slot="title"
-                        class="md-button md-button-link md-white md-simple dropdown-toggle"
-                        data-toggle="dropdown"
-                      >
-                        <i class="material-icons">view_carousel</i>
-                        <p>Examples</p>
-                      </md-button>
-                      <ul class="dropdown-menu dropdown-with-icons">
-                        <li>
-                          <a href="#/landing">
-                            <i class="material-icons">view_day</i>
-                            <p>Landing Page</p>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#/login">
-                            <i class="material-icons">fingerprint</i>
-                            <p>Login Page</p>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#/profile">
-                            <i class="material-icons">account_circle</i>
-                            <p>Profile Page</p>
-                          </a>
-                        </li>
-                      </ul>
-                    </drop-down>
-                  </div>
-                </a>
-              </li> -->
-
-              <!-- <md-list-item
-                href="https://twitter.com/CreativeTim"
-                target="_blank"
-              >
-                <i class="fab fa-twitter"></i>
-                <p class="hidden-lg">Twitter</p>
-                <md-tooltip md-direction="bottom"
-                  >Follow us on Twitter</md-tooltip
-                >
-              </md-list-item> -->
               <md-list-item
                 href="https://www.facebook.com/festi.ludions"
                 target="_blank"
@@ -217,22 +174,29 @@ export default {
       extraNavClasses: "",
       toggledClass: false,
       data: {
-        artistes: []
-      }
+        artistes: [],
+      },
     };
   },
   computed: {
-    showDownload() {
+    isArtistes() {
       const excludedRoutes = ["artistes"];
-      return excludedRoutes.every((r) => r !== this.$route.name);
-    }
+      return excludedRoutes.some((r) => r === this.$route.name);
+    },
+    isAparte() {
+      const excludedRoutes = ["index"];
+      return excludedRoutes.some((r) => r === this.$route.name);
+    },
   },
   methods: {
     iconArtiste(artiste) {
-      switch(artiste.Metier) {
-        case "Comédien": return "emoji_people";
-        case "Photographe": return "camera";
-        default: return "history_edu";
+      switch (artiste.Metier) {
+        case "Comédien":
+          return "emoji_people";
+        case "Photographe":
+          return "camera";
+        default:
+          return "history_edu";
       }
     },
     bodyClick() {
@@ -285,7 +249,7 @@ export default {
   },
   mounted() {
     document.addEventListener("scroll", this.scrollListener);
-    api.methods.getArtistes().then(a => {
+    api.methods.getArtistes().then((a) => {
       this.data.artistes = a;
     });
   },

@@ -7,7 +7,7 @@
     <div class="main main-raised">
       <div class="section profile-content">
         <div class="container">
-            lol
+            Soon...
         </div>
       </div>
     </div>

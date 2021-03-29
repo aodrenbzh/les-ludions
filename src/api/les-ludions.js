@@ -7,7 +7,10 @@ export default {
     return {
       name: "",
       date: new Date().toISOString().slice(0, 10),
-      artistes: [],
+      artistes: {
+        value: [],
+        isLoading: false
+      },
       defaultData: null,
       search: ""
     };
@@ -15,9 +18,12 @@ export default {
   mounted() {
     this.name = "";
     this.date = new Date().toISOString().slice(0, 10);
-    this.artistes = [];
     this.defaultData = null;
     this.search = "";
+    this.artistes = {
+      value: [],
+      isLoading: false
+    };
   },
   methods: {
     async getDefault() {
@@ -46,8 +52,12 @@ export default {
     },
     getArtistes() {
       var that = this;
-      if (this.artistes && this.artistes.length > 0) return Promise.resolve(this.artistes);
-      this.artistes = [];
+      if (this.artistes && this.artistes.isLoading) return Promise.resolve(this.artistes.value);
+      this.artistes = {
+        value: [],
+        isLoading: true
+      };
+      
       return db.collection("Artistes")
         .get()
         .then((querySnapshot) => {
@@ -71,18 +81,18 @@ export default {
                   });
                 });
                 temp.Socials = ss;
-                that.artistes.push(temp);
+                that.artistes.value.push(temp);
               }
             );
           });
-          return that.artistes;
+          return that.artistes.value;
         })
         .catch((error) => {
           return [];
         });
     },
     async getImagesFromArtiste(id) {
-      if (this.artistes.find(a => a.id == id).galerie) return Promise.resolve(this.artistes.find(a => a.id == id).galerie);
+      if (this.artistes.value.find(a => a.id == id).galerie) return Promise.resolve(this.artistes.value.find(a => a.id == id).galerie);
       var result = [];
       var storageRef = str.ref();
       var imagesRef = storageRef.child("/" + id);
@@ -97,7 +107,7 @@ export default {
           });
         }
       );
-      this.artistes[this.artistes.findIndex(a => a.id == id)].galerie = result;
+      this.artistes.value[this.artistes.value.findIndex(a => a.id == id)].galerie = result;
       return Promise.resolve(result);
     }
   }

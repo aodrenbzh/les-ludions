@@ -48,24 +48,29 @@
                         <p>Nos artistes</p>
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
-                        <li>
-                          <a href="#/">
-                            <i class="material-icons">layers</i>
-                            <p>Simon Letellier - Comédien</p>
+                        <li v-for="item in data.artistes" :key="'menu_' + item.id">
+                          <a href="javascript:void(0)"
+                              @click="scrollToElement(item.id)">
+                            <i class="material-icons">{{iconArtiste(item)}}</i>
+                            <p>{{item.Prenom}} {{item.Nom}}  |  {{item.Metier}}</p>
                           </a>
                         </li>
-                        <li>
+                        <!-- <li>
                           <a href="">
                             <i class="material-icons">content_paste</i>
                             <p>Catherine Letellier - Photographe</p>
                           </a>
-                        </li>
+                        </li> -->
                       </ul>
                     </drop-down>
                   </div>
                 </a>
               </li>
 
+              <md-list-item href="#/blog">
+                <i class="material-icons">art_track</i>
+                <p>Blog</p>
+              </md-list-item>
               <md-list-item href="#/test" v-if="false">
                 <i class="material-icons">content_paste</i>
                 <p>test</p>
@@ -176,7 +181,7 @@ function resizeThrottler(actualResizeHandler) {
     }, 66);
   }
 }
-
+import api from "../api/les-ludions";
 import MobileMenu from "@/layout/MobileMenu";
 export default {
   components: {
@@ -211,15 +216,25 @@ export default {
     return {
       extraNavClasses: "",
       toggledClass: false,
+      data: {
+        artistes: []
+      }
     };
   },
   computed: {
     showDownload() {
       const excludedRoutes = ["artistes"];
       return excludedRoutes.every((r) => r !== this.$route.name);
-    },
+    }
   },
   methods: {
+    iconArtiste(artiste) {
+      switch(artiste.Metier) {
+        case "Comédien": return "emoji_people";
+        case "Photographe": return "camera";
+        default: return "history_edu";
+      }
+    },
     bodyClick() {
       let bodyClick = document.getElementById("bodyClick");
 
@@ -261,7 +276,7 @@ export default {
     scrollToElement(section) {
       let element_id = document.getElementById(section);
       if (element_id) {
-        element_id.scrollIntoView({ block: "end", behavior: "smooth" });
+        element_id.scrollIntoView({ block: "start", behavior: "smooth" });
       }
     },
     scrollToTop() {
@@ -270,6 +285,9 @@ export default {
   },
   mounted() {
     document.addEventListener("scroll", this.scrollListener);
+    api.methods.getArtistes().then(a => {
+      this.data.artistes = a;
+    });
   },
   beforeDestroy() {
     document.removeEventListener("scroll", this.scrollListener);

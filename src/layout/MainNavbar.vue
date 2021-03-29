@@ -15,7 +15,7 @@
         <img :src="logo" alt="Logo transparent Image" class="logo img-fluid" />
         <h3 class="md-title">Carolles, Basse-Normandie</h3>
       </a>
-      <div class="md-toolbar-section-end">
+      <div class="md-toolbar-section-end" :style="{ flex: 0 }">
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle"
           :class="{ toggled: toggledClass }"
@@ -116,6 +116,14 @@
                 <i class="fab fa-instagram"></i>
                 <p class="hidden-lg">Instagram</p>
                 <md-tooltip md-direction="bottom">Instagram</md-tooltip>
+              </md-list-item>
+
+              <md-list-item
+                href="#/login"
+              >
+                <i class="fas fa-user"></i>
+                <p class="hidden-lg">Se connecter</p>
+                <md-tooltip md-direction="bottom">Se connecter</md-tooltip>
               </md-list-item>
             </md-list>
           </div>

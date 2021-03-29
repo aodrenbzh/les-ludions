@@ -1,6 +1,11 @@
 import firebase from "../firebase";
+var fb = require('firebase');
+var fbui = require('firebaseui');
 const db = firebase.firestore();
 const str = firebase.storage();
+const ana = firebase.analytics();
+const ui = new fbui.auth.AuthUI(fb.default.auth());
+
 export default {
   name: 'store',
   data() {
@@ -26,6 +31,14 @@ export default {
     };
   },
   methods: {
+    initAuth() {
+      ui.start('#firebaseui-auth-container', {
+        signInOptions: [
+          fb.default.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        // Other config options...
+      });
+    },
     async getDefault() {
       if (this.defaultData) return Promise.resolve(this.defaultData);
       this.defaultData = {

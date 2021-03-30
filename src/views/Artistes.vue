@@ -1,19 +1,10 @@
 <template>
   <div class="wrapper">
     <parallax class="page-header header-filter" :style="headerStyle">
-      <div class="md-layout">
-        <div class="md-layout-item">
-          <div class="image-wrapper">
-            <!-- <img :src="leaf4" alt="leaf4" class="leaf4" v-show="leafShow" />
-            <img :src="leaf3" alt="leaf3" class="leaf3" v-show="leafShow" />
-            <img :src="leaf2" alt="leaf2" class="leaf2" v-show="leafShow" />
-            <img :src="leaf1" alt="leaf1" class="leaf1" v-show="leafShow" /> -->
             <div class="brand">
               <h1>Festival des Ludions</h1>
               <h3>9 maisons, 20 artistes, déambulations théatrales</h3>
-            </div>
-          </div>
-        </div>
+              <h3>14 - 16 Mai 2021</h3>
       </div>
     </parallax>
       <div class="section section-artistes">

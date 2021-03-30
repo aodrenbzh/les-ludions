@@ -1,124 +1,150 @@
 <template>
-  <md-card class="artiste">
-    <div class="section profile-content">
-      <div class="container">
-        <div class="md-layout">
-          <div class="md-layout-item md-size-50 mx-auto">
-            <div class="profile">
-              <div class="avatar">
-                <img
-                  v-if="profileImage"
-                  :src="profileImage.src"
-                  :alt="profileImage.name"
-                  class="img-raised rounded-circle img-fluid profile-image"
-                />
-                <!-- <font-awesome-icon  if="!profileImage"  :icon="['fas', 'user-alt']" class="img-raised rounded-circle img-fluid" /> -->
-                <div
-                  v-if="!profileImage"
-                  class="img-raised rounded-circle profile-image"
-                >
+  <md-card class="artiste" md-with-hover>
+    <md-card-expand class="expanded-visible">
+      <div class="section profile-content">
+        <div class="container">
+          <div class="md-layout">
+            <div class="md-layout-item md-size-50 mx-auto">
+              <div class="profile">
+                <div class="avatar">
                   <img
-                    :src="defaultProfileImage"
-                    alt="Profile"
-                    class="img-fluid default-profile-image"
+                    v-if="profileImage"
+                    :src="profileImage.src"
+                    :alt="profileImage.name"
+                    class="img-raised rounded-circle img-fluid profile-image"
                   />
+                  <!-- <font-awesome-icon  if="!profileImage"  :icon="['fas', 'user-alt']" class="img-raised rounded-circle img-fluid" /> -->
+                  <div
+                    v-if="!profileImage"
+                    class="img-raised rounded-circle profile-image"
+                  >
+                    <img
+                      :src="defaultProfileImage"
+                      alt="Profile"
+                      class="img-fluid default-profile-image"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div class="name">
-                <h3 class="title">{{ donnee.Prenom }} {{ donnee.Nom }}</h3>
-                <h6>{{ donnee.Metier }}</h6>
+                <div class="name">
+                  <h3 class="title">{{ donnee.Prenom }} {{ donnee.Nom }}</h3>
+                  <h6>{{ donnee.Metier }}</h6>
 
-                <template v-for="social in donnee.Socials">
-                  <md-button
-                    :key="social.id"
-                    target="_blank"
-                    :href="
-                      social.id == 'Twitter'
-                        ? 'https://www.twitter.com/' + social.Lien
-                        : social.id == 'Instagram'
-                        ? 'https://www.instagram.com/' + social.Lien
-                        : social.Lien
-                    "
-                    :class="
-                      social.id == 'Twitter'
-                        ? 'md-just-icon md-simple md-twitter'
-                        : social.id == 'Instagram'
-                        ? 'md-just-icon md-simple md-twitter'
-                        : 'md-just-icon md-simple md-dribble'
-                    "
-                    ><i
+                  <template v-for="social in donnee.Socials">
+                    <md-button
+                      :key="social.id"
+                      target="_blank"
+                      :href="
+                        social.id == 'Twitter'
+                          ? 'https://www.twitter.com/' + social.Lien
+                          : social.id == 'Instagram'
+                          ? 'https://www.instagram.com/' + social.Lien
+                          : social.Lien
+                      "
                       :class="
                         social.id == 'Twitter'
-                          ? 'fab fa-twitter'
+                          ? 'md-just-icon md-simple md-twitter'
                           : social.id == 'Instagram'
-                          ? 'fab fa-instagram'
-                          : 'fab fa-dribble'
+                          ? 'md-just-icon md-simple md-twitter'
+                          : 'md-just-icon md-simple md-dribble'
                       "
-                    ></i
-                  ></md-button>
-                </template>
+                      ><i
+                        :class="
+                          social.id == 'Twitter'
+                            ? 'fab fa-twitter'
+                            : social.id == 'Instagram'
+                            ? 'fab fa-instagram'
+                            : 'fab fa-dribble'
+                        "
+                      ></i
+                    ></md-button>
+                  </template>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="description text-center">
-          <p>
-            {{ donnee.Description }}
-          </p>
-        </div>
+          <div class="description text-center">
+            <p>
+              {{ donnee.Description }}
+            </p>
+          </div>
 
-        <tabs
-          :tab-name="['Galerie', 'Mise en scène', 'Biographie']"
-          :tab-icon="['palette', 'emoji_people', 'history_edu']"
-          plain
-          nav-pills-icons
-          color-button="primary"
-          class="tab-artiste"
-        >
-          <!-- here you can add your content for tab-content -->
-          <template slot="tab-pane-1">
-            <div class="md-layout">
-              <div
-                v-if="galerie.length > 0"
-                class="md-layout-item md-size-50 ml-auto"
-              >
-                <img
-                  v-for="item in galerieHalf1"
-                  :key="item.name"
-                  class="rounded"
-                  :src="item.src"
-                />
-              </div>
-              <div class="md-layout-item md-size-50 mr-auto">
-                <template v-if="galerie.length > 1">
+          <tabs
+            :tab-name="['Galerie', 'Mise en scène', 'Biographie']"
+            :tab-icon="['palette', 'emoji_people', 'history_edu']"
+            plain
+            nav-pills-icons
+            color-button="primary"
+            class="tab-artiste"
+          >
+            <!-- here you can add your content for tab-content -->
+            <template slot="tab-pane-1">
+              <div class="md-layout">
+                <div
+                  v-if="galerie.length > 0"
+                  class="md-layout-item md-size-50 ml-auto"
+                >
                   <img
-                    v-for="item in galerieHalf2"
+                    v-for="item in galerieHalf1.slice(0, 2)"
                     :key="item.name"
                     class="rounded"
                     :src="item.src"
                   />
-                </template>
-
+                  <md-card-expand-content v-if="galerie.length > 4">
+                    <md-card-content>
+                      <img
+                        v-for="item in galerieHalf1.slice(2, galerieHalf2.length - 2)"
+                        :key="item.name"
+                        class="rounded"
+                        :src="item.src"
+                      />
+                    </md-card-content>
+                  </md-card-expand-content>
+                </div>
+                <div class="md-layout-item md-size-50 mr-auto">
+                  <template v-if="galerie.length > 1">
+                    <img
+                      v-for="item in galerieHalf2.slice(0, 2)"
+                      :key="item.name"
+                      class="rounded"
+                      :src="item.src"
+                    />
+                  </template>
+                  <md-card-expand-content v-if="galerie.length > 4">
+                    <md-card-content>
+                      <img
+                        v-for="item in galerieHalf2.slice(2, galerieHalf2.length - 2)"
+                        :key="item.name"
+                        class="rounded"
+                        :src="item.src"
+                      />
+                    </md-card-content>
+                  </md-card-expand-content>
+                </div>
               </div>
-            </div>
-          </template>
-          <template slot="tab-pane-2">
-            <div class="description text-center">
-              <p>
-                {{ donnee.Maison }}
-              </p>
-            </div>
-          </template>
-          <template slot="tab-pane-3">
-            <div class="description text-center">
-              <p>
-                {{ donnee.Bio }}
-              </p>
-            </div>
-          </template>
-        </tabs>
+              <md-card-expand-trigger v-if="galerie.length > 4">
+                <md-button class="md-icon-button md-dense md-primary">
+                  <md-icon>keyboard_arrow_down</md-icon>
+                </md-button>
+              </md-card-expand-trigger>
+            </template>
+            <template slot="tab-pane-2">
+              <div class="description text-center">
+                <p>
+                  {{ donnee.Maison }}
+                </p>
+              </div>
+            </template>
+            <template slot="tab-pane-3">
+              <div class="description text-center">
+                <p>
+                  {{ donnee.Bio }}
+                </p>
+              </div>
+            </template>
+          </tabs>
+        </div>
       </div>
-    </div>
+    </md-card-expand>
   </md-card>
 </template>
 
@@ -203,6 +229,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.expanded-visible {
+    overflow: visible !important;
+}
 .section {
   padding: 0;
 }

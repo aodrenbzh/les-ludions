@@ -109,7 +109,6 @@ export default {
     this.leafActive();
     window.addEventListener("resize", this.leafActive);
     api.methods.getArtistes().then(a => this.data.artistes = a);
-    api.methods.initAuth();
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.leafActive);

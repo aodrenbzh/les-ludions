@@ -89,16 +89,16 @@
                     class="rounded"
                     :src="item.src"
                   />
-                  <md-card-expand-content v-if="galerie.length > 4">
+                  <!-- <md-card-expand-content v-if="galerie.length > 4">
                     <md-card-content>
                       <img
-                        v-for="item in galerieHalf1.slice(2, galerieHalf2.length - 2)"
+                        v-for="item in galerieHalf1.slice(2)"
                         :key="item.name"
                         class="rounded"
                         :src="item.src"
                       />
                     </md-card-content>
-                  </md-card-expand-content>
+                  </md-card-expand-content> -->
                 </div>
                 <div class="md-layout-item md-size-50 mr-auto">
                   <template v-if="galerie.length > 1">
@@ -109,23 +109,51 @@
                       :src="item.src"
                     />
                   </template>
-                  <md-card-expand-content v-if="galerie.length > 4">
+                  <!-- <md-card-expand-content v-if="galerie.length > 4">
                     <md-card-content>
                       <img
-                        v-for="item in galerieHalf2.slice(2, galerieHalf2.length - 2)"
+                        v-for="item in galerieHalf2.slice(2)"
                         :key="item.name"
                         class="rounded"
                         :src="item.src"
                       />
                     </md-card-content>
-                  </md-card-expand-content>
+                  </md-card-expand-content> -->
                 </div>
+                <md-card-expand-content v-if="galerie.length > 4">
+                  <md-card-content>
+                    <div class="md-layout">
+                      <div class="md-layout-item md-size-50 mr-auto">
+                        <img
+                          v-for="item in galerieHalf1.slice(2)"
+                          :key="item.name"
+                          class="rounded"
+                          :src="item.src"
+                        />
+                      </div>
+                      <div class="md-layout-item md-size-50 mr-auto">
+                        <img
+                          v-for="item in galerieHalf2.slice(2)"
+                          :key="item.name"
+                          class="rounded"
+                          :src="item.src"
+                        />
+                      </div>
+                    </div>
+                  </md-card-content>
+                </md-card-expand-content>
               </div>
-              <md-card-expand-trigger v-if="galerie.length > 4">
-                <md-button class="md-icon-button md-dense md-primary">
-                  <md-icon>keyboard_arrow_down</md-icon>
-                </md-button>
-              </md-card-expand-trigger>
+              <div
+                v-if="galerie.length > 4"
+                class="md-layout md-alignment-center-right"
+              >
+                <md-card-expand-trigger class="expand-trigger">
+                  <md-button class="md-icon-button md-dense md-primary">
+                    <md-icon>keyboard_arrow_down</md-icon>
+                  </md-button>
+                </md-card-expand-trigger>
+                
+              </div>
             </template>
             <template slot="tab-pane-2">
               <div class="description text-center">
@@ -230,12 +258,14 @@ export default {
 
 <style lang="scss" scoped>
 .expanded-visible {
-    overflow: visible !important;
+  overflow: visible !important;
 }
 .section {
   padding: 0;
 }
-
+.expand-trigger {
+  margin: 15px 20px;
+}
 .profile-tabs::v-deep {
   .md-card-tabs .md-list {
     justify-content: center;

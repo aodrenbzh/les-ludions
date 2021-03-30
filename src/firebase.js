@@ -1,5 +1,4 @@
 import firebase from "firebase";
-import firebaseui from "firebaseui";
 
 // Your web app's Firebase configuration
 var firebaseConfig = {

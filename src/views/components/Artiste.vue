@@ -68,7 +68,7 @@
         </div>
 
         <tabs
-          :tab-name="['Galerie', 'Scéne', 'Coulisse']"
+          :tab-name="['Galerie', 'Mise en scène', 'Biographie']"
           :tab-icon="['palette', 'emoji_people', 'history_edu']"
           plain
           nav-pills-icons
@@ -98,25 +98,21 @@
                     :src="item.src"
                   />
                 </template>
-                <img
-                  v-if="defaultGalerie"
-                  :src="defaultGalerie.src"
-                  class="rounded"
-                />
+
               </div>
             </div>
           </template>
           <template slot="tab-pane-2">
             <div class="description text-center">
               <p>
-                {{ donnee.Spectacle }}
+                {{ donnee.Maison }}
               </p>
             </div>
           </template>
           <template slot="tab-pane-3">
             <div class="description text-center">
               <p>
-                {{ donnee.Planning }}
+                {{ donnee.Bio }}
               </p>
             </div>
           </template>

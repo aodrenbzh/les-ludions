@@ -119,6 +119,7 @@
               </md-list-item>
 
               <md-list-item
+              v-if="false"
                 href="#/login"
               >
                 <i class="fas fa-user"></i>

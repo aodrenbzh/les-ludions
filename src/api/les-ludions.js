@@ -1,10 +1,7 @@
 import firebase from "../firebase";
 var fb = require('firebase');
-var fbui = require('firebaseui');
 const db = firebase.firestore();
 const str = firebase.storage();
-const ana = firebase.analytics();
-const ui = new fbui.auth.AuthUI(fb.default.auth());
 
 export default {
   name: 'store',
@@ -31,14 +28,7 @@ export default {
     };
   },
   methods: {
-    initAuth() {
-      ui.start('#firebaseui-auth-container', {
-        signInOptions: [
-          fb.default.auth.EmailAuthProvider.PROVIDER_ID
-        ],
-        // Other config options...
-      });
-    },
+    
     async getDefault() {
       if (this.defaultData) return Promise.resolve(this.defaultData);
       this.defaultData = {
@@ -81,8 +71,8 @@ export default {
               Prenom: art.data().Prenom,
               Metier: art.data().Metier,
               Description: art.data().Description,
-              Spectacle: art.data().Spectacle,
-              Planning: art.data().Planning
+              Bio: art.data().Bio,
+              Maison: art.data().Maison
             };
             db.collection("Artistes").doc(art.id).collection('Socials').get().then(
               socials => {

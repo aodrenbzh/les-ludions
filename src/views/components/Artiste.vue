@@ -302,6 +302,12 @@ export default {
     },
   },
   methods: {
+    clearForm () {
+        this.$v.$reset()
+        this.comment.Auteur = null
+        this.comment.Email = null
+        this.comment.Contenu = null
+    },
     validateComment() {
       this.$v.$touch();
 
@@ -310,7 +316,16 @@ export default {
       }
     },
     saveComment: function () {
-      var lol = "ol";
+      this.commentSending = true
+
+        window.setTimeout(() => {
+          this.commentSending = false;
+          this.donnee.LivreDOR.push({
+            ...this.comment,
+            Date: new Date()
+          });
+          this.clearForm();
+        }, 1500)
     },
     openGallery: function (item) {
       this.$refs.lightbox.showImage(

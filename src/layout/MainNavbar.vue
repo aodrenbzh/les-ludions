@@ -63,9 +63,10 @@
                         <p>Nos artistes</p>
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
+                        <template v-for="item in data.artistes">
                         <li
-                          v-for="item in data.artistes"
                           :key="'menu_' + item.id"
+                          v-if="item.Display"
                         >
                           <a
                             href="javascript:void(0)"
@@ -80,6 +81,7 @@
                             </p>
                           </a>
                         </li>
+                        </template>
                       </ul>
                     </drop-down>
                   </div>

@@ -95,7 +95,8 @@ export default {
                   cc.push({
                     id: c.id,
                     Auteur: c.data().Auteur,
-                    Contenu: c.data().Contenu
+                    Contenu: c.data().Contenu,
+                    Date: c.data().Date.toDate()
                   });
                 });
                 temp.LivreDOR = cc;

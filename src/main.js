@@ -21,6 +21,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import moment from 'moment';
 
 library.add([faUserSecret, faUserAlt]);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
@@ -28,6 +29,12 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 Vue.use(MaterialKit);
+
+Vue.filter('formatDate', function(value) {
+  if (value) {
+    return moment(String(value)).format('DD/MM/YYYY hh:mm')
+  }
+});
 
 const NavbarStore = {
   showNavbar: false

@@ -116,7 +116,7 @@
   .md-input{
     @include material-placeholder{
       font-size: 14px;
-      color: #aaa !important;
+      //color: #aaa !important;
     };
   }
 
@@ -137,7 +137,7 @@
   label{
     font-size: 14px;
     font-weight: 400;
-    color: $mdb-input-placeholder-color !important;
+    // color: $mdb-input-placeholder-color !important;
     line-height: 1.4;
     top: 26px;
   }

@@ -85,6 +85,21 @@ export default {
                   });
                 });
                 temp.Socials = ss;
+              }
+            );
+
+            db.collection("Artistes").doc(art.id).collection('LivreDOr').get().then(
+              livreDOR => {
+                var cc = [];
+                livreDOR.forEach(c => {
+                  cc.push({
+                    id: c.id,
+                    Auteur: c.data().Auteur,
+                    Contenu: c.data().Contenu
+                  });
+                });
+                temp.livreDOR = cc;
+                console.log(temp);
                 that.artistes.value.push(temp);
               }
             );
@@ -114,5 +129,25 @@ export default {
       this.artistes.value[this.artistes.value.findIndex(a => a.id == id)].galerie = result;
       return Promise.resolve(result);
     }
+
+    // async getLivreDOr(id) {
+    //   if (this.artistes.value.find(a => a.id == id).livreDOr) return Promise.resolve(this.artistes.value.find(a => a.id == id).livreDOr);
+    //   var result = [];
+    //   var storageRef = str.ref();
+    //   var imagesRef = storageRef.child("/" + id);
+    //   let images = await imagesRef.listAll();
+    //   images.items.forEach(
+    //     async (itemRef) => {
+    //       let meta = await itemRef.getMetadata();
+    //       let url = await storageRef.child(meta.fullPath).getDownloadURL();
+    //       result.push({
+    //         name: meta.name,
+    //         src: url
+    //       });
+    //     }
+    //   );
+    //   this.artistes.value[this.artistes.value.findIndex(a => a.id == id)].galerie = result;
+    //   return Promise.resolve(result);
+    // }
   }
 }

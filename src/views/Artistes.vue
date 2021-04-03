@@ -131,5 +131,11 @@ export default {
   margin: -130px 30px 0px;
   border-radius: 6px;
 }
+@media screen and (max-width: 959px) {
+    .section-artistes {
+      margin: -130px 0px 0px;
+      border-radius: 0px;
+    }
+}
 </style>
 

@@ -19,6 +19,9 @@
             { active: isActivePanel(tabName[index]) },
             { [getColorButton(colorButton)]: isActivePanel(tabName[index]) }
           ]"
+          :style = "{
+            maxWidth: 100 / (tabName.length) + '%'
+          }"
         >
           {{ tabName[index] }}
           <md-icon v-if="navPillsIcons">{{ tabIcon[index] }}</md-icon>

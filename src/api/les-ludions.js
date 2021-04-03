@@ -72,7 +72,8 @@ export default {
               Metier: art.data().Metier,
               Description: art.data().Description,
               Bio: art.data().Bio,
-              Maison: art.data().Maison
+              Maison: art.data().Maison,
+              Display: art.data().Display
             };
             db.collection("Artistes").doc(art.id).collection('Socials').get().then(
               socials => {

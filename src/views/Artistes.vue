@@ -1,18 +1,26 @@
 <template>
   <div class="wrapper">
     <parallax class="page-header header-filter" :style="headerStyle">
-            <div class="brand">
-              <h1>Festival des Ludions</h1>
-              <h3>9 maisons, 20 artistes, déambulations théatrales</h3>
-              <h3>14 - 16 Mai 2021</h3>
+      <div class="brand">
+        <h1>Festival des Ludions</h1>
+        <h3>9 maisons, 20 artistes, déambulations théatrales</h3>
+        <h3>14 - 16 Mai 2021</h3>
       </div>
     </parallax>
-      <div class="section section-artistes">
-        <div class="md-layout md-alignment-top-center md-gutter">
-          <artiste v-for="artiste in data.artistes" :key="artiste.id" :donnee="artiste" :id="artiste.id" class="md-layout-item md-size-40 md-small-size-100 mx-auto artiste"></artiste>
-        </div>
+    <div class="section section-artistes">
+      <div class="md-layout md-alignment-top-center md-gutter">
+        <template v-for="artiste in data.artistes">
+          <artiste
+            v-if="artiste.Display"
+            class="md-layout-item md-size-40 md-small-size-100 mx-auto artiste"
+            :donnee="artiste"
+            :id="artiste.id"
+            :key="artiste.id"
+          ></artiste>
+        </template>
       </div>
-      <!-- <div class="main main-raised">
+    </div>
+    <!-- <div class="main main-raised">
       <div class="section section-artistes">
         <div class="container">
           <div class="title">
@@ -32,9 +40,10 @@
 import Artiste from "./components/Artiste";
 import api from "../api/les-ludions";
 
+
 export default {
   components: {
-    Artiste,
+    Artiste
   },
   name: "index",
   bodyClass: "index-page",
@@ -80,8 +89,8 @@ export default {
       password: null,
       leafShow: false,
       data: {
-        artistes: []
-      }
+        artistes: [],
+      },
     };
   },
   methods: {
@@ -108,7 +117,7 @@ export default {
   mounted() {
     this.leafActive();
     window.addEventListener("resize", this.leafActive);
-    api.methods.getArtistes().then(a => this.data.artistes = a);
+    api.methods.getArtistes().then((a) => (this.data.artistes = a));
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.leafActive);
@@ -132,8 +141,8 @@ export default {
   margin-right: 20px !important;
 }
 .section-artistes {
-      margin: -130px 30px 0px;
-    border-radius: 6px;
+  margin: -130px 30px 0px;
+  border-radius: 6px;
 }
 </style>
 

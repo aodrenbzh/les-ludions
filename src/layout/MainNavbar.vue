@@ -9,11 +9,11 @@
     <div class="md-toolbar-row md-collapse-lateral">
       <a
         class="md-toolbar-section-start"
-        href="#/aparte"
+        href="#/programme"
         @click="scrollToTop()"
       >
         <img :src="logo" alt="Logo transparent Image" class="logo img-fluid" />
-        <h3 class="md-title">Carolles, Basse-Normandie</h3>
+        <h3 class="md-title">Carolles, Baie du Mont-Saint-Michel</h3>
       </a>
       <div class="md-toolbar-section-end" :style="{ flex: 0 }">
         <md-button
@@ -32,6 +32,21 @@
               <!-- Here you can add your items from the section-start of your toolbar -->
             </mobile-menu>
             <md-list>
+              <md-list-item href="#/test" v-if="false">
+                <i class="material-icons">content_paste</i>
+                <p>test</p>
+              </md-list-item>
+
+              <md-list-item href="#/programme" v-if="!isprogramme">
+                <i class="material-icons">history_edu</i>
+                <p>Demandez le programme !</p>
+              </md-list-item>
+
+              <md-list-item href="#/artistes" v-if="!isArtistes">
+                <i class="material-icons">view_carousel</i>
+                <p>Nos Artistes</p>
+              </md-list-item>
+
               <li class="md-list-item" v-if="isArtistes">
                 <a
                   href="javascript:void(0)"
@@ -65,42 +80,21 @@
                             </p>
                           </a>
                         </li>
-                        <!-- <li>
-                          <a href="">
-                            <i class="material-icons">content_paste</i>
-                            <p>Catherine Letellier - Photographe</p>
-                          </a>
-                        </li> -->
                       </ul>
                     </drop-down>
                   </div>
                 </a>
               </li>
+
               <md-list-item
                 href="javascript:void(0)"
                 @click="scrollToElement('boucheAOreille')"
-                v-if="isAparte"
+                v-if="isprogramme"
               >
                 <i class="material-icons">share</i>
                 <p>Bouche-à-oreille</p>
               </md-list-item>
-              <md-list-item href="#/test" v-if="false">
-                <i class="material-icons">content_paste</i>
-                <p>test</p>
-              </md-list-item>
-              <md-list-item href="#/aparte" v-if="!isAparte">
-                <i class="material-icons">content_paste</i>
-                <p>Aparté</p>
-              </md-list-item>
 
-              <md-list-item href="#/artistes" v-if="!isArtistes">
-                <i class="material-icons">content_paste</i>
-                <p>Demandez le programme !</p>
-              </md-list-item>
-              <md-list-item href="#/blog">
-                <i class="material-icons">art_track</i>
-                <p>Blog</p>
-              </md-list-item>
               <md-list-item
                 href="https://www.facebook.com/festi.ludions"
                 target="_blank"
@@ -118,10 +112,7 @@
                 <md-tooltip md-direction="bottom">Instagram</md-tooltip>
               </md-list-item>
 
-              <md-list-item
-              v-if="false"
-                href="#/login"
-              >
+              <md-list-item v-if="false" href="#/login">
                 <i class="fas fa-user"></i>
                 <p class="hidden-lg">Se connecter</p>
                 <md-tooltip md-direction="bottom">Se connecter</md-tooltip>
@@ -192,7 +183,7 @@ export default {
       const excludedRoutes = ["artistes"];
       return excludedRoutes.some((r) => r === this.$route.name);
     },
-    isAparte() {
+    isprogramme() {
       const excludedRoutes = ["index"];
       return excludedRoutes.some((r) => r === this.$route.name);
     },

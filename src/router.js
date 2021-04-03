@@ -14,7 +14,7 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: "/aparte",
+      path: "/programme",
       name: "index",
       components: { default: Index, header: MainNavbar, footer: MainFooter },
       props: {

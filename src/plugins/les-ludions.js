@@ -1,5 +1,6 @@
 import VueMaterial from "vue-material";
 import "vue-material/dist/vue-material.min.css";
+import 'vue-it-bigger/dist/vue-it-bigger.min.css';
 import "@/assets/scss/les-ludions.scss";
 import "@/assets/demo.css";
 import globalDirectives from "./globalDirectives";

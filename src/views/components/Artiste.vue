@@ -1,82 +1,90 @@
 <template>
   <md-card class="artiste" md-with-hover>
-      <div class="section profile-content">
-        <div class="container">
-          <div class="md-layout">
-            <div class="md-layout-item md-size-50 mx-auto">
-              <div class="profile">
-                <div class="avatar">
+    <div class="section profile-content">
+      <div class="container">
+        <div class="md-layout">
+          <div class="md-layout-item md-size-50 mx-auto">
+            <div class="profile">
+              <div class="avatar">
+                <img
+                  v-if="profileImage"
+                  :src="profileImage.src"
+                  :alt="profileImage.name"
+                  class="img-raised rounded-circle img-fluid profile-image"
+                />
+                <div
+                  v-if="!profileImage"
+                  class="img-raised rounded-circle profile-image"
+                >
                   <img
-                    v-if="profileImage"
-                    :src="profileImage.src"
-                    :alt="profileImage.name"
-                    class="img-raised rounded-circle img-fluid profile-image"
+                    :src="defaultProfileImage"
+                    alt="Profile"
+                    class="img-fluid default-profile-image"
                   />
-                  <div
-                    v-if="!profileImage"
-                    class="img-raised rounded-circle profile-image"
-                  >
-                    <img
-                      :src="defaultProfileImage"
-                      alt="Profile"
-                      class="img-fluid default-profile-image"
-                    />
-                  </div>
                 </div>
-                <div class="name">
-                  <h3 class="title">{{ donnee.Prenom }} {{ donnee.Nom }}</h3>
-                  <h6>{{ donnee.Metier }}</h6>
+              </div>
+              <div class="name">
+                <h3 class="title">{{ donnee.Prenom }} {{ donnee.Nom }}</h3>
+                <h6>{{ donnee.Metier }}</h6>
 
-                  <template v-for="social in donnee.Socials">
-                    <md-button
-                      :key="social.id"
-                      target="_blank"
-                      :href="
-                        social.id == 'Twitter'
-                          ? 'https://www.twitter.com/' + social.Lien
-                          : social.id == 'Instagram'
-                          ? 'https://www.instagram.com/' + social.Lien
-                          : social.Lien
-                      "
+                <template v-for="social in donnee.Socials">
+                  <md-button
+                    :key="social.id"
+                    target="_blank"
+                    :href="
+                      social.id == 'Twitter'
+                        ? 'https://www.twitter.com/' + social.Lien
+                        : social.id == 'Instagram'
+                        ? 'https://www.instagram.com/' + social.Lien
+                        : social.Lien
+                    "
+                    :class="
+                      social.id == 'Twitter'
+                        ? 'md-just-icon md-simple md-twitter'
+                        : social.id == 'Instagram'
+                        ? 'md-just-icon md-simple md-twitter'
+                        : 'md-just-icon md-simple md-dribble'
+                    "
+                    ><i
                       :class="
                         social.id == 'Twitter'
-                          ? 'md-just-icon md-simple md-twitter'
+                          ? 'fab fa-twitter'
                           : social.id == 'Instagram'
-                          ? 'md-just-icon md-simple md-twitter'
-                          : 'md-just-icon md-simple md-dribble'
+                          ? 'fab fa-instagram'
+                          : 'fab fa-dribble'
                       "
-                      ><i
-                        :class="
-                          social.id == 'Twitter'
-                            ? 'fab fa-twitter'
-                            : social.id == 'Instagram'
-                            ? 'fab fa-instagram'
-                            : 'fab fa-dribble'
-                        "
-                      ></i
-                    ></md-button>
-                  </template>
-                </div>
+                    ></i
+                  ></md-button>
+                </template>
               </div>
             </div>
           </div>
-          <div class="description text-center">
-            <p>
-              {{ donnee.Description }}
-            </p>
-          </div>
+        </div>
+        <div class="description text-center">
+          <p>
+            {{ donnee.Description }}
+          </p>
+        </div>
 
-          <tabs
-            :tab-name="['Galerie', 'Mise en scène', 'Biographie']"
-            :tab-icon="['palette', 'emoji_people', 'history_edu']"
-            plain
-            nav-pills-icons
-            color-button="primary"
-            class="tab-artiste"
-          >
-            <!-- here you can add your content for tab-content -->
-            <template slot="tab-pane-1">
-              <md-card-expand>
+        <tabs
+          :tab-name="['Galerie', 'Maison', 'Biographie', 'Livre d\'Or']"
+          :tab-icon="['palette', 'home', 'history_edu', 'auto_stories']"
+          plain
+          nav-pills-icons
+          color-button="primary"
+          class="tab-artiste"
+        >
+          <!-- here you can add your content for tab-content -->
+          <template slot="tab-pane-1">
+            <md-card-expand>
+              <LightBox
+                :media="media"
+                ref="lightbox"
+                :show-caption="true"
+                :show-light-box="false"
+                :show-thumbs="false"
+                class="lb"
+              ></LightBox>
               <div class="md-layout">
                 <div
                   v-if="galerie.length > 0"
@@ -87,17 +95,8 @@
                     :key="item.name"
                     class="rounded"
                     :src="item.src"
+                    @click="openGallery(item)"
                   />
-                  <!-- <md-card-expand-content v-if="galerie.length > 4">
-                    <md-card-content>
-                      <img
-                        v-for="item in galerieHalf1.slice(2)"
-                        :key="item.name"
-                        class="rounded"
-                        :src="item.src"
-                      />
-                    </md-card-content>
-                  </md-card-expand-content> -->
                 </div>
                 <div class="md-layout-item md-size-50 mr-auto">
                   <template v-if="galerie.length > 1">
@@ -106,20 +105,11 @@
                       :key="item.name"
                       class="rounded"
                       :src="item.src"
+                      @click="openGallery(item)"
                     />
                   </template>
-                  <!-- <md-card-expand-content v-if="galerie.length > 4">
-                    <md-card-content>
-                      <img
-                        v-for="item in galerieHalf2.slice(2)"
-                        :key="item.name"
-                        class="rounded"
-                        :src="item.src"
-                      />
-                    </md-card-content>
-                  </md-card-expand-content> -->
                 </div>
-                <md-card-expand-content  ref="card">
+                <md-card-expand-content ref="card">
                   <div class="md-layout">
                     <div class="md-layout-item md-size-50 mr-auto">
                       <img
@@ -127,6 +117,7 @@
                         :key="item.name"
                         class="rounded"
                         :src="item.src"
+                        @click="openGallery(item)"
                       />
                     </div>
                     <div class="md-layout-item md-size-50 mr-auto">
@@ -135,81 +126,69 @@
                         :key="item.name"
                         class="rounded"
                         :src="item.src"
+                        @click="openGallery(item)"
                       />
                     </div>
                   </div>
                 </md-card-expand-content>
               </div>
-              <div v-if="galerie.length > 4" class="md-layout md-alignment-center-right">
+              <div
+                v-if="galerie.length > 4"
+                class="md-layout md-alignment-center-right"
+              >
                 <md-card-expand-trigger class="expand-trigger">
                   <md-button class="md-icon-button md-dense md-primary">
                     <md-icon>keyboard_arrow_down</md-icon>
                   </md-button>
                 </md-card-expand-trigger>
               </div>
-              </md-card-expand>
-            </template>
-            <template slot="tab-pane-2">
-              <div class="description text-center">
-                <p>
-                  {{ donnee.Maison }}
-                </p>
-              </div>
-            </template>
-            <template slot="tab-pane-3">
-              <div class="description text-center">
-                <p>
-                  {{ donnee.Bio }}
-                </p>
-              </div>
-            </template>
-          </tabs>
-        </div>
+            </md-card-expand>
+          </template>
+          <template slot="tab-pane-2">
+            <div class="description text-center">
+              <p>
+                {{ donnee.Maison }}
+              </p>
+            </div>
+          </template>
+          <template slot="tab-pane-3">
+            <div class="description text-center">
+              <p>
+                {{ donnee.Bio }}
+              </p>
+            </div>
+          </template>
+          <template slot="tab-pane-4">
+            <div class="description text-center">
+              <p>
+                {{ donnee.Commentaires }}
+              </p>
+            </div>
+          </template>
+        </tabs>
       </div>
+    </div>
   </md-card>
 </template>
 
 <script>
 import { Tabs } from "@/components";
 import api from "../../api/les-ludions";
-
+import LightBox from "vue-it-bigger";
 export default {
   components: {
     Tabs,
+    LightBox,
   },
   bodyClass: "profile-page",
   data() {
     return {
-      tabPane1: [
-        { image: require("@/assets/img/examples/studio-1.jpg") },
-        { image: require("@/assets/img/examples/studio-2.jpg") },
-        { image: require("@/assets/img/examples/studio-4.jpg") },
-        { image: require("@/assets/img/examples/studio-5.jpg") },
-      ],
-      tabPane2: [
-        { image: require("@/assets/img/examples/olu-eletu.jpg") },
-        { image: require("@/assets/img/examples/clem-onojeghuo.jpg") },
-        { image: require("@/assets/img/examples/cynthia-del-rio.jpg") },
-        { image: require("@/assets/img/examples/mariya-georgieva.jpg") },
-        { image: require("@/assets/img/examples/clem-onojegaw.jpg") },
-      ],
-      tabPane3: [
-        { image: require("@/assets/img/examples/mariya-georgieva.jpg") },
-        { image: require("@/assets/img/examples/studio-3.jpg") },
-        { image: require("@/assets/img/examples/clem-onojeghuo.jpg") },
-        { image: require("@/assets/img/examples/olu-eletu.jpg") },
-        { image: require("@/assets/img/examples/studio-1.jpg") },
-      ],
       galerie: [],
       defaultData: null,
       loading: true,
     };
   },
   props: {
-    header: {
-      type: String,
-      default: require("@/assets/img/city-profile.jpg"),
-    },
     defaultProfileImage: {
       type: String,
       default: require("@/assets/img/logo.jpg"),
@@ -219,11 +198,6 @@ export default {
     },
   },
   computed: {
-    headerStyle() {
-      return {
-        backgroundImage: `url(${this.header})`,
-      };
-    },
     galerieHalf1() {
       return this.galerie
         .filter((a) => a.name !== "profile.jpg")
@@ -242,21 +216,27 @@ export default {
         ? this.defaultData.galerie
         : null;
     },
+    media() {
+      return this.galerie;
+    },
   },
   methods: {
+    openGallery: function (item) {
+      this.$refs.lightbox.showImage(
+        this.galerie.findIndex((a) => a.name == item.name)
+      );
+    },
   },
   async created() {
     var that = this;
-    api.methods.getImagesFromArtiste(this.donnee.id).then(
-      a => {
-        this.galerie = a;
-        this.loading = false;
-        setTimeout(() => {
-          // that.$refs.card.resizeObserver.disconnect(true);
-          that.$refs.card.calculateMarginTopImmediately();
-        }, 2000)
-      }
-    );
+    api.methods.getImagesFromArtiste(this.donnee.id).then((a) => {
+      this.galerie = a;
+      this.loading = false;
+      setTimeout(() => {
+        // that.$refs.card.resizeObserver.disconnect(true);
+        that.$refs.card.calculateMarginTopImmediately();
+      }, 2000);
+    });
     this.defaultData = await api.methods.getDefault();
   },
 };
@@ -288,5 +268,6 @@ export default {
   .tab-artiste {
     max-height: 400px;
   }
+  
 }
 </style>

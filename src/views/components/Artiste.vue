@@ -164,12 +164,11 @@
             <div class="soon text-center" v-else>À venir</div>
           </template>
           <template slot="tab-pane-4">
-            <div class="description text-center" v-if="donnee.Commentaires">
-              <p>
-                {{ donnee.Commentaires }}
-              </p>
+            <div class="description text-center" v-if="donnee.LivreDOR">
+              <Commentaire v-for="commentaire in donnee.LivreDOR" :key="commentaire.id" :commentaire="commentaire">
+              </Commentaire>
             </div>
-            <div class="soon text-center" v-else>À venir</div>
+            <div class="soon text-center" v-else>Lâchez votre com'</div>
           </template>
         </tabs>
       </div>
@@ -178,13 +177,14 @@
 </template>
 
 <script>
-import { Tabs } from "@/components";
+import { Tabs, Commentaire } from "@/components";
 import api from "../../api/les-ludions";
 import LightBox from "vue-it-bigger";
 export default {
   components: {
     Tabs,
     LightBox,
+    Commentaire
   },
   bodyClass: "profile-page",
   data() {

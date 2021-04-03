@@ -98,8 +98,7 @@ export default {
                     Contenu: c.data().Contenu
                   });
                 });
-                temp.livreDOR = cc;
-                console.log(temp);
+                temp.LivreDOR = cc;
                 that.artistes.value.push(temp);
               }
             );

@@ -17,7 +17,7 @@
           :key="item"
           :class="[
             { active: isActivePanel(tabName[index]) },
-            { [getColorButton(colorButton)]: isActivePanel(tabName[index]) },
+            { [getColorButton(colorButton)]: isActivePanel(tabName[index]) }
           ]"
         >
           {{ tabName[index] }}

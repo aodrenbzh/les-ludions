@@ -61,9 +61,12 @@
           </div>
         </div>
         <div class="description text-center">
-          <p>
+          <p v-if="donnee.Description">
             {{ donnee.Description }}
           </p>
+          <h1 v-else>
+            <p>À venir</p>
+          </h1>
         </div>
 
         <tabs
@@ -145,25 +148,28 @@
             </md-card-expand>
           </template>
           <template slot="tab-pane-2">
-            <div class="description text-center">
+            <div class="description text-center" v-if="donnee.Maison">
               <p>
                 {{ donnee.Maison }}
               </p>
             </div>
+            <div class="soon text-center" v-else>À venir</div>
           </template>
           <template slot="tab-pane-3">
-            <div class="description text-center">
+            <div class="description text-center" v-if="donnee.Bio">
               <p>
                 {{ donnee.Bio }}
               </p>
             </div>
+            <div class="soon text-center" v-else>À venir</div>
           </template>
           <template slot="tab-pane-4">
-            <div class="description text-center">
+            <div class="description text-center" v-if="donnee.Commentaires">
               <p>
                 {{ donnee.Commentaires }}
               </p>
             </div>
+            <div class="soon text-center" v-else>À venir</div>
           </template>
         </tabs>
       </div>
@@ -268,6 +274,11 @@ export default {
   .tab-artiste {
     max-height: 400px;
   }
-  
+}
+.soon {
+  height: 200px;
+  align-items: center;
+  justify-content: center;
+    display: flex;
 }
 </style>

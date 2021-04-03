@@ -12,7 +12,7 @@
         <template v-for="artiste in data.artistes">
           <artiste
             v-if="artiste.Display"
-            class="md-layout-item md-size-40 md-small-size-100 mx-auto artiste"
+            class="md-layout-item md-size-40 md-medium-60 md-small-size-100 mx-auto artiste"
             :donnee="artiste"
             :id="artiste.id"
             :key="artiste.id"
@@ -20,19 +20,6 @@
         </template>
       </div>
     </div>
-    <!-- <div class="main main-raised">
-      <div class="section section-artistes">
-        <div class="container">
-          <div class="title">
-            <h2>Nos Artistes</h2>
-          </div>
-          <artiste></artiste>
-          <artiste></artiste>
-          <artiste></artiste>
-          <artiste></artiste>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 

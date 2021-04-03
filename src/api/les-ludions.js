@@ -128,6 +128,9 @@ export default {
       );
       this.artistes.value[this.artistes.value.findIndex(a => a.id == id)].galerie = result;
       return Promise.resolve(result);
+    },
+    async addComment(comment, artisteId) {
+      return await db.collection("Artistes").doc(artisteId).collection('LivreDOr').add(comment);
     }
 
     // async getLivreDOr(id) {

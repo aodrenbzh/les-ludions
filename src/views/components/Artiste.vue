@@ -317,13 +317,13 @@ export default {
     },
     saveComment: function () {
       this.commentSending = true
-
-        window.setTimeout(() => {
+      let input = {
+        ...this.comment,
+        Date: new Date()
+      };
+        api.methods.addComment(input, this.donnee.id).then((a) => {
           this.commentSending = false;
-          this.donnee.LivreDOR.push({
-            ...this.comment,
-            Date: new Date()
-          });
+          this.donnee.LivreDOR.push(input);
           this.clearForm();
         }, 1500)
     },

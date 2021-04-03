@@ -64,9 +64,6 @@
           <p v-if="donnee.Description">
             {{ donnee.Description }}
           </p>
-          <h1 v-else>
-            <p>À venir</p>
-          </h1>
         </div>
 
         <tabs

@@ -313,7 +313,7 @@ export default {
       }
     },
     saveComment: function () {
-      console.log("saveComment");
+      var lol = "ol";
     },
     openGallery: function (item) {
       this.$refs.lightbox.showImage(

@@ -19,12 +19,10 @@
       <div class="section">
         <div class="container">
           <div class="md-layout">
-            <div class="md-layout-item md-size-100 mx-auto md-layout md-alignment-top-center">
-              <img
-                :src="logo"
-                alt="Logo Image"
-                class="logo img-fluid"
-              />
+            <div
+              class="md-layout-item md-size-100 mx-auto md-layout md-alignment-top-center"
+            >
+              <img :src="logo" alt="Logo Image" class="logo img-fluid" />
             </div>
             <div
               class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto text-center"
@@ -72,7 +70,46 @@
           </div>
         </div>
       </div>
-      
+      <div class="section section-carou">
+        <div class="container" v-if="showCarou">
+          <carousel
+            :perPageCustom="[
+              [300, 1],
+              [768, 3],
+              [1024, 4],
+            ]"
+            loop
+            :speed="700"
+            autoplay
+            :autoplay-timeout="5000"
+            :mouse-drag="false"
+            :pagination-enabled="false"
+            :scroll-per-page="true"
+            :center:mode="true"
+            navigationEnabled
+            navigationNextLabel="<i class='material-icons'>keyboard_arrow_right</i>"
+            navigationPrevLabel="<i class='material-icons'>keyboard_arrow_left</i>"
+          >
+            <template v-for="obj in galerieComputed">
+              <slide
+                :key="obj.src"
+                v-if="getArtiste(obj.artiste).Display"
+                eager
+              >
+                <div class="carousel-caption">
+                  <badge type="default"
+                    >{{ getArtiste(obj.artiste).Prenom }}
+                    {{ getArtiste(obj.artiste).Nom }}</badge
+                  >
+                </div>
+                <div class="md-layout md-alignment-center-center contImg">
+                  <img :src="obj.src" :alt="obj.name" class="oeuvre" />
+                </div>
+              </slide>
+            </template>
+          </carousel>
+        </div>
+      </div>
       <div class="section section-contacts">
         <div class="container">
           <div class="md-layout">
@@ -134,7 +171,12 @@
 </template>
 
 <script>
+import api from "../api/les-ludions";
+import { Badge } from "@/components";
 export default {
+  components: {
+    Badge,
+  },
   bodyClass: "artistes-page",
   props: {
     header: {
@@ -159,6 +201,10 @@ export default {
       name: null,
       email: null,
       message: null,
+      artistes: [],
+      galerie: [],
+      carousel1: require("@/assets/img/nature-2.jpg"),
+      showCarou: false,
     };
   },
   computed: {
@@ -167,6 +213,45 @@ export default {
         backgroundImage: `url(${this.header})`,
       };
     },
+    galerieComputed() {
+      const reducer = (accumulator, currentValue) => accumulator.concat(currentValue.galerie.map(a => ({...a, artiste: currentValue.id})));
+      const galRed = this.artistes.reduce(reducer, []);
+      return this.shuffle(galRed);
+    },
+  },
+  methods: {
+    shuffle: function (at) {
+      var a = [...at];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    },
+    textColor(ref) {
+      var img = this.$refs[ref];
+    },
+    isDisplayed(id) {
+      let a = this.artistes.find((a) => a.id == id);
+      return a ? a.Display : false;
+    },
+    getArtiste(id) {
+      return this.artistes.find((a) => a.id == id);
+    },
+  },
+  async created() {
+    api.methods.getArtistes().then((a) => {
+      this.artistes = a;
+      this.showCarou = true;
+      // this.artistes.forEach((art) => {
+      //   api.methods.getImagesFromArtiste(art.id).then((g) => {
+      //     this.galerie = this.galerie.concat(
+      //       g.map((x) => ({ ...x, artiste: art.id }))
+      //     );
+      //   });
+      //   this.showCarou = true;
+      // });
+    });
   },
 };
 </script>
@@ -186,5 +271,15 @@ export default {
 .logo {
   height: 400px;
   width: 400px;
+}
+.oeuvre {
+  width: 400px;
+  height: auto;
+  max-height: calc(100vh - 80px);
+}
+.contImg {
+  height: 100%;
+  width: 100%;
+  margin: 0 !important;
 }
 </style>

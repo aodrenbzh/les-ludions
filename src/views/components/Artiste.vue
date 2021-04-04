@@ -172,28 +172,40 @@
             <div class="soon text-center" v-else>Lâchez votre com'</div>
 
             <md-divider class=""></md-divider>
+
             <form
               novalidate
-              class="md-layout form-comment"
+              :class="
+                (showComment ? 'green-comment' : 'transp-comment') +
+                ' md-layout form-comment '
+              "
               @submit.prevent="validateComment"
             >
-              <div class="md-layout-item md-size-100 md-layout md-gutter">
-                <md-field
-                  class="md-layout-item md-size-50 md-form-group fieldd"
+              <transition name="fade">
+                <div
+                  v-if="showComment"
+                  class="md-layout-item md-size-100 md-layout md-gutter"
                 >
-                  <md-icon>face</md-icon>
-                  <label>Votre Nom</label>
-                  <md-input v-model="comment.Auteur"></md-input>
-                </md-field>
-                <md-field
-                  class="md-layout-item md-size-50 md-form-group fieldd"
-                >
-                  <md-icon>email</md-icon>
-                  <label>Votre E-mail</label>
-                  <md-input v-model="comment.Email"></md-input>
-                </md-field>
-              </div>
-              <div class="md-layout-item md-size-100 md-layout md-gutter">
+                  <md-field
+                    class="md-layout-item md-size-50 md-form-group fieldd"
+                  >
+                    <md-icon>face</md-icon>
+                    <label>Votre Nom</label>
+                    <md-input v-model="comment.Auteur"></md-input>
+                  </md-field>
+                  <md-field
+                    class="md-layout-item md-size-50 md-form-group fieldd"
+                  >
+                    <md-icon>email</md-icon>
+                    <label>Votre E-mail</label>
+                    <md-input v-model="comment.Email"></md-input>
+                  </md-field>
+                </div>
+              </transition>
+              <div
+                v-if="showComment"
+                class="md-layout-item md-size-100 md-layout md-gutter"
+              >
                 <md-field
                   class="md-form-group md-layout-item md-size-100 fieldd"
                 >
@@ -210,7 +222,7 @@
               >
                 <md-button
                   type="submit"
-                  class="md-white md-round"
+                  :class="(showComment ? 'md-white ' : '') + 'md-round'"
                   :disabled="commentSending"
                   >Envoyez votre commentaire</md-button
                 >
@@ -253,6 +265,7 @@ export default {
         Email: "",
       },
       commentSending: false,
+      showComment: false,
     };
   },
   validations: {
@@ -302,13 +315,14 @@ export default {
     },
   },
   methods: {
-    clearForm () {
-        this.$v.$reset()
-        this.comment.Auteur = null
-        this.comment.Email = null
-        this.comment.Contenu = null
+    clearForm() {
+      this.$v.$reset();
+      this.comment.Auteur = null;
+      this.comment.Email = null;
+      this.comment.Contenu = null;
     },
     validateComment() {
+      if (!this.showComment) this.showComment = true;
       this.$v.$touch();
 
       if (!this.$v.$invalid) {
@@ -316,16 +330,17 @@ export default {
       }
     },
     saveComment: function () {
-      this.commentSending = true
+      this.commentSending = true;
       let input = {
         ...this.comment,
-        Date: new Date()
+        Date: new Date(),
       };
-        api.methods.addComment(input, this.donnee.id).then((a) => {
-          this.commentSending = false;
-          this.donnee.LivreDOR.push(input);
-          this.clearForm();
-        }, 1500)
+      api.methods.addComment(input, this.donnee.id).then((a) => {
+        this.commentSending = false;
+        this.donnee.LivreDOR.push(input);
+        this.clearForm();
+        this.showComment = false;
+      }, 1500);
     },
     openGallery: function (item) {
       this.$refs.lightbox.showImage(
@@ -340,7 +355,7 @@ export default {
       this.loading = false;
       setTimeout(() => {
         // that.$refs.card.resizeObserver.disconnect(true);
-        that.$refs.card.calculateMarginTopImmediately();
+        that.$refs.card?.calculateMarginTopImmediately();
       }, 2000);
     });
     this.defaultData = await api.methods.getDefault();
@@ -386,11 +401,16 @@ export default {
 }
 .form-comment {
   padding: 15px;
+}
+.green-comment {
   background: linear-gradient(60deg, #66bb6a, #388e3c);
   -webkit-box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%),
     0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%);
   box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%),
     0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%);
   background-repeat: no-repeat;
+}
+.transp-comment {
+  background: transparent;
 }
 </style>

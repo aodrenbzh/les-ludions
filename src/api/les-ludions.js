@@ -60,7 +60,6 @@ export default {
         value: [],
         isLoading: true
       };
-      
       return db.collection("Artistes")
         .get()
         .then((querySnapshot) => {
@@ -100,6 +99,33 @@ export default {
                   });
                 });
                 temp.LivreDOR = cc;
+                // that.artistes.value.push(temp);
+              }
+            );
+
+            var storageRef = str.ref();
+            var imagesRef = storageRef.child("/" + art.id);
+            imagesRef.listAll().then(
+              images => {
+                var tempI = [];
+                images.items.forEach(
+                  (itemRef) => {
+                    itemRef.getMetadata().then(
+                      meta => {
+                        storageRef.child(meta.fullPath).getDownloadURL().then(
+                          url => {
+                            var i = {
+                              name: meta.name,
+                              src: url
+                            };
+                            tempI.push(i);
+                          }
+                        )
+                      }
+                    );
+                  }
+                );
+                temp.galerie = tempI;
                 that.artistes.value.push(temp);
               }
             );

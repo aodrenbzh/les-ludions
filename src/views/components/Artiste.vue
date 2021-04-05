@@ -163,7 +163,7 @@
           <template slot="tab-pane-4">
             <div class="" v-if="donnee.LivreDOR">
               <Commentaire
-                v-for="commentaire in donnee.LivreDOR"
+                v-for="commentaire in orderedLivreDOR"
                 :key="commentaire.id"
                 :commentaire="commentaire"
               >
@@ -313,6 +313,10 @@ export default {
     media() {
       return this.galerie;
     },
+    orderedLivreDOR() {
+      let temp = [...this.donnee.LivreDOR];
+      return temp.sort((a,b) => a.Date - b.Date);
+    }
   },
   methods: {
     clearForm() {

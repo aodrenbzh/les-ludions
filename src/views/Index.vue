@@ -214,7 +214,7 @@ export default {
       };
     },
     galerieComputed() {
-      const reducer = (accumulator, currentValue) => accumulator.concat(currentValue.galerie.map(a => ({...a, artiste: currentValue.id})));
+      const reducer = (accumulator, currentValue) => accumulator.concat(currentValue.galerie.filter((a) => !a.name.includes("thumb_profile")).map(a => ({...a, artiste: currentValue.id})));
       const galRed = this.artistes.reduce(reducer, []);
       return this.shuffle(galRed);
     },

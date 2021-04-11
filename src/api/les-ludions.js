@@ -157,6 +157,9 @@ export default {
     },
     async addComment(comment, artisteId) {
       return await db.collection("Artistes").doc(artisteId).collection('LivreDOr').add(comment);
+    },
+    async sendPigeon(pigeon) {
+      return await db.collection("Pigeons").add(pigeon);
     }
 
     // async getLivreDOr(id) {

@@ -37,37 +37,6 @@
               </h5>
             </div>
           </div>
-          <div class="features text-center">
-            <div class="md-layout">
-              <div class="md-layout-item md-medium-size-33 md-small-size-100">
-                <div class="info">
-                  <div class="icon icon-info">
-                    <md-icon>anchor</md-icon>
-                  </div>
-                  <h4 class="info-title">Ancrer la culture à Carolles</h4>
-                  <p>Speech culture</p>
-                </div>
-              </div>
-              <div class="md-layout-item md-medium-size-33 md-small-size-100">
-                <div class="info">
-                  <div class="icon icon-success">
-                    <md-icon>all_inclusive</md-icon>
-                  </div>
-                  <h4 class="info-title">Partager les créations</h4>
-                  <p>Partage / Création</p>
-                </div>
-              </div>
-              <div class="md-layout-item md-medium-size-33 md-small-size-100">
-                <div class="info">
-                  <div class="icon icon-primary">
-                    <md-icon>tag_faces</md-icon>
-                  </div>
-                  <h4 class="info-title">Déconfiner les esprits</h4>
-                  <p>Confinement / Covid</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="section section-carou">
@@ -115,34 +84,74 @@
           </carousel>
         </div>
       </div>
+      <div class="section">
+        <div class="container">
+          <div class="features text-center">
+            <div class="md-layout">
+              <div class="md-layout-item md-medium-size-33 md-small-size-100">
+                <div class="info">
+                  <div class="icon icon-info">
+                    <md-icon>anchor</md-icon>
+                  </div>
+                  <h4 class="info-title">Ancrer la culture à Carolles</h4>
+                  <p>Speech culture</p>
+                </div>
+              </div>
+              <div class="md-layout-item md-medium-size-33 md-small-size-100">
+                <div class="info">
+                  <div class="icon icon-success">
+                    <md-icon>all_inclusive</md-icon>
+                  </div>
+                  <h4 class="info-title">Partager les créations</h4>
+                  <p>Partage / Création</p>
+                </div>
+              </div>
+              <div class="md-layout-item md-medium-size-33 md-small-size-100">
+                <div class="info">
+                  <div class="icon icon-primary">
+                    <md-icon>tag_faces</md-icon>
+                  </div>
+                  <h4 class="info-title">Déconfiner les esprits</h4>
+                  <p>Confinement / Covid</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="section section-contacts">
         <div class="container">
           <div class="md-layout">
             <div class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto">
               <h2 class="text-center title">Participer, Proposer & Partager</h2>
               <h4 class="text-center description">Donnez nous la réplique</h4>
-              <form class="contact-form">
+              <form novalidate @submit.prevent="validatePigeon" class="contact-form">
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label>Nom de scène</label>
-                      <md-input v-model="name" type="text"></md-input>
+                      <md-input v-model="pigeon.Auteur" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label>Adresse virtuelle</label>
-                      <md-input v-model="email" type="email"></md-input>
+                      <md-input v-model="pigeon.Email" type="email"></md-input>
                     </md-field>
                   </div>
                 </div>
                 <md-field maxlength="5">
                   <label>Votre tirade</label>
-                  <md-textarea v-model="message"></md-textarea>
+                  <md-textarea v-model="pigeon.Contenu"></md-textarea>
                 </md-field>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
-                    <md-button class="md-success">Envoyer un pigeon</md-button>
+                    <md-button
+                      class="md-success"
+                      type="submit"
+                      :disabled="pigeonSending || !contactFormIsValid"
+                      >Envoyer un pigeon</md-button
+                    >
                   </div>
                 </div>
               </form>
@@ -164,12 +173,6 @@
         <md-button class="md-facebook"
           ><i class="fab fa-facebook-square"></i> Share</md-button
         >
-        <md-button class="md-google"
-          ><i class="fab fa-google-plus"></i> Share</md-button
-        >
-        <md-button class="md-github"
-          ><i class="fab fa-github"></i> Star</md-button
-        >
       </div>
     </div>
   </div>
@@ -178,11 +181,19 @@
 <script>
 import api from "../api/les-ludions";
 import { Badge } from "@/components";
+import { validationMixin } from "vuelidate";
+import {
+  required,
+  email,
+  minLength,
+  maxLength,
+} from "vuelidate/lib/validators";
 export default {
   components: {
     Badge,
   },
   bodyClass: "artistes-page",
+  mixins: [validationMixin],
   props: {
     header: {
       type: String,
@@ -210,9 +221,32 @@ export default {
       galerie: [],
       carousel1: require("@/assets/img/nature-2.jpg"),
       showCarou: false,
+      pigeon: {
+        Auteur: "",
+        Contenu: "",
+        Email: "",
+      },
+      pigeonSending: false,
     };
   },
+  validations: {
+    pigeon: {
+      Auteur: {
+        required,
+      },
+      Email: {
+        required,
+      },
+      Contenu: {
+        required,
+        maxLength: maxLength(255),
+      },
+    },
+  },
   computed: {
+    contactFormIsValid() {
+      return !this.$v.$invalid;
+    },
     headerStyle() {
       return {
         backgroundImage: `url(${this.header})`,
@@ -230,6 +264,29 @@ export default {
     },
   },
   methods: {
+    clearForm() {
+      this.$v.$reset();
+      this.pigeon.Auteur = null;
+      this.pigeon.Email = null;
+      this.pigeon.Contenu = null;
+    },
+    validatePigeon() {
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        this.sendPigeon();
+      }
+    },
+    sendPigeon: function () {
+      this.pigeonSending = true;
+      let input = {
+        ...this.pigeon,
+        Date: new Date(),
+      };
+      api.methods.sendPigeon(input).then((a) => {
+        this.clearForm();
+        this.pigeonSending = false;
+      }, 1500);
+    },
     shuffle: function (at) {
       var a = [...at];
       for (let i = a.length - 1; i > 0; i--) {

@@ -84,10 +84,11 @@
                 :show-light-box="false"
                 :show-thumbs="false"
                 class="lb"
+                v-if="media.length > 0"
               ></LightBox>
               <div class="md-layout">
                 <div
-                  v-if="galerie.length > 0"
+                  v-if="media.length > 0"
                   class="md-layout-item md-size-50 ml-auto"
                 >
                   <img
@@ -161,7 +162,7 @@
             <div class="soon text-center" v-else>À venir</div>
           </template>
           <template slot="tab-pane-4">
-            <div class="" v-if="donnee.LivreDOR">
+            <div class="" v-if="donnee.LivreDOR && donnee.LivreDOR.length > 0">
               <Commentaire
                 v-for="commentaire in orderedLivreDOR"
                 :key="commentaire.id"
@@ -169,7 +170,7 @@
               >
               </Commentaire>
             </div>
-            <div class="soon text-center" v-else>Lâchez votre com'</div>
+            <div class="soon text-center" v-else>Laissez ici vos impressions.</div>
 
             <md-divider class=""></md-divider>
 
@@ -293,17 +294,17 @@ export default {
   },
   computed: {
     galerieHalf1() {
-      return this.galerie
-        .filter((a) => a.name !== "profile.jpg")
-        .slice(0, Math.ceil(this.galerie.length / 2));
+      let filtered = this.galerie
+        .filter((a) => !a.name.includes("thumb_profile"));
+      return filtered.slice(0, Math.ceil(filtered.length / 2));
     },
     galerieHalf2() {
-      return this.galerie
-        .filter((a) => a.name !== "profile.jpg")
-        .slice(-Math.ceil(this.galerie.length / 2));
+      let filtered = this.galerie
+        .filter((a) => !a.name.includes("thumb_profile"));
+      return filtered.length > 1 ? filtered.slice(-Math.ceil(filtered.length / 2)): [];
     },
     profileImage() {
-      return this.galerie.find((a) => a.name == "profile.jpg");
+      return this.galerie.find((a) => a.name.includes("thumb_profile"));
     },
     defaultGalerie() {
       return this.defaultData && this.defaultData.galerie
@@ -311,7 +312,7 @@ export default {
         : null;
     },
     media() {
-      return this.galerie;
+      return this.galerie.filter((a) => !a.name.includes("thumb_profile"));
     },
     orderedLivreDOR() {
       let temp = [...this.donnee.LivreDOR];
@@ -348,7 +349,7 @@ export default {
     },
     openGallery: function (item) {
       this.$refs.lightbox.showImage(
-        this.galerie.findIndex((a) => a.name == item.name)
+        this.media.findIndex((a) => a.name == item.name)
       );
     },
   },

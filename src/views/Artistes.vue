@@ -16,6 +16,7 @@
             :donnee="artiste"
             :id="artiste.id"
             :key="artiste.id"
+            :ref="artiste.id"
           ></artiste>
         </template>
       </div>
@@ -27,10 +28,9 @@
 import Artiste from "./components/Artiste";
 import api from "../api/les-ludions";
 
-
 export default {
   components: {
-    Artiste
+    Artiste,
   },
   name: "index",
   bodyClass: "index-page",
@@ -88,6 +88,15 @@ export default {
         this.leafShow = true;
       }
     },
+    scrollToElement() {
+      if (!this.$route.hash) return true;
+      let element_id = document.getElementById(this.$route.hash);
+      if (element_id) {
+        const yOffset = -160;
+        const y = element_id.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({top: y, behavior: 'smooth'});
+      }
+    },
   },
   computed: {
     headerStyle() {
@@ -101,10 +110,15 @@ export default {
       };
     },
   },
-  mounted() {
+  async mounted() {
     this.leafActive();
     window.addEventListener("resize", this.leafActive);
-    api.methods.getArtistes().then((a) => (this.data.artistes = a));
+    api.methods.getArtistes().then((a) => {
+      this.data.artistes = a;
+      setTimeout(() => this.scrollToElement("catherine_letellier"), 100);
+    });
+    // this.data.artistes = await api.methods.getArtistes();
+    // this.scrollToElement('catherine_letellier');
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.leafActive);
@@ -132,10 +146,10 @@ export default {
   border-radius: 6px;
 }
 @media screen and (max-width: 959px) {
-    .section-artistes {
-      margin: -130px 0px 0px;
-      border-radius: 0px;
-    }
+  .section-artistes {
+    margin: -130px 0px 0px;
+    border-radius: 0px;
+  }
 }
 </style>
 

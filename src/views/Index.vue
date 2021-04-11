@@ -58,6 +58,7 @@
             navigationEnabled
             navigationNextLabel="<i class='material-icons'>keyboard_arrow_right</i>"
             navigationPrevLabel="<i class='material-icons'>keyboard_arrow_left</i>"
+            class="carousel"
           >
             <template v-for="obj in galerieComputed">
               <slide
@@ -65,7 +66,8 @@
                 v-if="getArtiste(obj.artiste).Display"
                 eager
               >
-                <div class="carousel-caption">
+                <div class="carousel-caption" 
+                    @click="goToArtiste(obj)"> 
                   <badge type="default"
                     >{{ getArtiste(obj.artiste).Prenom }}
                     {{ getArtiste(obj.artiste).Nom }}</badge
@@ -313,6 +315,9 @@ export default {
     },
   },
   methods: {
+    goToArtiste(art) {
+      this.$router.push({name: 'artistes', hash: art.artiste})
+    },
     clearForm() {
       this.$v.$reset();
       this.pigeon.Auteur = null;
@@ -412,5 +417,8 @@ export default {
 }
 .cont-titre {
   padding-bottom: 100px;
+}
+.carousel{
+  cursor:pointer;
 }
 </style>

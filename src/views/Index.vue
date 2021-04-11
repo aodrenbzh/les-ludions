@@ -125,7 +125,11 @@
             <div class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto">
               <h2 class="text-center title">Participer, Proposer & Partager</h2>
               <h4 class="text-center description">Donnez nous la réplique</h4>
-              <form novalidate @submit.prevent="validatePigeon" class="contact-form">
+              <form
+                novalidate
+                @submit.prevent="validatePigeon"
+                class="contact-form"
+              >
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
@@ -166,13 +170,24 @@
             <h3>Bouche-à-oreille</h3>
           </div>
         </div>
+        <ShareNetwork
+          v-for="network in networks"
+          :network="network.network"
+          :key="network.network"
+          class="sharebutton"
+          :url="sharing.url"
+          :title="sharing.title"
+          :description="sharing.description"
+          :quote="sharing.quote"
+          :hashtags="sharing.hashtags"
+          :twitterUser="sharing.twitterUser"
+        >
+        <md-button :style="{ backgroundColor: network.color + ' !important' }">
+          <i :class="network.icon"></i>
+          <span>{{ network.name }}</span>
+        </md-button>
 
-        <md-button class="md-twitter"
-          ><i class="fab fa-twitter"></i>Twitter</md-button
-        >
-        <md-button class="md-facebook"
-          ><i class="fab fa-facebook-square"></i> Share</md-button
-        >
+        </ShareNetwork>
       </div>
     </div>
   </div>
@@ -188,9 +203,10 @@ import {
   minLength,
   maxLength,
 } from "vuelidate/lib/validators";
+
 export default {
   components: {
-    Badge,
+    Badge
   },
   bodyClass: "artistes-page",
   mixins: [validationMixin],
@@ -227,6 +243,39 @@ export default {
         Email: "",
       },
       pigeonSending: false,
+      sharing: {
+        url: "https://les-ludions.netlify.app/#/programme",
+        title:
+          "Un festival en Normandie, 9 maisons, 20 artistes, déambulations théatrales",
+        description:
+          `Le festival des Ludions du <b>14-16 mai</b> à Carolles une belle
+                opportunité pour une ballade sur les falaises et les
+                retrouvailles avec les artistes. Il y aura 20 artistes dans 9
+                maisons avec des déambulations théâtrales et des spectacles.
+                Peinture, sculpture, mobile métal, céramique.`,
+        quote: "Un festival en Normandie, 9 maisons, 20 artistes, déambulations théatrales",
+        hashtags: "ludions,normandie,culture"
+      },
+      networks: [
+        {
+          network: "email",
+          name: "Email",
+          icon: "far fah fa-lg fa-envelope",
+          color: "#333333",
+        },
+        {
+          network: "facebook",
+          name: "Facebook",
+          icon: "fab fah fa-lg fa-facebook-f",
+          color: "#1877f2",
+        },
+        {
+          network: "twitter",
+          name: "Twitter",
+          icon: "fab fah fa-lg fa-twitter",
+          color: "#1da1f2",
+        },
+      ],
     };
   },
   validations: {

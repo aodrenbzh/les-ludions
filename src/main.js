@@ -22,6 +22,9 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import moment from 'moment';
+import VueSocialSharing from 'vue-social-sharing'
+
+Vue.use(VueSocialSharing);
 
 library.add([faUserSecret, faUserAlt]);
 Vue.component('font-awesome-icon', FontAwesomeIcon);

@@ -103,7 +103,12 @@
                   >
                 </div>
                 <div class="md-layout md-alignment-center-center contImg">
-                  <img :src="obj.src" :alt="obj.name" class="oeuvre" onContextMenu="return false;" />
+                  <img
+                    :src="obj.src"
+                    :alt="obj.name"
+                    class="oeuvre"
+                    onContextMenu="return false;"
+                  />
                 </div>
               </slide>
             </template>
@@ -187,7 +192,7 @@ export default {
       type: String,
       default: require("@/assets/img/logo.jpg"),
     },
-    teamImg2: {   
+    teamImg2: {
       type: String,
       default: require("@/assets/img/faces/christian.jpg"),
     },
@@ -214,7 +219,12 @@ export default {
       };
     },
     galerieComputed() {
-      const reducer = (accumulator, currentValue) => accumulator.concat(currentValue.galerie.filter((a) => !a.name.includes("thumb_profile")).map(a => ({...a, artiste: currentValue.id})));
+      const reducer = (accumulator, currentValue) =>
+        accumulator.concat(
+          currentValue.galerie
+            .filter((a) => !a.name.includes("thumb_profile"))
+            .map((a) => ({ ...a, artiste: currentValue.id }))
+        );
       const galRed = this.artistes.reduce(reducer, []);
       return this.shuffle(galRed);
     },
@@ -269,8 +279,14 @@ export default {
   margin-top: 15px;
 }
 .logo {
-  height: 400px;
-  width: 400px;
+  height: auto;
+  max-width: 400px;
+}
+@media (max-width: 768px) {
+  .logo {
+    height: auto;
+    max-width: 100%;
+  }
 }
 .oeuvre {
   width: 400px;
@@ -283,10 +299,10 @@ export default {
   margin: 0 !important;
 }
 .titre {
-      font-size: 2.23rem;
-    margin: 10px auto 0;
-    line-height: 0.9em;
-    font-weight: 400;
+  font-size: 2.23rem;
+  margin: 10px auto 0;
+  line-height: 0.9em;
+  font-weight: 400;
 }
 .cont-titre {
   padding-bottom: 100px;

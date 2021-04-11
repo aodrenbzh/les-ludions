@@ -303,12 +303,12 @@ export default {
     galerieHalf1() {
       let filtered = this.galerie
         .filter((a) => !a.name.includes("thumb_profile"));
-      return filtered.slice(0, Math.ceil(filtered.length / 2));
+      return filtered.slice(0, filtered.length / 2);
     },
     galerieHalf2() {
       let filtered = this.galerie
         .filter((a) => !a.name.includes("thumb_profile"));
-      return filtered.length > 1 ? filtered.slice(-Math.ceil(filtered.length / 2)): [];
+      return filtered.slice(filtered.length / 2);
     },
     profileImage() {
       return this.galerie.find((a) => a.name.includes("thumb_profile"));

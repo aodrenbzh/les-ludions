@@ -103,7 +103,7 @@
                   >
                 </div>
                 <div class="md-layout md-alignment-center-center contImg">
-                  <img :src="obj.src" :alt="obj.name" class="oeuvre" />
+                  <img :src="obj.src" :alt="obj.name" class="oeuvre" onContextMenu="return false;" />
                 </div>
               </slide>
             </template>

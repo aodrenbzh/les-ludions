@@ -7,6 +7,7 @@
             <div class="profile">
               <div class="avatar">
                 <img
+                  onContextMenu="return false;"
                   v-if="profileImage"
                   :src="profileImage.src"
                   :alt="profileImage.name"
@@ -17,6 +18,7 @@
                   class="img-raised rounded-circle profile-image"
                 >
                   <img
+                    onContextMenu="return false;"
                     :src="defaultProfileImage"
                     alt="Profile"
                     class="img-fluid default-profile-image"
@@ -85,6 +87,7 @@
                 :show-thumbs="false"
                 class="lb"
                 v-if="media.length > 0"
+                onContextMenu="return false;"
               ></LightBox>
               <div class="md-layout">
                 <div
@@ -92,6 +95,7 @@
                   class="md-layout-item md-size-50 ml-auto"
                 >
                   <img
+                    onContextMenu="return false;"
                     v-for="item in galerieHalf1.slice(0, 2)"
                     :key="item.name"
                     class="rounded"
@@ -102,6 +106,7 @@
                 <div class="md-layout-item md-size-50 mr-auto">
                   <template v-if="galerie.length > 1">
                     <img
+                      onContextMenu="return false;"
                       v-for="item in galerieHalf2.slice(0, 2)"
                       :key="item.name"
                       class="rounded"
@@ -114,6 +119,7 @@
                   <div class="md-layout">
                     <div class="md-layout-item md-size-50 mr-auto">
                       <img
+                        onContextMenu="return false;"
                         v-for="item in galerieHalf1.slice(2)"
                         :key="item.name"
                         class="rounded"
@@ -123,6 +129,7 @@
                     </div>
                     <div class="md-layout-item md-size-50 mr-auto">
                       <img
+                        onContextMenu="return false;"
                         v-for="item in galerieHalf2.slice(2)"
                         :key="item.name"
                         class="rounded"

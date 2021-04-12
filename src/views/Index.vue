@@ -44,8 +44,8 @@
           <carousel
             :perPageCustom="[
               [300, 1],
-              [768, 3],
-              [1024, 4],
+              [768, 2],
+              [1024, 3],
             ]"
             loop
             :speed="700"
@@ -70,8 +70,7 @@
                     @click="goToArtiste(obj)"> 
                   <badge type="default"
                     >{{ getArtiste(obj.artiste).Prenom }}
-                    {{ getArtiste(obj.artiste).Nom }}</badge
-                  >
+                    {{ getArtiste(obj.artiste).Nom }}</badge>
                 </div>
                 <div class="md-layout md-alignment-center-center contImg">
                   <img
@@ -364,14 +363,6 @@ export default {
     api.methods.getArtistes().then((a) => {
       this.artistes = a;
       this.showCarou = true;
-      // this.artistes.forEach((art) => {
-      //   api.methods.getImagesFromArtiste(art.id).then((g) => {
-      //     this.galerie = this.galerie.concat(
-      //       g.map((x) => ({ ...x, artiste: art.id }))
-      //     );
-      //   });
-      //   this.showCarou = true;
-      // });
     });
   },
 };
@@ -400,9 +391,9 @@ export default {
   }
 }
 .oeuvre {
-  width: 400px;
-  height: auto;
-  max-height: calc(100vh - 80px);
+  // width: 400px;
+  // height: auto;
+  // max-height: calc(100vh - 80px);
 }
 .contImg {
   height: 100%;

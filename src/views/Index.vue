@@ -68,7 +68,7 @@
               >
                 <div class="carousel-caption" 
                     @click="goToArtiste(obj)"> 
-                  <badge type="default"
+                  <badge :type="getArtiste(obj.artiste).Type"
                     >{{ getArtiste(obj.artiste).Prenom }}
                     {{ getArtiste(obj.artiste).Nom }}</badge>
                 </div>
@@ -356,11 +356,12 @@ export default {
       return a ? a.Display : false;
     },
     getArtiste(id) {
-      return this.artistes.find((a) => a.id == id);
+      var typed = this.artistes.map(i => ({...i, Type: ["rose","default", "info", "success"][Math.floor(Math.random() * 3)]}));
+      return typed.find((a) => a.id == id);
     },
   },
   async created() {
-    api.methods.getArtistes().then((a) => {
+    api.methods.getArtistes().then(async (a) => {
       this.artistes = a;
       this.showCarou = true;
     });

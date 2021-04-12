@@ -64,15 +64,13 @@
               <slide
                 :key="obj.src"
                 v-if="getArtiste(obj.artiste).Display"
-                eager
-              >
-                <div class="carousel-caption" 
-                    @click="goToArtiste(obj)"> 
+                eager>
+                <div class="carousel-caption" > 
                   <badge :type="getArtiste(obj.artiste).Type"
                     >{{ getArtiste(obj.artiste).Prenom }}
                     {{ getArtiste(obj.artiste).Nom }}</badge>
                 </div>
-                <div class="md-layout md-alignment-center-center contImg">
+                <div @click="goToArtiste(obj)" class="md-layout md-alignment-center-center contImg">
                   <img
                     :src="obj.src"
                     :alt="obj.name"
@@ -315,7 +313,7 @@ export default {
   },
   methods: {
     goToArtiste(art) {
-      this.$router.push({name: 'artistes', hash: art.artiste})
+      this.$router.push({name: 'artistes', hash: art.artiste});
     },
     clearForm() {
       this.$v.$reset();

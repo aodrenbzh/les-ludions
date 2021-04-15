@@ -481,6 +481,7 @@ export default {
         Email: "",
         Phone: null,
         Places: null,
+        Spectacle: ""
       },
       reservationSending: false,
     };
@@ -514,6 +515,9 @@ export default {
       Places: {
         required,
       },
+      Spectacle: {
+        required
+      }
     },
   },
   computed: {
@@ -577,6 +581,7 @@ export default {
       this.demande.Nom = "";
       this.demande.Places = null;
       this.demande.Phone = null;
+      this.demande.Spectacle = "";
     },
     validateReservation() {
       this.$v.demande.$touch();

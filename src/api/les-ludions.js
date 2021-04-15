@@ -214,7 +214,7 @@ export default {
       return await db.collection("Pigeons").add(pigeon);
     },
     async addDemande(demande, jour) {
-      return await db.collection("Reservations").doc(jour).collection('Demandes').add(demande);
+      return await db.collection("Reservations").doc(jour).collection('Spectacles').doc(demande.Spectacle).collection('Demandes').add(demande);
     },
 
     // async getLivreDOr(id) {

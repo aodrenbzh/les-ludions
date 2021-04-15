@@ -364,11 +364,11 @@ export default {
     var that = this;
     api.methods.getImagesFromArtiste(this.donnee.id).then((a) => {
       this.galerie = a;
-      this.loading = false;
       setTimeout(() => {
         // that.$refs.card.resizeObserver.disconnect(true);
+              this.loading = false;
         that.$refs.card?.calculateMarginTopImmediately();
-      }, 2000);
+      }, 3000);
     });
     this.defaultData = await api.methods.getDefault();
   },

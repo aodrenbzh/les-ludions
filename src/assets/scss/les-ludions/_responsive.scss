@@ -416,6 +416,7 @@
 @media (min-width: 576px) {
   .md-toolbar-row,
   .section .container,
+  .section .container-carou,
   .footer .container {
       max-width: 540px;
   }
@@ -424,6 +425,7 @@
 @media (min-width: 768px) {
   .md-toolbar-row,
   .section .container,
+  .section .container-carou,
   .footer .container {
       max-width: 720px;
   }
@@ -432,6 +434,7 @@
 @media (min-width: 992px) {
   .md-toolbar-row,
   .section .container,
+  .section .container-carou,
   .footer .container {
       max-width: 960px;
   }
@@ -450,6 +453,9 @@
   .section .container,
   .footer .container {
       max-width: 1140px;
+  }
+  .section .container-carou {
+    max-width: 1750px;
   }
 }
 

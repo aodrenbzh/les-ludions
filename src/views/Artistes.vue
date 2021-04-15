@@ -8,7 +8,7 @@
       </div>
     </parallax>
     <div class="section section-artistes">
-      <div class="md-layout md-alignment-top-center md-gutter">
+      <div class="md-layout md-alignment-top-center md-gutter" v-if="artistes.length > 0">
         <template v-for="artiste in data.artistes">
           <artiste
             v-if="artiste.Display"

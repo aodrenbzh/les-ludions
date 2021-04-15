@@ -16,6 +16,97 @@
       </div>
     </parallax>
     <div class="main main-raised">
+      <form
+        novalidate
+        @submit.prevent="validateReservation"
+        class="contact-form"
+      >
+        <modal v-if="reservation !== ''" @close="closeReservation">
+          <template slot="header">
+            <h4 class="modal-title">
+              Réservez pour le
+              {{ reservations[reservation].label }}
+            </h4>
+            <md-button
+              class="md-simple md-just-icon md-round modal-default-button"
+              @click="closeReservation"
+            >
+              <md-icon>clear</md-icon>
+            </md-button>
+          </template>
+
+          <template slot="body">
+            <div>
+              <div class="md-layout">
+                <div class="md-layout-item md-size-100">
+                <md-field>
+                  <label>Spectacle souhaité</label>
+                  <md-select
+                    v-model="demande.Spectacle"
+                  >
+                    <md-option
+                      v-for="spec in reservations[reservation].spectacles"
+                      :key="spec"
+                      :value="spec.id"
+                      >{{ spec.label }} ({{spec.prix}})</md-option
+                    >
+                  </md-select>
+                </md-field>
+              </div>
+                <div class="md-layout-item md-size-100">
+                  <md-field>
+                    <label>Prénom</label>
+                    <md-input v-model="demande.Prenom" type="text"></md-input>
+                  </md-field>
+                  <md-field>
+                    <label>Nom</label>
+                    <md-input v-model="demande.Nom" type="text"></md-input>
+                  </md-field>
+                </div>
+                <div class="md-layout-item md-size-100">
+                  <md-field>
+                    <label>Adresse virtuelle (@)</label>
+                    <md-input v-model="demande.Email" type="email"></md-input>
+                  </md-field>
+                </div>
+                <div class="md-layout-item md-size-100">
+                  <md-field>
+                    <label>Numéro de téléphone</label>
+                    <md-input v-model="demande.Phone" type="phone"></md-input>
+                  </md-field>
+                </div>
+              </div>
+                <md-field>
+                  <label>Nombre de place souhaité</label>
+                  <md-select
+                    v-model="demande.Places"
+                    name="nbrplaces"
+                    id="nbrplaces"
+                  >
+                    <md-option
+                      v-for="nbr in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+                      :key="nbr"
+                      :value="nbr"
+                      >{{ nbr }}</md-option
+                    >
+                  </md-select>
+                </md-field>
+            </div>
+          </template>
+
+          <template slot="footer">
+            <md-button
+              class="md-simple md-primary"
+              type="submit"
+              :disabled="reservationSending || !reservationFormIsValid"
+              >Réservez</md-button
+            >
+            <md-button class="md-danger md-simple" @click="closeReservation"
+              >Close</md-button
+            >
+          </template>
+        </modal>
+      </form>
       <div class="section">
         <div class="container">
           <div class="md-layout">
@@ -27,25 +118,114 @@
             <div
               class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto text-center"
             >
-              <h2 class="title text-center">Un festival en Normandie</h2>
-              <h5 class="description">
-                Le festival des Ludions du <b>14-16 mai</b> à Carolles une belle
-                opportunité pour une ballade sur les falaises et les
-                retrouvailles avec les artistes. Il y aura 20 artistes dans 9
-                maisons avec des déambulations théâtrales et des spectacles.
-                Peinture, sculpture, mobile métal, céramique.
-              </h5>
+              <h2
+                class="title text-center"
+                v-if="labels.titre"
+                v-html="labels.titre"
+              ></h2>
+              <h5
+                class="description"
+                v-if="labels.main_description"
+                v-html="labels.main_description"
+              ></h5>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="section section-planning">
+        <div class="container">
+          <nav-tabs-card no-label tabs-plain>
+            <template slot="content">
+              <md-tabs class="md-info" md-alignment="left">
+                <md-tab id="tab-friday" md-label="Vendredi 13 Mai">
+                  <div class="md-layout container">
+                    <p
+                      class="md-layout-item md-alignment-top-center"
+                      v-if="labels.planning_vendredi"
+                      v-html="labels.planning_vendredi"
+                    ></p>
+                    <div
+                      class="md-layout-item md-layout md-alignment-top-right"
+                    >
+                      <md-button
+                        class="md-primary md-round"
+                        @click="reservation = 'vendredi'"
+                        ><md-icon>library_books</md-icon>Réservez</md-button
+                      >
+                    </div>
+                  </div>
+                </md-tab>
+
+                <md-tab id="tab-samedi" md-label="Samedi 14 Mai">
+                  <div class="md-layout container">
+                    <p
+                      class="md-layout-item md-alignment-top-center"
+                      v-if="labels.planning_samedi"
+                      v-html="labels.planning_samedi"
+                    ></p>
+                    <div
+                      class="md-layout-item md-layout md-alignment-top-right"
+                    >
+                      <md-button
+                        class="md-primary md-round"
+                        @click="reservation = 'samedi'"
+                        >Réservez</md-button
+                      >
+                    </div>
+                  </div>
+                </md-tab>
+
+                <md-tab id="tab-dimanche" md-label="Dimanche 15 Mai">
+                  <p
+                    v-if="labels.planning_dimanche"
+                    v-html="labels.planning_dimanche"
+                  ></p>
+                </md-tab>
+              </md-tabs>
+            </template>
+          </nav-tabs-card>
+          <!-- <div class="features text-center">
+            <div class="md-layout">
+              <div class="md-layout-item md-medium-size-33 md-small-size-100">
+                <div class="info">
+                  <div class="icon icon-primary">
+                    <md-icon>tag_faces</md-icon>
+                  </div>
+                  <h4 class="info-title">Vendredi 13 Mai</h4>
+                  <p v-if="labels.planning_vendredi" v-html="labels.planning_vendredi"></p>
+                </div>
+              </div>
+              <div class="md-layout-item md-medium-size-33 md-small-size-100">
+                <div class="info">
+                  <div class="icon icon-primary">
+                    <md-icon>tag_faces</md-icon>
+                  </div>
+                  <h4 class="info-title">Samedi 14 Mai</h4>
+                  <p v-if="labels.planning_samedi" v-html="labels.planning_samedi"></p>
+                </div>
+              </div>
+              <div class="md-layout-item md-medium-size-33 md-small-size-100">
+                <div class="info">
+                  <div class="icon icon-primary">
+                    <md-icon>tag_faces</md-icon>
+                  </div>
+                  <h4 class="info-title">Dimanche 15 Mai</h4>
+                  <p v-if="labels.planning_dimanche" v-html="labels.planning_dimanche"></p>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+
       <div class="section section-carou">
-        <div class="container" v-if="showCarou">
+        <div class="container container-carou" v-if="showCarou">
           <carousel
             :perPageCustom="[
               [300, 1],
-              [768, 2],
-              [1024, 3],
+              [768, 3],
+              [1024, 5],
             ]"
             loop
             :speed="700"
@@ -64,13 +244,18 @@
               <slide
                 :key="obj.src"
                 v-if="getArtiste(obj.artiste).Display"
-                eager>
-                <div class="carousel-caption" > 
+                eager
+              >
+                <div class="carousel-caption">
                   <badge :type="getArtiste(obj.artiste).Type"
                     >{{ getArtiste(obj.artiste).Prenom }}
-                    {{ getArtiste(obj.artiste).Nom }}</badge>
+                    {{ getArtiste(obj.artiste).Nom }}</badge
+                  >
                 </div>
-                <div @click="goToArtiste(obj)" class="md-layout md-alignment-center-center contImg">
+                <div
+                  @click="goToArtiste(obj)"
+                  class="md-layout md-alignment-center-center contImg"
+                >
                   <img
                     :src="obj.src"
                     :alt="obj.name"
@@ -93,7 +278,10 @@
                     <md-icon>anchor</md-icon>
                   </div>
                   <h4 class="info-title">Ancrer la culture à Carolles</h4>
-                  <p>Speech culture</p>
+                  <p
+                    v-if="labels.speech_culture"
+                    v-html="labels.speech_culture"
+                  ></p>
                 </div>
               </div>
               <div class="md-layout-item md-medium-size-33 md-small-size-100">
@@ -102,7 +290,10 @@
                     <md-icon>all_inclusive</md-icon>
                   </div>
                   <h4 class="info-title">Partager les créations</h4>
-                  <p>Partage / Création</p>
+                  <p
+                    v-if="labels.speech_partage"
+                    v-html="labels.speech_partage"
+                  ></p>
                 </div>
               </div>
               <div class="md-layout-item md-medium-size-33 md-small-size-100">
@@ -111,7 +302,10 @@
                     <md-icon>tag_faces</md-icon>
                   </div>
                   <h4 class="info-title">Déconfiner les esprits</h4>
-                  <p>Confinement / Covid</p>
+                  <p
+                    v-if="labels.speech_covid"
+                    v-html="labels.speech_covid"
+                  ></p>
                 </div>
               </div>
             </div>
@@ -181,11 +375,12 @@
           :hashtags="sharing.hashtags"
           :twitterUser="sharing.twitterUser"
         >
-        <md-button :style="{ backgroundColor: network.color + ' !important' }">
-          <i :class="network.icon"></i>
-          <span>{{ network.name }}</span>
-        </md-button>
-
+          <md-button
+            :style="{ backgroundColor: network.color + ' !important' }"
+          >
+            <i :class="network.icon"></i>
+            <span>{{ network.name }}</span>
+          </md-button>
         </ShareNetwork>
       </div>
     </div>
@@ -194,7 +389,7 @@
 
 <script>
 import api from "../api/les-ludions";
-import { Badge } from "@/components";
+import { Badge, NavTabsCard, Modal } from "@/components";
 import { validationMixin } from "vuelidate";
 import {
   required,
@@ -205,7 +400,9 @@ import {
 
 export default {
   components: {
-    Badge
+    Badge,
+    NavTabsCard,
+    Modal,
   },
   bodyClass: "artistes-page",
   mixins: [validationMixin],
@@ -229,6 +426,7 @@ export default {
   },
   data() {
     return {
+      labels: {},
       name: null,
       email: null,
       message: null,
@@ -246,14 +444,14 @@ export default {
         url: "https://les-ludions.netlify.app/#/programme",
         title:
           "Un festival en Normandie, 9 maisons, 20 artistes, déambulations théatrales",
-        description:
-          `Le festival des Ludions du <b>14-16 mai</b> à Carolles une belle
+        description: `Le festival des Ludions du <b>14-16 mai</b> à Carolles une belle
                 opportunité pour une ballade sur les falaises et les
                 retrouvailles avec les artistes. Il y aura 20 artistes dans 9
                 maisons avec des déambulations théâtrales et des spectacles.
                 Peinture, sculpture, mobile métal, céramique.`,
-        quote: "Un festival en Normandie, 9 maisons, 20 artistes, déambulations théatrales",
-        hashtags: "ludions,normandie,culture"
+        quote:
+          "Un festival en Normandie, 9 maisons, 20 artistes, déambulations théatrales",
+        hashtags: "ludions,normandie,culture",
       },
       networks: [
         {
@@ -275,6 +473,16 @@ export default {
           color: "#1da1f2",
         },
       ],
+      reservations: [],
+      reservation: "",
+      demande: {
+        Prenom: "",
+        Nom: "",
+        Email: "",
+        Phone: null,
+        Places: null,
+      },
+      reservationSending: false,
     };
   },
   validations: {
@@ -290,10 +498,30 @@ export default {
         maxLength: maxLength(255),
       },
     },
+    demande: {
+      Prenom: {
+        required,
+      },
+      Nom: {
+        required,
+      },
+      Email: {
+        required,
+      },
+      Phone: {
+        required,
+      },
+      Places: {
+        required,
+      },
+    },
   },
   computed: {
     contactFormIsValid() {
-      return !this.$v.$invalid;
+      return !this.$v.pigeon.$invalid;
+    },
+    reservationFormIsValid() {
+      return !this.$v.demande.$invalid;
     },
     headerStyle() {
       return {
@@ -312,18 +540,22 @@ export default {
     },
   },
   methods: {
+    closeReservation() {
+      this.reservation = "";
+      this.clearFormReservation();
+    },
     goToArtiste(art) {
-      this.$router.push({name: 'artistes', hash: art.artiste});
+      this.$router.push({ name: "artistes", hash: art.artiste });
     },
     clearForm() {
-      this.$v.$reset();
+      this.$v.pigeon.$reset();
       this.pigeon.Auteur = null;
       this.pigeon.Email = null;
       this.pigeon.Contenu = null;
     },
     validatePigeon() {
-      this.$v.$touch();
-      if (!this.$v.$invalid) {
+      this.$v.pigeon.$touch();
+      if (!this.$v.pigeon.$invalid) {
         this.sendPigeon();
       }
     },
@@ -336,6 +568,31 @@ export default {
       api.methods.sendPigeon(input).then((a) => {
         this.clearForm();
         this.pigeonSending = false;
+      }, 1500);
+    },
+    clearFormReservation() {
+      this.$v.demande.$reset();
+      this.demande.Prenom = "";
+      this.demande.Email = "";
+      this.demande.Nom = "";
+      this.demande.Places = null;
+      this.demande.Phone = null;
+    },
+    validateReservation() {
+      this.$v.demande.$touch();
+      if (!this.$v.demande.$invalid) {
+        this.sendReservation();
+      }
+    },
+    sendReservation: function () {
+      this.reservationSending = true;
+      let input = {
+        ...this.demande,
+      };
+      api.methods.addDemande(input, this.reservation).then((a) => {
+        this.clearFormReservation();
+        this.reservationSending = false;
+        this.reservation = "";
       }, 1500);
     },
     shuffle: function (at) {
@@ -354,11 +611,18 @@ export default {
       return a ? a.Display : false;
     },
     getArtiste(id) {
-      var typed = this.artistes.map(i => ({...i, Type: ["rose","default", "info", "success"][Math.floor(Math.random() * 3)]}));
+      var typed = this.artistes.map((i) => ({
+        ...i,
+        Type: ["rose", "default", "info", "success"][
+          Math.floor(Math.random() * 4)
+        ],
+      }));
       return typed.find((a) => a.id == id);
     },
   },
   async created() {
+    this.labels = await api.methods.getLabels();
+    this.reservations = await api.methods.getReservations();
     api.methods.getArtistes().then(async (a) => {
       this.artistes = a;
       this.showCarou = true;
@@ -408,7 +672,13 @@ export default {
 .cont-titre {
   padding-bottom: 100px;
 }
-.carousel{
-  cursor:pointer;
+.carousel {
+  cursor: pointer;
+}
+.container-carou {
+  padding: 0 20px;
+}
+.section-planning {
+  padding-top: 0;
 }
 </style>

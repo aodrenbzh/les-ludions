@@ -53,6 +53,58 @@ export default {
       return Promise.resolve(this.defaultData);
 
     },
+    async getLabels() {
+      var that = this;
+      if (this.labels && this.labels.isLoading) return Promise.resolve(this.labels.value);
+      this.labels = {
+        value: {},
+        isLoading: true
+      };
+      return db.collection("Labels")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((label) => {
+            that.labels.value[label.id] = label.data().Label
+          });
+          return that.labels.value;
+        }).catch(
+          (error) => null
+        );
+    },
+    async getReservations() {
+      var that = this;
+      if (this.reservations && this.reservations.isLoading) return Promise.resolve(this.reservations.value);
+      this.reservations = {
+        value: {},
+        isLoading: true
+      };
+      return db.collection("Reservations")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((res) => {
+            var temp = {
+              label: res.data().Label
+            };
+            db.collection("Reservations").doc(res.id).collection('Spectacles').get().then(
+              ss => {
+                var spectacles = [];
+                ss.forEach(s => spectacles.push(
+                  {
+                    id: s.id,
+                    label: s.data().Label,
+                    prix: s.data().Prix
+                  }
+                ));
+                temp.spectacles = spectacles;
+              }
+            );
+            that.reservations.value[res.id] = temp;
+          });
+          return that.reservations.value;
+        }).catch(
+          (error) => null
+        );
+    },
     getArtistes() {
       var that = this;
       if (this.artistes && this.artistes.isLoading) return Promise.resolve(this.artistes.value);
@@ -160,7 +212,10 @@ export default {
     },
     async sendPigeon(pigeon) {
       return await db.collection("Pigeons").add(pigeon);
-    }
+    },
+    async addDemande(demande, jour) {
+      return await db.collection("Reservations").doc(jour).collection('Demandes').add(demande);
+    },
 
     // async getLivreDOr(id) {
     //   if (this.artistes.value.find(a => a.id == id).livreDOr) return Promise.resolve(this.artistes.value.find(a => a.id == id).livreDOr);

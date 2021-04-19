@@ -22,8 +22,11 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import moment from 'moment';
-import VueSocialSharing from 'vue-social-sharing'
-
+import VueSocialSharing from 'vue-social-sharing';
+import Notifications from 'vue-notification';
+import velocity      from 'velocity-animate'
+ 
+Vue.use(Notifications, { velocity });
 Vue.use(VueSocialSharing);
 
 library.add([faUserSecret, faUserAlt]);

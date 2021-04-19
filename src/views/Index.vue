@@ -39,20 +39,18 @@
             <div>
               <div class="md-layout">
                 <div class="md-layout-item md-size-100">
-                <md-field>
-                  <label>Spectacle souhaité</label>
-                  <md-select
-                    v-model="demande.Spectacle"
-                  >
-                    <md-option
-                      v-for="spec in reservations[reservation].spectacles"
-                      :key="spec"
-                      :value="spec.id"
-                      >{{ spec.label }} ({{spec.prix}})</md-option
-                    >
-                  </md-select>
-                </md-field>
-              </div>
+                  <md-field>
+                    <label>Spectacle souhaité</label>
+                    <md-select v-model="demande.Spectacle">
+                      <md-option
+                        v-for="spec in reservations[reservation].spectacles"
+                        :key="spec.id"
+                        :value="spec.id"
+                        >{{ spec.label }} ({{ spec.prix }})</md-option
+                      >
+                    </md-select>
+                  </md-field>
+                </div>
                 <div class="md-layout-item md-size-100">
                   <md-field>
                     <label>Prénom</label>
@@ -76,21 +74,21 @@
                   </md-field>
                 </div>
               </div>
-                <md-field>
-                  <label>Nombre de place souhaité</label>
-                  <md-select
-                    v-model="demande.Places"
-                    name="nbrplaces"
-                    id="nbrplaces"
+              <md-field>
+                <label>Nombre de place souhaité</label>
+                <md-select
+                  v-model="demande.Places"
+                  name="nbrplaces"
+                  id="nbrplaces"
+                >
+                  <md-option
+                    v-for="nbr in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+                    :key="nbr"
+                    :value="nbr"
+                    >{{ nbr }}</md-option
                   >
-                    <md-option
-                      v-for="nbr in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
-                      :key="nbr"
-                      :value="nbr"
-                      >{{ nbr }}</md-option
-                    >
-                  </md-select>
-                </md-field>
+                </md-select>
+              </md-field>
             </div>
           </template>
 
@@ -384,6 +382,15 @@
         </ShareNetwork>
       </div>
     </div>
+    <md-snackbar md-position="left" md-duration="3000" :md-active.sync="showSnackbar" md-persistent>
+      <span>Votre message a bien été envoyé.</span>
+      <md-button class="md-simple" @click="showSnackbar = false">Fermer</md-button>
+    </md-snackbar>
+
+    <md-snackbar md-position="left" md-duration="3000" :md-active.sync="showSnackbarReservation" md-persistent>
+      <span>Votre réservation a bien été prise en compte.</span>
+      <md-button class="md-simple" @click="showSnackbarReservation = false">Fermer</md-button>
+    </md-snackbar>
   </div>
 </template>
 
@@ -404,7 +411,7 @@ export default {
     NavTabsCard,
     Modal,
   },
-  bodyClass: "artistes-page",
+  bodyClass: "index-page",
   mixins: [validationMixin],
   props: {
     header: {
@@ -426,6 +433,8 @@ export default {
   },
   data() {
     return {
+      showSnackbar: false,
+      showSnackbarReservation: false,
       labels: {},
       name: null,
       email: null,
@@ -481,7 +490,7 @@ export default {
         Email: "",
         Phone: null,
         Places: null,
-        Spectacle: ""
+        Spectacle: "",
       },
       reservationSending: false,
     };
@@ -516,8 +525,8 @@ export default {
         required,
       },
       Spectacle: {
-        required
-      }
+        required,
+      },
     },
   },
   computed: {
@@ -572,6 +581,7 @@ export default {
       api.methods.sendPigeon(input).then((a) => {
         this.clearForm();
         this.pigeonSending = false;
+        this.showSnackbar = true;
       }, 1500);
     },
     clearFormReservation() {
@@ -598,6 +608,7 @@ export default {
         this.clearFormReservation();
         this.reservationSending = false;
         this.reservation = "";
+        this.showSnackbarReservation = true;
       }, 1500);
     },
     shuffle: function (at) {

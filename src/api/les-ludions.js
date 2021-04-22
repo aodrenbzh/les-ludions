@@ -211,9 +211,35 @@ export default {
       return await db.collection("Artistes").doc(artisteId).collection('LivreDOr').add(comment);
     },
     async sendPigeon(pigeon) {
-      return await db.collection("Pigeons").add(pigeon);
+      var input = {
+        ...pigeon,
+        to: ['festival.Ludions@laposte.net', 'les.ludions50@gmail.com'],
+        message: {
+          subject: 'Pigeon reçu de la part de ' + pigeon.Auteur,
+          text: pigeon.Auteur + ' ('+ pigeon.Email + ') a envoyé ce message : ' +pigeon.Contenu,
+          html: `<p><strong>Mail </strong>: ` + pigeon.Email + `</p>
+          <p><strong>Auteur </strong>: `+ pigeon.Auteur+`</p>
+          <p><strong>Contenu </strong>:&nbsp;</p>
+          <p><br></p><p>` + pigeon.Contenu + `</p>`,
+        }
+      };
+      return await db.collection("Pigeons").add(input);
     },
     async addDemande(demande, jour) {
+      var input = {
+        ...demande,
+        jour: jour,
+        to: ['festival.Ludions@laposte.net', 'les.ludions50@gmail.com'],
+        message: {
+          subject: 'Reservation reçue de la part de ' + demande.Prenom + ' ' + demande.Nom,
+          text: demande.Prenom + ' ' + demande.Nom + ' ('+ demande.Email + ' - '+  demande.Phone +') a reservé '+ demande.Places+ ' places pour ' +demande.Spectacle + ' le '+ jour ,
+          html: `<p><strong>Mail </strong>: ` + demande.Email + `</p>
+          <p><strong>Auteur </strong>: `+ demande.Prenom + ' ' + demande.Nom +`</p>
+          <p><strong>Téléphone </strong>: `+ demande.Phone+`</p>
+          <p><strong>Spectacle </strong>: `+  demande.Places+ ' places pour ' +demande.Spectacle + ' le '+ jour +`</p>`,
+        }
+      };
+      await db.collection("Pigeons").add(input);
       return await db.collection("Reservations").doc(jour).collection('Spectacles').doc(demande.Spectacle).collection('Demandes').add(demande);
     },
 

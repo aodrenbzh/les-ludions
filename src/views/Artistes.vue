@@ -38,7 +38,7 @@ export default {
     image: {
       type: String,
       //default: require("@/assets/img/vue-mk-header.jpg")
-      default: require("@/assets/img/carolles1_1.jpg"),
+      default: require("@/assets/img/lude2.jpg"),
     },
     leaf4: {
       type: String,

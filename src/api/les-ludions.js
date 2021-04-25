@@ -28,7 +28,7 @@ export default {
     };
   },
   methods: {
-    
+
     async getDefault() {
       if (this.defaultData) return Promise.resolve(this.defaultData);
       this.defaultData = {
@@ -67,6 +67,55 @@ export default {
             that.labels.value[label.id] = label.data().Label
           });
           return that.labels.value;
+        }).catch(
+          (error) => null
+        );
+    },
+    async getEvents() {
+      var that = this;
+      if (this.events && this.events.isLoading) return Promise.resolve(this.events.value);
+      this.events = {
+        value: [],
+        isLoading: true
+      };
+      return db.collection("Evenements")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((event) => {
+            let temp = {
+              id: event.id,
+              titre: event.data().Titre,
+              display: event.data().Display,
+              reservable: event.data().Reservable,
+              content: event.data().Content
+            };
+            var storageRef = str.ref();
+            var imagesRef = storageRef.child("/events");
+            imagesRef.listAll().then(
+              images => {
+                images.items.forEach(
+                  (itemRef) => {
+                    itemRef.getMetadata().then(
+                      meta => {
+                        if (meta.name.indexOf(temp.id) > -1) {
+                          storageRef.child(meta.fullPath).getDownloadURL().then(
+                            url => {
+                              var i = {
+                                name: meta.name,
+                                src: url
+                              };
+                              temp.image = i;
+                              that.events.value.push(temp);
+                            }
+                          )
+                        }
+                      }
+                    );
+                  }
+                );
+              });
+          });
+          return that.events.value;
         }).catch(
           (error) => null
         );
@@ -216,9 +265,9 @@ export default {
         to: ['festival.Ludions@laposte.net', 'les.ludions50@gmail.com'],
         message: {
           subject: 'Pigeon reçu de la part de ' + pigeon.Auteur,
-          text: pigeon.Auteur + ' ('+ pigeon.Email + ') a envoyé ce message : ' +pigeon.Contenu,
+          text: pigeon.Auteur + ' (' + pigeon.Email + ') a envoyé ce message : ' + pigeon.Contenu,
           html: `<p><strong>Mail </strong>: ` + pigeon.Email + `</p>
-          <p><strong>Auteur </strong>: `+ pigeon.Auteur+`</p>
+          <p><strong>Auteur </strong>: `+ pigeon.Auteur + `</p>
           <p><strong>Contenu </strong>:&nbsp;</p>
           <p><br></p><p>` + pigeon.Contenu + `</p>`,
         }
@@ -232,11 +281,11 @@ export default {
         to: ['festival.Ludions@laposte.net', 'les.ludions50@gmail.com'],
         message: {
           subject: 'Reservation reçue de la part de ' + demande.Prenom + ' ' + demande.Nom,
-          text: demande.Prenom + ' ' + demande.Nom + ' ('+ demande.Email + ' - '+  demande.Phone +') a reservé '+ demande.Places+ ' places pour ' +demande.Spectacle + ' le '+ jour ,
+          text: demande.Prenom + ' ' + demande.Nom + ' (' + demande.Email + ' - ' + demande.Phone + ') a reservé ' + demande.Places + ' places pour ' + demande.Spectacle + ' le ' + jour,
           html: `<p><strong>Mail </strong>: ` + demande.Email + `</p>
-          <p><strong>Auteur </strong>: `+ demande.Prenom + ' ' + demande.Nom +`</p>
-          <p><strong>Téléphone </strong>: `+ demande.Phone+`</p>
-          <p><strong>Spectacle </strong>: `+  demande.Places+ ' places pour ' +demande.Spectacle + ' le '+ jour +`</p>`,
+          <p><strong>Auteur </strong>: `+ demande.Prenom + ' ' + demande.Nom + `</p>
+          <p><strong>Téléphone </strong>: `+ demande.Phone + `</p>
+          <p><strong>Spectacle </strong>: `+ demande.Places + ' places pour ' + demande.Spectacle + ' le ' + jour + `</p>`,
         }
       };
       await db.collection("Pigeons").add(input);

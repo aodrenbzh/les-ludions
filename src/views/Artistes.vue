@@ -90,7 +90,7 @@ export default {
     },
     scrollToElement() {
       if (!this.$route.hash) return true;
-      let element_id = document.getElementById(this.$route.hash);
+      let element_id = document.getElementById(this.$route.hash.substring(1));
       if (element_id) {
         const yOffset = -160;
         const y = element_id.getBoundingClientRect().top + window.pageYOffset + yOffset;
@@ -115,10 +115,8 @@ export default {
     window.addEventListener("resize", this.leafActive);
     api.methods.getArtistes().then((a) => {
       this.data.artistes = a;
-      setTimeout(() => this.scrollToElement("catherine_letellier"), 100);
+      setTimeout(() => this.scrollToElement(), 100);
     });
-    // this.data.artistes = await api.methods.getArtistes();
-    // this.scrollToElement('catherine_letellier');
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.leafActive);

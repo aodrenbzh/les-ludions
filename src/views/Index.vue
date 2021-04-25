@@ -131,7 +131,7 @@
         </div>
       </div>
 
-      <div class="section section-planning">
+      <div class="section section-planning" id="reservation">
         <div class="container">
           <nav-tabs-card no-label tabs-plain>
             <template slot="content">
@@ -382,12 +382,12 @@
         </ShareNetwork>
       </div>
     </div>
-    <md-snackbar md-position="left" md-duration="3000" :md-active.sync="showSnackbar" md-persistent>
+    <md-snackbar md-position="left" :md-active.sync="showSnackbar" md-persistent>
       <span>Votre message a bien été envoyé.</span>
       <md-button class="md-simple" @click="showSnackbar = false">Fermer</md-button>
     </md-snackbar>
 
-    <md-snackbar md-position="left" md-duration="3000" :md-active.sync="showSnackbarReservation" md-persistent>
+    <md-snackbar md-position="left" :md-active.sync="showSnackbarReservation" md-persistent>
       <span>Votre réservation a bien été prise en compte.</span>
       <md-button class="md-simple" @click="showSnackbarReservation = false">Fermer</md-button>
     </md-snackbar>
@@ -558,7 +558,7 @@ export default {
       this.clearFormReservation();
     },
     goToArtiste(art) {
-      this.$router.push({ name: "artistes", hash: art.artiste });
+      this.$router.push({ name: "artistes", hash: '#' + art.artiste });
     },
     clearForm() {
       this.$v.pigeon.$reset();
@@ -635,6 +635,13 @@ export default {
       }));
       return typed.find((a) => a.id == id);
     },
+    scrollToElement() {
+      if (!this.$route.hash) return true;
+      let element_id = document.getElementById(this.$route.hash.substring(1));
+      if (element_id) {
+        window.scrollTo({top: element_id.getBoundingClientRect().top - 70 , behavior: 'smooth'});
+      }
+    }
   },
   async created() {
     this.labels = await api.methods.getLabels();
@@ -644,6 +651,9 @@ export default {
       this.showCarou = true;
     });
   },
+  mounted() {
+    setTimeout(() => this.scrollToElement(), 100);
+  }
 };
 </script>
 

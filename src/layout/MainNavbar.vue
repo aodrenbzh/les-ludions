@@ -47,6 +47,11 @@
                 <p>Nos Artistes</p>
               </md-list-item>
 
+              <md-list-item href="#/blog" v-if="!isBlog">
+                <i class="material-icons">art_track</i>
+                <p>Blog</p>
+              </md-list-item>
+
               <li class="md-list-item" v-if="isArtistes">
                 <a
                   href="javascript:void(0)"
@@ -189,6 +194,10 @@ export default {
       const excludedRoutes = ["index"];
       return excludedRoutes.some((r) => r === this.$route.name);
     },
+    isBlog() {
+      const excludedRoutes = ["blog"];
+      return excludedRoutes.some((r) => r === this.$route.name);
+    }
   },
   methods: {
     iconArtiste(artiste) {

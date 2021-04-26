@@ -136,7 +136,7 @@
           <nav-tabs-card no-label tabs-plain>
             <template slot="content">
               <md-tabs class="md-info" md-alignment="left">
-                <md-tab id="tab-friday" md-label="Vendredi 13 Mai">
+                <md-tab id="tab-friday" md-label="Vendredi 14 Mai">
                   <div class="md-layout container">
                     <p
                       class="md-layout-item md-alignment-top-center"
@@ -155,7 +155,7 @@
                   </div>
                 </md-tab>
 
-                <md-tab id="tab-samedi" md-label="Samedi 14 Mai">
+                <md-tab id="tab-samedi" md-label="Samedi 15 Mai">
                   <div class="md-layout container">
                     <p
                       class="md-layout-item md-alignment-top-center"
@@ -174,7 +174,7 @@
                   </div>
                 </md-tab>
 
-                <md-tab id="tab-dimanche" md-label="Dimanche 15 Mai">
+                <md-tab id="tab-dimanche" md-label="Dimanche 16 Mai">
                   <p
                     v-if="labels.planning_dimanche"
                     v-html="labels.planning_dimanche"

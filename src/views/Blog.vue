@@ -54,7 +54,7 @@
                       <h3 class="md-layout-item md-size-100">
                         {{ evt.titre }}
                       </h3>
-                      <p class="md-layout-item md-size-100" v-html="evt.content"></p>
+                      <p class="md-layout-item md-size-100" v-html="evt.description"></p>
                       <div class="md-layout-item md-size-100 md-layout inverse">
                         <md-button
                           v-if="evt.reservable"
@@ -64,6 +64,7 @@
                         >
                       </div>
                     </div>
+                    <div class="md-layout-item md-size-100 content" v-html="evt.content"></div>
                   </div>
                 </md-card-content>
               </md-card>
@@ -131,5 +132,8 @@ export default {
 }
 .info-event {
   height: 100%;
+}
+.content {
+  padding-top: 20px;
 }
 </style>

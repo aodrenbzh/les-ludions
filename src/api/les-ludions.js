@@ -87,7 +87,8 @@ export default {
               titre: event.data().Titre,
               display: event.data().Display,
               reservable: event.data().Reservable,
-              content: event.data().Content
+              content: event.data().Content,
+              description: event.data().Description
             };
             var storageRef = str.ref();
             var imagesRef = storageRef.child("/events");

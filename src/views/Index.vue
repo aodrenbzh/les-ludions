@@ -146,6 +146,9 @@
                     <div
                       class="md-layout-item md-layout md-alignment-top-right"
                     >
+                      <md-button class="md-success md-round" href="#/blog"
+                        ><md-icon>lightbulb</md-icon>Informations</md-button
+                      >
                       <md-button
                         class="md-primary md-round"
                         @click="reservation = 'vendredi'"
@@ -165,6 +168,9 @@
                     <div
                       class="md-layout-item md-layout md-alignment-top-right"
                     >
+                      <md-button class="md-info md-round" href="#/blog"
+                        >Informations</md-button
+                      >
                       <md-button
                         class="md-primary md-round"
                         @click="reservation = 'samedi'"
@@ -382,14 +388,26 @@
         </ShareNetwork>
       </div>
     </div>
-    <md-snackbar md-position="left" :md-active.sync="showSnackbar" md-persistent>
+    <md-snackbar
+      md-position="left"
+      :md-active.sync="showSnackbar"
+      md-persistent
+    >
       <span>Votre message a bien été envoyé.</span>
-      <md-button class="md-simple" @click="showSnackbar = false">Fermer</md-button>
+      <md-button class="md-simple" @click="showSnackbar = false"
+        >Fermer</md-button
+      >
     </md-snackbar>
 
-    <md-snackbar md-position="left" :md-active.sync="showSnackbarReservation" md-persistent>
+    <md-snackbar
+      md-position="left"
+      :md-active.sync="showSnackbarReservation"
+      md-persistent
+    >
       <span>Votre réservation a bien été prise en compte.</span>
-      <md-button class="md-simple" @click="showSnackbarReservation = false">Fermer</md-button>
+      <md-button class="md-simple" @click="showSnackbarReservation = false"
+        >Fermer</md-button
+      >
     </md-snackbar>
   </div>
 </template>
@@ -558,7 +576,7 @@ export default {
       this.clearFormReservation();
     },
     goToArtiste(art) {
-      this.$router.push({ name: "artistes", hash: '#' + art.artiste });
+      this.$router.push({ name: "artistes", hash: "#" + art.artiste });
     },
     clearForm() {
       this.$v.pigeon.$reset();
@@ -639,9 +657,12 @@ export default {
       if (!this.$route.hash) return true;
       let element_id = document.getElementById(this.$route.hash.substring(1));
       if (element_id) {
-        window.scrollTo({top: element_id.getBoundingClientRect().top - 70 , behavior: 'smooth'});
+        window.scrollTo({
+          top: element_id.getBoundingClientRect().top - 70,
+          behavior: "smooth",
+        });
       }
-    }
+    },
   },
   async created() {
     this.labels = await api.methods.getLabels();
@@ -653,7 +674,7 @@ export default {
   },
   mounted() {
     setTimeout(() => this.scrollToElement(), 100);
-  }
+  },
 };
 </script>
 

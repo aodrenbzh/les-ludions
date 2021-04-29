@@ -5,7 +5,7 @@
         <div class="md-layout-item">
           <div class="image-wrapper">
             <div class="brand">
-              <h1>Blog</h1>
+              <h1>Nos Ateliers</h1>
             </div>
           </div>
         </div>

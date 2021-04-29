@@ -41,8 +41,8 @@ export default new Router({
       }
     },
     {
-      path: "/blog",
-      name: "blog",
+      path: "/ateliers",
+      name: "ateliers",
       components: { default: Blog, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },

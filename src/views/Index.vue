@@ -146,7 +146,7 @@
                     <div
                       class="md-layout-item md-layout md-alignment-top-right"
                     >
-                      <md-button class="md-success md-round" href="#/blog"
+                      <md-button class="md-success md-round" href="#/ateliers"
                         ><md-icon>lightbulb</md-icon>Informations</md-button
                       >
                       <md-button

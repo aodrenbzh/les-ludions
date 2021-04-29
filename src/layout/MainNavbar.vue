@@ -47,9 +47,9 @@
                 <p>Nos Artistes</p>
               </md-list-item>
 
-              <md-list-item href="#/blog" v-if="!isBlog">
+              <md-list-item href="#/ateliers" v-if="!isBlog">
                 <i class="material-icons">art_track</i>
-                <p>Blog</p>
+                <p>Nos Ateliers</p>
               </md-list-item>
 
               <li class="md-list-item" v-if="isArtistes">
@@ -195,7 +195,7 @@ export default {
       return excludedRoutes.some((r) => r === this.$route.name);
     },
     isBlog() {
-      const excludedRoutes = ["blog"];
+      const excludedRoutes = ["ateliers"];
       return excludedRoutes.some((r) => r === this.$route.name);
     }
   },

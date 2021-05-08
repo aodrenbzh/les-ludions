@@ -4,7 +4,7 @@
       <div class="brand">
         <h1>Festival des Ludions</h1>
         <h3>9 maisons, 20 artistes, déambulations théatrales</h3>
-        <h3>14 - 16 Mai 2021</h3>
+        <h3>18 - 19 Septembre 2021</h3>
       </div>
     </parallax>
     <div class="section section-artistes">

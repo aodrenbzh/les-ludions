@@ -8,7 +8,7 @@
             class="cont-titre md-layout-item md-size-50 md-small-size-70 md-xsmall-size-100"
           >
             <h1 class="title">Festival des Ludions</h1>
-            <h3 class="titre">14 - 16 Mai 2021</h3>
+            <h3 class="titre">18 - 19 Septembre 2021</h3>
             <h4>9 maisons, 20 artistes, déambulations théatrales</h4>
             <br />
           </div>
@@ -136,7 +136,7 @@
           <nav-tabs-card no-label tabs-plain>
             <template slot="content">
               <md-tabs class="md-info" md-alignment="left">
-                <md-tab id="tab-friday" md-label="Vendredi 14 Mai">
+                <!-- <md-tab id="tab-friday" md-label="Vendredi 14 Mai">
                   <div class="md-layout container">
                     <p
                       class="md-layout-item md-alignment-top-center"
@@ -156,9 +156,9 @@
                       >
                     </div>
                   </div>
-                </md-tab>
+                </md-tab> -->
 
-                <md-tab id="tab-samedi" md-label="Samedi 15 Mai">
+                <md-tab id="tab-samedi" md-label="Samedi 18 Septembre">
                   <div class="md-layout container">
                     <p
                       class="md-layout-item md-alignment-top-center"
@@ -180,7 +180,7 @@
                   </div>
                 </md-tab>
 
-                <md-tab id="tab-dimanche" md-label="Dimanche 16 Mai">
+                <md-tab id="tab-dimanche" md-label="Dimanche 19 Septembre">
                   <p
                     v-if="labels.planning_dimanche"
                     v-html="labels.planning_dimanche"
@@ -471,7 +471,7 @@ export default {
         url: "https://les-ludions.netlify.app/#/programme",
         title:
           "Un festival en Normandie, 9 maisons, 20 artistes, déambulations théatrales",
-        description: `Le festival des Ludions du <b>14-16 mai</b> à Carolles une belle
+        description: `Le festival des Ludions du <b>18 - 19 Septembre</b> à Carolles une belle
                 opportunité pour une ballade sur les falaises et les
                 retrouvailles avec les artistes. Il y aura 20 artistes dans 9
                 maisons avec des déambulations théâtrales et des spectacles.

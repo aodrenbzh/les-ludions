@@ -5,6 +5,8 @@ import Artistes from "./views/Artistes.vue";
 import Components from "./views/Components.vue";
 import Profile from "./views/Profile.vue";
 import Blog from "./views/Blog.vue";
+import Article from "./views/Article.vue";
+import Ateliers from "./views/Ateliers.vue";
 import Login from "./views/Login.vue";
 import MainNavbar from "./layout/MainNavbar.vue";
 import MainFooter from "./layout/MainFooter.vue";
@@ -43,7 +45,25 @@ export default new Router({
     {
       path: "/ateliers",
       name: "ateliers",
+      components: { default: Ateliers, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: "black" }
+      }
+    },
+    {
+      path: "/blog",
+      name: "blog",
       components: { default: Blog, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: "black" }
+      }
+    },
+    {
+      path: "/blog/:id",
+      name: "article",
+      components: { default: Article, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: "black" }

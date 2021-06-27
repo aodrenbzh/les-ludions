@@ -14,7 +14,12 @@ export default {
         isLoading: false
       },
       defaultData: null,
-      search: ""
+      search: "",
+      blogs: {
+        value: [],
+        isLoading: false
+      },
+      article: null
     };
   },
   mounted() {
@@ -23,6 +28,10 @@ export default {
     this.defaultData = null;
     this.search = "";
     this.artistes = {
+      value: [],
+      isLoading: false
+    };
+    this.blogs = {
       value: [],
       isLoading: false
     };
@@ -293,6 +302,125 @@ export default {
       return await db.collection("Reservations").doc(jour).collection('Spectacles').doc(demande.Spectacle).collection('Demandes').add(demande);
     },
 
+    async getBlogs() {
+      var that = this;
+      if (!this.blogs || (this.blogs && !this.blogs.isLoading)) {
+        this.blogs = {
+          value: [],
+          isLoading: true
+        };
+        let allBlogs = [];
+        let blogs = await db.collection("Blog").get();
+        blogs.forEach(
+          async blog => {
+            let dataBlog = blog.data();
+            let tempBlog = {
+              id: blog.id,
+              titre: dataBlog.Titre,
+              description: dataBlog.Description,
+              blocs: []
+            };
+
+            let imageBlogRef =  await str.ref().child("blogs/" + blog.id).listAll();
+            imageBlogRef.items.forEach(
+              async i => {
+                if (i.name == "resized_" + dataBlog.Image) {
+                  let url = await str.ref().child(i.fullPath).getDownloadURL();
+                  tempBlog.image = {
+                    name: i.name,
+                    src: url
+                  };
+                }
+              }
+            );
+
+            let blocs = await db.collection("Blog").doc(blog.id).collection("Paragraphes").get();
+            blocs.forEach(
+              async bloc => {
+                let dataBloc = bloc.data();
+                var tempBloc = {
+                  texte: dataBloc.Texte
+                };
+                imageBlogRef.items.forEach(
+                  async i => {
+                    if (i.name == "resized_" + dataBloc.Image) {
+                      let url = await str.ref().child(i.fullPath).getDownloadURL();
+                      tempBloc.image = {
+                        name: i.name,
+                        src: url
+                      };
+                    }
+                  }
+                );
+                tempBlog.blocs.push(tempBloc);
+              }
+            );
+
+            allBlogs.push(tempBlog);
+          }
+        );
+        that.blogs.value = allBlogs;
+      }
+      return Promise.resolve(this.blogs.value);
+    },
+    async getArticle(id) {
+      var that = this;
+      if (!this.article || !this.article.isLoading || (this.article.value.id != id)) {
+        this.article = {
+          value: {},
+          isLoading: true
+        };
+        let art = await db.collection("Blog").doc(id).get();
+
+        let dataArtice = art.data();
+            let tempArt = {
+              id: art.id,
+              titre: dataArtice.Titre,
+              description: dataArtice.Description,
+              blocs: []
+            };
+
+            let imageBlogRef =  await str.ref().child("blogs/" + art.id).listAll();
+            imageBlogRef.items.forEach(
+              async i => {
+                if (i.name == "resized_" + dataArtice.Image) {
+                  let url = await str.ref().child(i.fullPath).getDownloadURL();
+                  tempArt.image = {
+                    name: i.name,
+                    src: url
+                  };
+                }
+              }
+            );
+
+            let blocs = await db.collection("Blog").doc(art.id).collection("Paragraphes").get();
+            blocs.forEach(
+              async bloc => {
+                let dataBloc = bloc.data();
+                var tempBloc = {
+                  texte: dataBloc.Texte,
+                  ordre: dataBloc.Ordre
+                };
+                imageBlogRef.items.forEach(
+                  async i => {
+                    if (i.name == "resized_" + dataBloc.Image) {
+                      let url = await str.ref().child(i.fullPath).getDownloadURL();
+                      tempBloc.image = {
+                        name: i.name,
+                        src: url
+                      };
+                    }
+                  }
+                );
+                tempArt.blocs.push(tempBloc);
+              }
+            );
+
+        tempArt.blocs = tempArt.blocs.sort((a,b) => (a.ordre > b.ordre) ? 1 : ((b.ordre > a.ordre) ? -1 : 0));
+        that.article.value = tempArt;
+      }
+      return Promise.resolve(this.article.value);
+    },
     // async getLivreDOr(id) {
     //   if (this.artistes.value.find(a => a.id == id).livreDOr) return Promise.resolve(this.artistes.value.find(a => a.id == id).livreDOr);
     //   var result = [];

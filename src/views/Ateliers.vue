@@ -5,7 +5,7 @@
         <div class="md-layout-item">
           <div class="image-wrapper">
             <div class="brand">
-              <h1>Blog</h1>
+              <h1>Nos Ateliers</h1>
             </div>
           </div>
         </div>
@@ -14,12 +14,27 @@
     <div class="main main-raised">
       <div class="section profile-content">
         <div class="container">
+          <h2>Au programme</h2>
           <div
-            v-if="blogs.length > 0"
+            v-if="events.length > 0"
             class="md-layout md-alignment-top-center events"
           >
-            <template v-for="(blog, index) in blogs">
-              <md-card :key="blog.id" class="event md-card-plain" :style="{backgroundImage: 'url(' + blog.image + ') !important'}">
+            <template v-for="(evt, index) in events">
+              <!-- <div
+                v-if="evt.display"
+                :key="evt.id"
+                :class="'event md-layout ' + (index == 0 ? '' : 'inverse')"
+              >
+                <div class="md-layout-item md-size-50">
+                  <h3>{{ evt.titre }}</h3>
+                  <p>lol de lol</p>
+                </div>
+                <img
+                  class="rounded md-layout-item md-size-50"
+                  :src="evt.image.src"
+                />
+              </div> -->
+              <md-card :key="evt.id" class="event md-card-plain">
                 <md-card-content>
                   <div
                     :class="
@@ -28,20 +43,29 @@
                       ' md-alignment-top-space-around'
                     "
                   >
-                    <!-- <md-card-media
+                    <md-card-media
                       class="md-layout-item md-size-45 md-xsmall-size-100"
                     >
-                      <img class="rounded" :src="blog.image.src" v-if="blog.image" />
-                    </md-card-media> -->
+                      <img class="rounded" :src="evt.image.src" />
+                    </md-card-media>
                     <div
                       class="md-layout-item md-size-45 md-xsmall-size-100 info-event md-layout md-alignment-top-space-between"
                     >
                       <h3 class="md-layout-item md-size-100">
-                        <a :href="`#/blog/${blog.id}/`">{{ blog.titre }}</a>
+                        {{ evt.titre }}
                       </h3>
-                      <p class="md-layout-item md-size-100" v-html="blog.description"></p>
+                      <p class="md-layout-item md-size-100" v-html="evt.description"></p>
+                      <div class="md-layout-item md-size-100 md-layout inverse">
+                        <md-button
+                          v-if="evt.reservable"
+                          class="md-primary md-round"
+                          @click="onClickReservation(evt.id)"
+                          ><md-icon>library_books</md-icon>Réservez</md-button
+                        >
+                      </div>
                     </div>
-                  </div> 
+                    <div class="md-layout-item md-size-100 content" v-html="evt.content"></div>
+                  </div>
                 </md-card-content>
               </md-card>
             </template>
@@ -59,7 +83,8 @@ export default {
   bodyClass: "blog-page",
   data() {
     return {
-      blogs: [],
+      reservations: null,
+      events: [],
     };
   },
   props: {
@@ -73,10 +98,18 @@ export default {
       return {
         backgroundImage: `url(${this.header})`,
       };
-    }
+    },
+    spectacles() {
+      let spectacles = [];
+      for (const day in this.reservations) {
+        spectacles = spectacles.concat(this.reservations[day].spectacles);
+      }
+      return spectacles;
+    },
   },
   async created() {
-    this.blogs = await api.methods.getBlogs();
+    this.reservations = await api.methods.getReservations();
+    this.events = await api.methods.getEvents();
   },
   methods: {
     onClickReservation(id) {

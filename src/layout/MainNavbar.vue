@@ -39,17 +39,22 @@
 
               <md-list-item href="#/programme" v-if="!isprogramme">
                 <i class="material-icons">history_edu</i>
-                <p>Demandez le programme !</p>
+                <p>Programme</p>
+              </md-list-item>
+
+              <md-list-item href="#/blog" v-if="!isBlog">
+                <i class="material-icons">art_track</i>
+                <p>Blog</p>
+              </md-list-item>
+
+              <md-list-item href="#/ateliers" v-if="!isAteliers">
+                <i class="material-icons">art_track</i>
+                <p>Ateliers</p>
               </md-list-item>
 
               <md-list-item href="#/artistes" v-if="!isArtistes">
                 <i class="material-icons">view_carousel</i>
-                <p>Nos Artistes</p>
-              </md-list-item>
-
-              <md-list-item href="#/ateliers" v-if="!isBlog">
-                <i class="material-icons">art_track</i>
-                <p>Nos Ateliers</p>
+                <p>Artistes</p>
               </md-list-item>
 
               <li class="md-list-item" v-if="isArtistes">
@@ -95,11 +100,12 @@
 
               <md-list-item
                 href="javascript:void(0)"
-                @click="scrollToElement('boucheAOreille')"
-                v-if="isprogramme"
+                @click="goToBoucheAOreille()"
+                
               >
                 <i class="material-icons">share</i>
-                <p>Bouche-à-oreille</p>
+                <!-- <p>Bouche-à-oreille</p> -->
+                <md-tooltip md-direction="bottom">Bouche-à-oreille</md-tooltip>
               </md-list-item>
 
               <md-list-item
@@ -195,6 +201,10 @@ export default {
       return excludedRoutes.some((r) => r === this.$route.name);
     },
     isBlog() {
+      const excludedRoutes = ["blog"];
+      return excludedRoutes.some((r) => r === this.$route.name);
+    },
+    isAteliers() {
       const excludedRoutes = ["ateliers"];
       return excludedRoutes.some((r) => r === this.$route.name);
     }
@@ -244,6 +254,12 @@ export default {
           navbarColor.classList.add("md-transparent");
         }
       }
+    },
+    goToBoucheAOreille() {
+      var that = this;
+      if (this.$route.name !== "index")
+        this.$router.push({ name: "index" });
+      setTimeout(() => that.scrollToElement('boucheAOreille'), 100);
     },
     scrollListener() {
       resizeThrottler(this.handleScroll);

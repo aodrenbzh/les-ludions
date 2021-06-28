@@ -8,8 +8,8 @@
             class="cont-titre md-layout-item md-size-50 md-small-size-70 md-xsmall-size-100"
           >
             <h1 class="title">Festival des Ludions</h1>
-            <h3 class="titre">18 - 19 Septembre 2021</h3>
-            <h4>9 maisons, 20 artistes, déambulations théatrales</h4>
+            <h3 class="titre subtitle">18 - 19 Septembre 2021</h3>
+            <h4 class="subtitle">9 maisons, 20 artistes, déambulations théatrales</h4>
             <br />
           </div>
         </div>
@@ -715,6 +715,9 @@ export default {
   margin: 10px auto 0;
   line-height: 0.9em;
   font-weight: 400;
+}
+.subtitle {
+      color: #FFFFFF;
 }
 .cont-titre {
   padding-bottom: 100px;

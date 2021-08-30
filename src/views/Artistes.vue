@@ -3,7 +3,7 @@
     <parallax class="page-header header-filter" :style="headerStyle">
       <div class="brand">
         <h1>Festival des Ludions</h1>
-        <h3>9 maisons, 20 artistes, déambulations théatrales</h3>
+        <h3>7 maisons, 16 artistes, déambulations théatrales</h3>
         <h3>18 - 19 Septembre 2021</h3>
       </div>
     </parallax>

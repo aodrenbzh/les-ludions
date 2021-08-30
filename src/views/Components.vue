@@ -10,7 +10,7 @@
             <img :src="leaf1" alt="leaf1" class="leaf1" v-show="leafShow" /> -->
             <div class="brand">
               <h1>Festival des Ludions</h1>
-              <h3>9 maisons, 20 artistes, déambulations théatrales</h3>
+              <h3>7 maisons, 16 artistes, déambulations théatrales</h3>
             </div>
           </div>
         </div>

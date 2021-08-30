@@ -9,7 +9,7 @@
           >
             <h1 class="title">Festival des Ludions</h1>
             <h3 class="titre subtitle">18 - 19 Septembre 2021</h3>
-            <h4 class="subtitle">9 maisons, 20 artistes, déambulations théatrales</h4>
+            <h4 class="subtitle">7 maisons, 16 artistes, déambulations théatrales</h4>
             <br />
           </div>
         </div>
@@ -470,14 +470,14 @@ export default {
       sharing: {
         url: "https://les-ludions.netlify.app/#/programme",
         title:
-          "Un festival en Normandie, 9 maisons, 20 artistes, déambulations théatrales",
+          "Un festival en Normandie, 7 maisons, 16 artistes, déambulations théatrales",
         description: `Le festival des Ludions du <b>18 - 19 Septembre</b> à Carolles une belle
                 opportunité pour une ballade sur les falaises et les
-                retrouvailles avec les artistes. Il y aura 20 artistes dans 9
+                retrouvailles avec les artistes. Il y aura 16 artistes dans 9
                 maisons avec des déambulations théâtrales et des spectacles.
                 Peinture, sculpture, mobile métal, céramique.`,
         quote:
-          "Un festival en Normandie, 9 maisons, 20 artistes, déambulations théatrales",
+          "Un festival en Normandie, 7 maisons, 16 artistes, déambulations théatrales",
         hashtags: "ludions,normandie,culture",
       },
       networks: [

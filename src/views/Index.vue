@@ -181,16 +181,25 @@
                 </md-tab>
 
                 <md-tab id="tab-dimanche" md-label="Dimanche 19 Septembre">
-                  <p
-                    v-if="labels.planning_dimanche"
-                    v-html="labels.planning_dimanche"
-                  >
-                  <md-button
+                  <div class="md-layout container">
+                    <p
+                      class="md-layout-item md-alignment-top-center"
+                      v-if="labels.planning_dimanche"
+                      v-html="labels.planning_dimanche"
+                    ></p>
+                    <div
+                      class="md-layout-item md-layout md-alignment-top-right"
+                    >
+                      <!-- <md-button class="md-info md-round" href="#/blog"
+                        >Informations</md-button
+                      > -->
+                      <md-button
                         class="md-primary md-round"
                         @click="reservation = 'dimanche'"
                         >Réservez</md-button
                       >
-                  </p>
+                    </div>
+                  </div>
                 </md-tab>
               </md-tabs>
             </template>

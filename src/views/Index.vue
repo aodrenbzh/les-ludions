@@ -168,9 +168,9 @@
                     <div
                       class="md-layout-item md-layout md-alignment-top-right"
                     >
-                      <md-button class="md-info md-round" href="#/blog"
+                      <!-- <md-button class="md-info md-round" href="#/blog"
                         >Informations</md-button
-                      >
+                      > -->
                       <md-button
                         class="md-primary md-round"
                         @click="reservation = 'samedi'"
@@ -184,7 +184,13 @@
                   <p
                     v-if="labels.planning_dimanche"
                     v-html="labels.planning_dimanche"
-                  ></p>
+                  >
+                  <md-button
+                        class="md-primary md-round"
+                        @click="reservation = 'dimanche'"
+                        >Réservez</md-button
+                      >
+                  </p>
                 </md-tab>
               </md-tabs>
             </template>

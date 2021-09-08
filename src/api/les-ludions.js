@@ -284,7 +284,7 @@ export default {
       };
       return await db.collection("Pigeons").add(input);
     },
-    async addDemande(demande, jour) {
+    async addDemande(demande, jour, label) {
       var input = {
         ...demande,
         jour: jour,
@@ -295,7 +295,7 @@ export default {
           html: `<p><strong>Mail </strong>: ` + demande.Email + `</p>
           <p><strong>Auteur </strong>: `+ demande.Prenom + ' ' + demande.Nom + `</p>
           <p><strong>Téléphone </strong>: `+ demande.Phone + `</p>
-          <p><strong>Spectacle </strong>: `+ demande.Places + ' places pour ' + demande.Spectacle + ' le ' + jour + `</p>`,
+          <p><strong>Spectacle </strong>: `+ demande.Places + ' places pour ' + label + ' le ' + jour + `</p>`,
         }
       };
       await db.collection("Pigeons").add(input);

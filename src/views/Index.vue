@@ -637,7 +637,8 @@ export default {
       let input = {
         ...this.demande,
       };
-      api.methods.addDemande(input, this.reservation).then((a) => {
+      let label = this.reservations[this.reservation].spectacles.find(s => s.id == input.Spectacle).label;
+      api.methods.addDemande(input, this.reservation, label).then((a) => {
         this.clearFormReservation();
         this.reservationSending = false;
         this.reservation = "";

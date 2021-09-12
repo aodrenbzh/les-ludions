@@ -575,7 +575,6 @@ export default {
       };
     },
     galerieComputed() {
-      console.log('test')
       const reducer = (accumulator, currentValue) => {
         
         return currentValue.galerie.length == 0 ? accumulator : accumulator.concat(

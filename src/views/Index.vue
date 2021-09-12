@@ -575,12 +575,16 @@ export default {
       };
     },
     galerieComputed() {
-      const reducer = (accumulator, currentValue) =>
-        accumulator.concat(
+      console.log('test')
+      const reducer = (accumulator, currentValue) => {
+        
+        return currentValue.galerie.length == 0 ? accumulator : accumulator.concat(
           currentValue.galerie
             .filter((a) => !a.name.includes("thumb_profile"))
+            .slice(0, 1)
             .map((a) => ({ ...a, artiste: currentValue.id }))
-        );
+        )
+      };
       const galRed = this.artistes.reduce(reducer, []);
       return this.shuffle(galRed);
     },

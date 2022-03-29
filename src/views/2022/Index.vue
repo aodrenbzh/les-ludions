@@ -8,8 +8,12 @@
             class="cont-titre md-layout-item md-size-50 md-small-size-70 md-xsmall-size-100"
           >
             <h1 class="title">Festival des Ludions</h1>
-            <h3 class="titre subtitle">18 - 19 Septembre 2021</h3>
-            <h4 class="subtitle">7 maisons, 16 artistes, déambulations théatrales</h4>
+            <h3 class="titre subtitle"
+              v-if="labels.main_date"
+              v-html="labels.main_date"></h3>
+            <h4 class="subtitle"
+              v-if="labels.main_soustitre"
+              v-html="labels.main_soustitre"></h4>
             <br />
           </div>
         </div>
@@ -131,7 +135,7 @@
         </div>
       </div>
 
-      <div class="section section-planning" id="reservation">
+      <div class="section section-planning" id="reservation" v-if="false">
         <div class="container">
           <nav-tabs-card no-label tabs-plain>
             <template slot="content">
@@ -296,7 +300,7 @@
                   <div class="icon icon-info">
                     <md-icon>anchor</md-icon>
                   </div>
-                  <h4 class="info-title">Ancrer la culture à Carolles</h4>
+                  <h4 class="info-title" v-if="labels.titre_culture" v-html="labels.titre_culture"></h4>
                   <p
                     v-if="labels.speech_culture"
                     v-html="labels.speech_culture"
@@ -308,7 +312,7 @@
                   <div class="icon icon-success">
                     <md-icon>all_inclusive</md-icon>
                   </div>
-                  <h4 class="info-title">Partager les créations</h4>
+                  <h4 class="info-title" v-if="labels.titre_partage" v-html="labels.titre_partage"></h4>
                   <p
                     v-if="labels.speech_partage"
                     v-html="labels.speech_partage"
@@ -320,10 +324,10 @@
                   <div class="icon icon-primary">
                     <md-icon>tag_faces</md-icon>
                   </div>
-                  <h4 class="info-title">Déconfiner les esprits</h4>
+                  <h4 class="info-title" v-if="labels.titre_pple" v-html="labels.titre_pple"></h4>
                   <p
-                    v-if="labels.speech_covid"
-                    v-html="labels.speech_covid"
+                    v-if="labels.speech_pple"
+                    v-html="labels.speech_pple"
                   ></p>
                 </div>
               </div>
@@ -428,7 +432,7 @@
 </template>
 
 <script>
-import api from "../api/les-ludions";
+import api from "../../api/2022/les-ludions";
 import { Badge, NavTabsCard, Modal } from "@/components";
 import { validationMixin } from "vuelidate";
 import {

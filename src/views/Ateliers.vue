@@ -34,7 +34,7 @@
                   :src="evt.image.src"
                 />
               </div> -->
-              <md-card :key="evt.id" class="event md-card-plain">
+              <md-card :key="evt.id" class="event md-card-plain" v-if="evt.display">
                 <md-card-content>
                   <div
                     :class="

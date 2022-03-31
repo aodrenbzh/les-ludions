@@ -285,7 +285,7 @@ export default {
     goToBoucheAOreille() {
       var that = this;
       if (this.$route.name !== "index")
-        this.$router.push({ name: "index" });
+        this.$router.push({ name: "index2022" });
       setTimeout(() => that.scrollToElement('boucheAOreille'), 100);
     },
     scrollListener() {

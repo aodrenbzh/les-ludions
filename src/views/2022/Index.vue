@@ -135,12 +135,12 @@
         </div>
       </div>
 
-      <div class="section section-planning" id="reservation" v-if="false">
+      <div class="section section-planning" id="reservation">
         <div class="container">
           <nav-tabs-card no-label tabs-plain>
             <template slot="content">
               <md-tabs class="md-info" md-alignment="left">
-                <!-- <md-tab id="tab-friday" md-label="Vendredi 14 Mai">
+                <md-tab id="tab-friday" md-label="Vendredi 27 Mai">
                   <div class="md-layout container">
                     <p
                       class="md-layout-item md-alignment-top-center"
@@ -150,7 +150,7 @@
                     <div
                       class="md-layout-item md-layout md-alignment-top-right"
                     >
-                      <md-button class="md-success md-round" href="#/2021/ateliers"
+                      <md-button class="md-success md-round" href="#/ateliers"
                         ><md-icon>lightbulb</md-icon>Informations</md-button
                       >
                       <md-button
@@ -160,9 +160,9 @@
                       >
                     </div>
                   </div>
-                </md-tab> -->
+                </md-tab>
 
-                <md-tab id="tab-samedi" md-label="Samedi 18 Septembre">
+                <md-tab id="tab-samedi" md-label="Samedi 28 Mai">
                   <div class="md-layout container">
                     <p
                       class="md-layout-item md-alignment-top-center"
@@ -184,7 +184,7 @@
                   </div>
                 </md-tab>
 
-                <md-tab id="tab-dimanche" md-label="Dimanche 19 Septembre">
+                <md-tab id="tab-dimanche" md-label="Dimanche 29 Mai">
                   <div class="md-layout container">
                     <p
                       class="md-layout-item md-alignment-top-center"
@@ -595,7 +595,7 @@ export default {
       this.clearFormReservation();
     },
     goToArtiste(art) {
-      this.$router.push({ name: "artistes", hash: "#" + art.artiste });
+      this.$router.push({ name: "artistes2022", hash: "#" + art.artiste });
     },
     clearForm() {
       this.$v.pigeon.$reset();

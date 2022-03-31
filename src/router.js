@@ -27,134 +27,133 @@ import MainFooter2022 from "./layout/2022/MainFooter.vue";
 Vue.use(Router);
 
 export default new Router({
-  routes: [
-    {
-      path: "/",
-      name: "main",
-      components: { default: Main, header: MainNavbar2022, footer: MainFooter2022},
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
-    },
-    {
-      path: "/programme",
-      name: "index2022",
-      components: { default: Index2022, header: MainNavbar2022, footer: MainFooter2022 },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
-    },
-    {
-      path: "/artistes",
-      name: "artistes2022",
-      components: { default: Artistes2022, header: MainNavbar2022, footer: MainFooter2022 },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
-    },
-    {
-      path: "/ateliers",
-      name: "ateliers2022",
-      components: { default: Ateliers2022, header: MainNavbar2022, footer: MainFooter2022 },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
-    },
-    {
-      path: "/blog",
-      name: "blog2022",
-      components: { default: Blog2022, header: MainNavbar2022, footer: MainFooter2022 },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
-    },
-    {
-      path: "/blog/:id",
-      name: "article2022",
-      components: { default: Article2022, header: MainNavbar2022, footer: MainFooter2022 },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
-    },
-    {
-      path: "/:annee/programme",
-      name: "index",
-      components: { default: Index, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
-    },
-    {
-      path: "/:annee/artistes",
-      name: "artistes",
-      components: { default: Artistes, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
-    },
-    {
-      path: "/:annee/ateliers",
-      name: "ateliers",
-      components: { default: Ateliers, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
-    },
-    {
-      path: "/:annee/blog",
-      name: "blog",
-      components: { default: Blog, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
-    },
-    {
-      path: "/:annee/blog/:id",
-      name: "article",
-      components: { default: Article, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
-    },
-    {
-      path: "/test",
-      name: "test",
-      components: { default: Components, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
-    },
-    {
-      path: "/login",
-      name: "login",
-      components: { default: Login, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 }
-      }
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      components: { default: Profile, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" }
-      }
+    routes: [{
+            path: "/",
+            name: "main",
+            components: { default: Main, header: MainNavbar2022, footer: MainFooter2022 },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/programme",
+            name: "index2022",
+            components: { default: Index2022, header: MainNavbar2022, footer: MainFooter2022 },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/artistes",
+            name: "artistes2022",
+            components: { default: Artistes2022, header: MainNavbar2022, footer: MainFooter2022 },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/ateliers",
+            name: "ateliers2022",
+            components: { default: Ateliers2022, header: MainNavbar2022, footer: MainFooter2022 },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/blog",
+            name: "blog2022",
+            components: { default: Blog2022, header: MainNavbar2022, footer: MainFooter2022 },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/blog/:id",
+            name: "article2022",
+            components: { default: Article2022, header: MainNavbar2022, footer: MainFooter2022 },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/2021/programme",
+            name: "index",
+            components: { default: Index, header: MainNavbar, footer: MainFooter },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/2021/artistes",
+            name: "artistes",
+            components: { default: Artistes, header: MainNavbar, footer: MainFooter },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/2021/ateliers",
+            name: "ateliers",
+            components: { default: Ateliers, header: MainNavbar, footer: MainFooter },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/2021/blog",
+            name: "blog",
+            components: { default: Blog, header: MainNavbar, footer: MainFooter },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/2021/blog/:id",
+            name: "article",
+            components: { default: Article, header: MainNavbar, footer: MainFooter },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/test",
+            name: "test",
+            components: { default: Components, header: MainNavbar, footer: MainFooter },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/login",
+            name: "login",
+            components: { default: Login, header: MainNavbar, footer: MainFooter },
+            props: {
+                header: { colorOnScroll: 400 }
+            }
+        },
+        {
+            path: "/profile",
+            name: "profile",
+            components: { default: Profile, header: MainNavbar, footer: MainFooter },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        }
+    ],
+    scrollBehavior: to => {
+        return { x: 0, y: 0 };
     }
-  ],
-  scrollBehavior: to => {
-      return { x: 0, y: 0 };
-  }
 });

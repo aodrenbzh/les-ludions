@@ -363,10 +363,9 @@ export default {
   async created() {
     var that = this;
     api.methods.getImagesFromArtiste(this.donnee.id).then((a) => {
-      this.galerie = a;
+      that.galerie = a;
       setTimeout(() => {
-        // that.$refs.card.resizeObserver.disconnect(true);
-              this.loading = false;
+              that.loading = false;
         that.$refs.card?.calculateMarginTopImmediately();
       }, 3000);
     });

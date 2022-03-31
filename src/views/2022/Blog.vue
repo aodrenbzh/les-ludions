@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     onClickReservation(id) {
-      this.$router.push({ name: "index", hash: '#reservation' });
+      this.$router.push({ name: "index2022", hash: '#reservation' });
     },
   },
 };

@@ -181,7 +181,8 @@ export default {
                             Description: art.data().Description,
                             Bio: art.data().Bio,
                             Maison: art.data().Maison,
-                            Display: art.data().Display
+                            Display: art.data().Display,
+                            Categorie: art.data().Categorie
                         };
                         db.collection("2022Artistes").doc(art.id).collection('Socials').get().then(
                             socials => {

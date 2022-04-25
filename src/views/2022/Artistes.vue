@@ -9,7 +9,7 @@
     </parallax>
     <div class="section section-artistes">
       <div class="md-layout md-alignment-top-center md-gutter" v-if="artistes.length > 0">
-        <template v-for="artiste in data.artistes">
+        <template v-for="artiste in people">
           <artiste
             v-if="artiste.Display"
             class="md-layout-item md-size-40 md-medium-60 md-small-size-100 mx-auto artiste"
@@ -110,6 +110,14 @@ export default {
         backgroundImage: `url(${this.signup})`,
       };
     },
+    people() {
+      return this.data.artistes.filter(a => {
+        console.log(a.Categorie, a.Categorie === undefined);
+        return (
+          a.Categorie === undefined ? false : a.Categorie.indexOf(this.$route.name.slice(0, -4)) > -1
+        );
+      });
+    }
   },
   async mounted() {
     this.labels = await api.methods.getLabels();

@@ -52,12 +52,50 @@
                 <p>Ateliers</p>
               </md-list-item>
 
-              <md-list-item href="#/artistes" v-if="!isArtistes">
+              <!-- <md-list-item href="#/artistes" v-if="!isArtistes">
                 <i class="material-icons">view_carousel</i>
                 <p>Artistes</p>
-              </md-list-item>
-
-              <li class="md-list-item" v-if="isArtistes">
+              </md-list-item> -->
+              <li class="md-list-item">
+                <a
+                  href="javascript:void(0)"
+                  class="md-list-item-router md-list-item-container md-button-clean dropdown"
+                >
+                  <div class="md-list-item-content">
+                    <drop-down direction="down">
+                      <md-button
+                        slot="title"
+                        class="md-button md-button-link md-white md-simple dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        <i class="material-icons">view_carousel</i>
+                        <p>Qui voir ?</p>
+                      </md-button>
+                      <ul class="dropdown-menu dropdown-with-icons">
+                        <li>
+                          <a href="#/artistes">
+                            <i class="material-icons">brush</i>
+                            <p>Artistes</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#/auteurs">
+                            <i class="material-icons">history_edu</i>
+                            <p>Auteurs</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#/parrains">
+                            <i class="material-icons">hail</i>
+                            <p>Parrains</p>
+                          </a>
+                        </li>
+                      </ul>
+                    </drop-down>
+                  </div>
+                </a>
+              </li>
+              <!-- <li class="md-list-item" v-if="isArtistes">
                 <a
                   href="javascript:void(0)"
                   class="md-list-item-router md-list-item-container md-button-clean dropdown"
@@ -74,29 +112,26 @@
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
                         <template v-for="item in data.artistes">
-                        <li
-                          :key="'menu_' + item.id"
-                          v-if="item.Display"
-                        >
-                          <a
-                            href="javascript:void(0)"
-                            @click="scrollToElement(item.id)"
-                          >
-                            <i class="material-icons">{{
-                              iconArtiste(item)
-                            }}</i>
-                            <p>
-                              {{ item.Prenom }} {{ item.Nom }} |
-                              {{ item.Metier }}
-                            </p>
-                          </a>
-                        </li>
+                          <li :key="'menu_' + item.id" v-if="item.Display">
+                            <a
+                              href="javascript:void(0)"
+                              @click="scrollToElement(item.id)"
+                            >
+                              <i class="material-icons">{{
+                                iconArtiste(item)
+                              }}</i>
+                              <p>
+                                {{ item.Prenom }} {{ item.Nom }} |
+                                {{ item.Metier }}
+                              </p>
+                            </a>
+                          </li>
                         </template>
                       </ul>
                     </drop-down>
                   </div>
                 </a>
-              </li>
+              </li> -->
 
               <li class="md-list-item">
                 <a
@@ -114,10 +149,7 @@
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
                         <li>
-                          <a
-                            href="#/2021/programme"
-                          >Edition 2021
-                          </a>
+                          <a href="#/2021/programme">Edition 2021 </a>
                         </li>
                       </ul>
                     </drop-down>
@@ -128,7 +160,6 @@
               <md-list-item
                 href="javascript:void(0)"
                 @click="goToBoucheAOreille()"
-                
               >
                 <i class="material-icons">share</i>
                 <!-- <p>Bouche-à-oreille</p> -->
@@ -234,7 +265,7 @@ export default {
     isAteliers() {
       const excludedRoutes = ["ateliers2022"];
       return excludedRoutes.some((r) => r === this.$route.name);
-    }
+    },
   },
   methods: {
     iconArtiste(artiste) {
@@ -286,7 +317,7 @@ export default {
       var that = this;
       if (this.$route.name !== "index")
         this.$router.push({ name: "index2022" });
-      setTimeout(() => that.scrollToElement('boucheAOreille'), 100);
+      setTimeout(() => that.scrollToElement("boucheAOreille"), 100);
     },
     scrollListener() {
       resizeThrottler(this.handleScroll);

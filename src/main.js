@@ -17,56 +17,56 @@ import App from "./App.vue";
 import router from "./router";
 
 import MaterialKit from "./plugins/les-ludions";
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
-import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import moment from 'moment';
-import VueSocialSharing from 'vue-social-sharing';
-import Notifications from 'vue-notification';
-import velocity      from 'velocity-animate'
- 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import moment from "moment";
+import VueSocialSharing from "vue-social-sharing";
+import Notifications from "vue-notification";
+import velocity from "velocity-animate";
+
 Vue.use(Notifications, { velocity });
 Vue.use(VueSocialSharing);
 
 library.add([faUserSecret, faUserAlt]);
-Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 
 Vue.use(MaterialKit);
 
-Vue.filter('formatDate', function(value) {
-  if (value) {
-    return moment(String(value)).format('DD/MM/YYYY hh:mm')
-  }
+Vue.filter("formatDate", function(value) {
+    if (value) {
+        return moment(String(value)).format("DD/MM/YYYY hh:mm");
+    }
 });
 
 const NavbarStore = {
-  showNavbar: false
+    showNavbar: false
 };
 
 const Artistes = [];
 
 Vue.mixin({
-  data() {
-    return {
-      NavbarStore,
-      Artistes
-    };
-  },
-  methods: {
-    shuffle: function (a) {
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
+    data() {
+        return {
+            NavbarStore,
+            Artistes
+        };
+    },
+    methods: {
+        shuffle: function(a) {
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
     }
-  }
 });
 
 new Vue({
-  router,
-  render: h => h(App)
+    router,
+    render: h => h(App)
 }).$mount("#app");

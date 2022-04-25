@@ -112,7 +112,6 @@ export default {
     },
     people() {
       return this.data.artistes.filter(a => {
-        console.log(a.Categorie, a.Categorie === undefined);
         return (
           a.Categorie === undefined ? false : a.Categorie.indexOf(this.$route.name.slice(0, -4)) > -1
         );

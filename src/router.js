@@ -64,6 +64,15 @@ export default new Router({
             }
         },
         {
+            path: "/partenaires",
+            name: "partenaires2022",
+            components: { default: Artistes2022, header: MainNavbar2022, footer: MainFooter2022 },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
             path: "/auteurs",
             name: "auteurs2022",
             components: { default: Artistes2022, header: MainNavbar2022, footer: MainFooter2022 },

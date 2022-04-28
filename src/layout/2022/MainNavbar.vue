@@ -85,6 +85,12 @@
                           </a>
                         </li>
                         <li>
+                          <a href="#/partenaires">
+                            <i class="material-icons">handshake</i>
+                            <p>Partenaires</p>
+                          </a>
+                        </li>
+                        <li>
                           <a href="#/parrains">
                             <i class="material-icons">hail</i>
                             <p>Parrains</p>

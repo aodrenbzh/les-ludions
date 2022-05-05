@@ -154,9 +154,7 @@
           </template>
           <template slot="tab-pane-2">
             <div class="description text-center" v-if="donnee.Maison">
-              <p v-html="donnee.Maison">
-                {{ donnee.Maison }}
-              </p>
+              <p v-html="donnee.Maison"></p>
             </div>
             <div class="soon text-center" v-else>À venir</div>
           </template>
@@ -177,7 +175,9 @@
               >
               </Commentaire>
             </div>
-            <div class="soon text-center" v-else>Laissez ici vos impressions.</div>
+            <div class="soon text-center" v-else>
+              Laissez ici vos impressions.
+            </div>
 
             <md-divider class=""></md-divider>
 
@@ -185,7 +185,7 @@
               novalidate
               :class="
                 (showComment ? 'green-comment' : 'transp-comment') +
-                ' md-layout form-comment '
+                  ' md-layout form-comment '
               "
               @submit.prevent="validateComment"
             >
@@ -301,13 +301,15 @@ export default {
   },
   computed: {
     galerieHalf1() {
-      let filtered = this.galerie
-        .filter((a) => !a.name.includes("thumb_profile"));
+      let filtered = this.galerie.filter(
+        (a) => !a.name.includes("thumb_profile")
+      );
       return filtered.slice(0, filtered.length / 2);
     },
     galerieHalf2() {
-      let filtered = this.galerie
-        .filter((a) => !a.name.includes("thumb_profile"));
+      let filtered = this.galerie.filter(
+        (a) => !a.name.includes("thumb_profile")
+      );
       return filtered.slice(filtered.length / 2);
     },
     profileImage() {
@@ -323,8 +325,8 @@ export default {
     },
     orderedLivreDOR() {
       let temp = [...this.donnee.LivreDOR];
-      return temp.sort((a,b) => a.Date - b.Date);
-    }
+      return temp.sort((a, b) => a.Date - b.Date);
+    },
   },
   methods: {
     clearForm() {
@@ -341,7 +343,7 @@ export default {
         this.saveComment();
       }
     },
-    saveComment: function () {
+    saveComment: function() {
       this.commentSending = true;
       let input = {
         ...this.comment,
@@ -354,7 +356,7 @@ export default {
         this.showComment = false;
       }, 1500);
     },
-    openGallery: function (item) {
+    openGallery: function(item) {
       this.$refs.lightbox.showImage(
         this.media.findIndex((a) => a.name == item.name)
       );
@@ -365,7 +367,7 @@ export default {
     api.methods.getImagesFromArtiste(this.donnee.id).then((a) => {
       that.galerie = a;
       setTimeout(() => {
-              that.loading = false;
+        that.loading = false;
         that.$refs.card?.calculateMarginTopImmediately();
       }, 3000);
     });

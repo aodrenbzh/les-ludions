@@ -1,4 +1,3 @@
-
 <template>
   <div class="wrapper">
     <parallax class="section page-header header-filter" :style="headerStyle">
@@ -8,12 +7,16 @@
             class="cont-titre md-layout-item md-size-50 md-small-size-70 md-xsmall-size-100"
           >
             <h1 class="title">Festival des Ludions</h1>
-            <h3 class="titre subtitle"
+            <h3
+              class="titre subtitle"
               v-if="labels.main_date"
-              v-html="labels.main_date"></h3>
-            <h4 class="subtitle"
+              v-html="labels.main_date"
+            ></h3>
+            <h4
+              class="subtitle"
               v-if="labels.main_soustitre"
-              v-html="labels.main_soustitre"></h4>
+              v-html="labels.main_soustitre"
+            ></h4>
             <br />
           </div>
         </div>
@@ -242,13 +245,13 @@
         </div>
       </div>
 
-      <div class="section section-carou">
-        <div class="container container-carou" v-if="showCarou">
+      <div class="section section-carou" v-if="showCarou && lol">
+        <div class="container container-carou">
           <carousel
             :perPageCustom="[
               [300, 1],
               [768, 3],
-              [1024, 5],
+              [1024, 5]
             ]"
             loop
             :speed="700"
@@ -259,7 +262,7 @@
             :scroll-per-page="true"
             :center:mode="true"
             navigationEnabled
-            navigationNextLabel="<i class='material-icons'>keyboard_arrow_right</i>"
+            navigationNextLabel="<i class='material-icons brand-succes'>keyboard_arrow_right</i>"
             navigationPrevLabel="<i class='material-icons'>keyboard_arrow_left</i>"
             class="carousel"
           >
@@ -296,11 +299,15 @@
           <div class="features text-center">
             <div class="md-layout">
               <div class="md-layout-item md-medium-size-33 md-small-size-100">
-                <div class="info">
+                <div class="info" v-if="labels.speech_culture">
                   <div class="icon icon-info">
                     <md-icon>anchor</md-icon>
                   </div>
-                  <h4 class="info-title" v-if="labels.titre_culture" v-html="labels.titre_culture"></h4>
+                  <h4
+                    class="info-title"
+                    v-if="labels.titre_culture"
+                    v-html="labels.titre_culture"
+                  ></h4>
                   <p
                     v-if="labels.speech_culture"
                     v-html="labels.speech_culture"
@@ -308,11 +315,15 @@
                 </div>
               </div>
               <div class="md-layout-item md-medium-size-33 md-small-size-100">
-                <div class="info">
+                <div class="info" v-if="labels.speech_partage">
                   <div class="icon icon-success">
                     <md-icon>all_inclusive</md-icon>
                   </div>
-                  <h4 class="info-title" v-if="labels.titre_partage" v-html="labels.titre_partage"></h4>
+                  <h4
+                    class="info-title"
+                    v-if="labels.titre_partage"
+                    v-html="labels.titre_partage"
+                  ></h4>
                   <p
                     v-if="labels.speech_partage"
                     v-html="labels.speech_partage"
@@ -320,15 +331,16 @@
                 </div>
               </div>
               <div class="md-layout-item md-medium-size-33 md-small-size-100">
-                <div class="info">
+                <div class="info" v-if="labels.speech_pple">
                   <div class="icon icon-primary">
                     <md-icon>tag_faces</md-icon>
                   </div>
-                  <h4 class="info-title" v-if="labels.titre_pple" v-html="labels.titre_pple"></h4>
-                  <p
-                    v-if="labels.speech_pple"
-                    v-html="labels.speech_pple"
-                  ></p>
+                  <h4
+                    class="info-title"
+                    v-if="labels.titre_pple"
+                    v-html="labels.titre_pple"
+                  ></h4>
+                  <p v-if="labels.speech_pple" v-html="labels.speech_pple"></p>
                 </div>
               </div>
             </div>
@@ -439,34 +451,34 @@ import {
   required,
   email,
   minLength,
-  maxLength,
+  maxLength
 } from "vuelidate/lib/validators";
 
 export default {
   components: {
     Badge,
     NavTabsCard,
-    Modal,
+    Modal
   },
   bodyClass: "index-page",
   mixins: [validationMixin],
   props: {
     header: {
       type: String,
-      default: require("@/assets/img/mont.jpg"),
+      default: require("@/assets/img/mont.jpg")
     },
     logo: {
       type: String,
-      default: require("@/assets/img/logo.jpg"),
+      default: require("@/assets/img/logo.jpg")
     },
     teamImg2: {
       type: String,
-      default: require("@/assets/img/faces/christian.jpg"),
+      default: require("@/assets/img/faces/christian.jpg")
     },
     teamImg3: {
       type: String,
-      default: require("@/assets/img/faces/kendall.jpg"),
-    },
+      default: require("@/assets/img/faces/kendall.jpg")
+    }
   },
   data() {
     return {
@@ -480,10 +492,11 @@ export default {
       galerie: [],
       carousel1: require("@/assets/img/nature-2.jpg"),
       showCarou: false,
+      showedCarou: [],
       pigeon: {
         Auteur: "",
         Contenu: "",
-        Email: "",
+        Email: ""
       },
       pigeonSending: false,
       sharing: {
@@ -497,27 +510,27 @@ export default {
                 Peinture, sculpture, mobile métal, céramique.`,
         quote:
           "Un festival en Normandie, 7 maisons, 16 artistes, déambulations théatrales",
-        hashtags: "ludions,normandie,culture",
+        hashtags: "ludions,normandie,culture"
       },
       networks: [
         {
           network: "email",
           name: "Email",
           icon: "far fah fa-lg fa-envelope",
-          color: "#333333",
+          color: "#333333"
         },
         {
           network: "facebook",
           name: "Facebook",
           icon: "fab fah fa-lg fa-facebook-f",
-          color: "#1877f2",
+          color: "#1877f2"
         },
         {
           network: "twitter",
           name: "Twitter",
           icon: "fab fah fa-lg fa-twitter",
-          color: "#1da1f2",
-        },
+          color: "#1da1f2"
+        }
       ],
       reservations: [],
       reservation: "",
@@ -527,44 +540,44 @@ export default {
         Email: "",
         Phone: null,
         Places: null,
-        Spectacle: "",
+        Spectacle: ""
       },
-      reservationSending: false,
+      reservationSending: false
     };
   },
   validations: {
     pigeon: {
       Auteur: {
-        required,
+        required
       },
       Email: {
-        required,
+        required
       },
       Contenu: {
         required,
-        maxLength: maxLength(255),
-      },
+        maxLength: maxLength(255)
+      }
     },
     demande: {
       Prenom: {
-        required,
+        required
       },
       Nom: {
-        required,
+        required
       },
       Email: {
-        required,
+        required
       },
       Phone: {
-        required,
+        required
       },
       Places: {
-        required,
+        required
       },
       Spectacle: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   computed: {
     contactFormIsValid() {
@@ -575,19 +588,26 @@ export default {
     },
     headerStyle() {
       return {
-        backgroundImage: `url(${this.header})`,
+        backgroundImage: `url(${this.header})`
       };
     },
     galerieComputed() {
       const reducer = (accumulator, currentValue) =>
         accumulator.concat(
           currentValue.galerie
-            .filter((a) => !a.name.includes("thumb_profile"))
-            .map((a) => ({ ...a, artiste: currentValue.id }))
+            .filter(a => !a.name.includes("thumb_profile"))
+            .map(a => ({ ...a, artiste: currentValue.id }))
         );
-      const galRed = this.artistes.reduce(reducer, []);
+      const galRed = this.artistes
+        .filter(a => a.Categorie == "artistes")
+        .reduce(reducer, []);
       return this.shuffle(galRed);
     },
+    lol() {
+      return this.artistes
+        .filter(a => a.Categorie == "artistes")
+        .every(a => a.galerie.length > 0);
+    }
   },
   methods: {
     closeReservation() {
@@ -609,13 +629,13 @@ export default {
         this.sendPigeon();
       }
     },
-    sendPigeon: function () {
+    sendPigeon: function() {
       this.pigeonSending = true;
       let input = {
         ...this.pigeon,
-        Date: new Date(),
+        Date: new Date()
       };
-      api.methods.sendPigeon(input).then((a) => {
+      api.methods.sendPigeon(input).then(a => {
         this.clearForm();
         this.pigeonSending = false;
         this.showSnackbar = true;
@@ -636,20 +656,22 @@ export default {
         this.sendReservation();
       }
     },
-    sendReservation: function () {
+    sendReservation: function() {
       this.reservationSending = true;
       let input = {
-        ...this.demande,
+        ...this.demande
       };
-      let label = this.reservations[this.reservation].spectacles.find(s => s.id == input.Spectacle).label;
-      api.methods.addDemande(input, this.reservation, label).then((a) => {
+      let label = this.reservations[this.reservation].spectacles.find(
+        s => s.id == input.Spectacle
+      ).label;
+      api.methods.addDemande(input, this.reservation, label).then(a => {
         this.clearFormReservation();
         this.reservationSending = false;
         this.reservation = "";
         this.showSnackbarReservation = true;
       }, 1500);
     },
-    shuffle: function (at) {
+    shuffle: function(at) {
       var a = [...at];
       for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -661,17 +683,17 @@ export default {
       var img = this.$refs[ref];
     },
     isDisplayed(id) {
-      let a = this.artistes.find((a) => a.id == id);
+      let a = this.artistes.find(a => a.id == id);
       return a ? a.Display : false;
     },
     getArtiste(id) {
-      var typed = this.artistes.map((i) => ({
+      var typed = this.artistes.map(i => ({
         ...i,
         Type: ["rose", "default", "info", "success"][
           Math.floor(Math.random() * 4)
-        ],
+        ]
       }));
-      return typed.find((a) => a.id == id);
+      return typed.find(a => a.id == id);
     },
     scrollToElement() {
       if (!this.$route.hash) return true;
@@ -679,22 +701,21 @@ export default {
       if (element_id) {
         window.scrollTo({
           top: element_id.getBoundingClientRect().top - 70,
-          behavior: "smooth",
+          behavior: "smooth"
         });
       }
-    },
+    }
   },
   async created() {
-    this.labels = await api.methods.getLabels();
-    this.reservations = await api.methods.getReservations();
-    api.methods.getArtistes().then(async (a) => {
-      this.artistes = a;
-      this.showCarou = true;
-    });
+    let that = this;
+    that.labels = await api.methods.getLabels();
+    that.reservations = await api.methods.getReservations();
+    that.artistes = await api.methods.getArtistes();
+    that.showCarou = true;
   },
   mounted() {
     setTimeout(() => this.scrollToElement(), 100);
-  },
+  }
 };
 </script>
 
@@ -737,7 +758,7 @@ export default {
   font-weight: 400;
 }
 .subtitle {
-      color: #FFFFFF;
+  color: #ffffff;
 }
 .cont-titre {
   padding-bottom: 100px;

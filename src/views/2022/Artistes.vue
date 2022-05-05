@@ -8,7 +8,10 @@
       </div>
     </parallax>
     <div class="section section-artistes">
-      <div class="md-layout md-alignment-top-center md-gutter" v-if="artistes.length > 0">
+      <div
+        class="md-layout md-alignment-top-center md-gutter"
+        v-if="artistes.length > 0"
+      >
         <template v-for="artiste in people">
           <artiste
             v-if="artiste.Display"
@@ -30,7 +33,7 @@ import api from "../../api/2022/les-ludions";
 
 export default {
   components: {
-    Artiste,
+    Artiste
   },
   name: "index",
   bodyClass: "index-page",
@@ -38,36 +41,36 @@ export default {
     image: {
       type: String,
       //default: require("@/assets/img/vue-mk-header.jpg")
-      default: require("@/assets/img/lude2.jpg"),
+      default: require("@/assets/img/lude2.jpg")
     },
     leaf4: {
       type: String,
-      default: require("@/assets/img/leaf4.png"),
+      default: require("@/assets/img/leaf4.png")
     },
     leaf3: {
       type: String,
-      default: require("@/assets/img/leaf3.png"),
+      default: require("@/assets/img/leaf3.png")
     },
     leaf2: {
       type: String,
-      default: require("@/assets/img/leaf2.png"),
+      default: require("@/assets/img/leaf2.png")
     },
     leaf1: {
       type: String,
-      default: require("@/assets/img/leaf1.png"),
+      default: require("@/assets/img/leaf1.png")
     },
     signup: {
       type: String,
-      default: require("@/assets/img/city.jpg"),
+      default: require("@/assets/img/city.jpg")
     },
     artistes: {
       type: String,
-      default: require("@/assets/img/landing.jpg"),
+      default: require("@/assets/img/landing.jpg")
     },
     profile: {
       type: String,
-      default: require("@/assets/img/profile.jpg"),
-    },
+      default: require("@/assets/img/profile.jpg")
+    }
   },
   data() {
     return {
@@ -77,8 +80,8 @@ export default {
       password: null,
       leafShow: false,
       data: {
-        artistes: [],
-      },
+        artistes: []
+      }
     };
   },
   methods: {
@@ -94,27 +97,28 @@ export default {
       let element_id = document.getElementById(this.$route.hash.substring(1));
       if (element_id) {
         const yOffset = -160;
-        const y = element_id.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({top: y, behavior: 'smooth'});
+        const y =
+          element_id.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: "smooth" });
       }
-    },
+    }
   },
   computed: {
     headerStyle() {
       return {
-        backgroundImage: `url(${this.image})`,
+        backgroundImage: `url(${this.image})`
       };
     },
     signupImage() {
       return {
-        backgroundImage: `url(${this.signup})`,
+        backgroundImage: `url(${this.signup})`
       };
     },
     people() {
       return this.data.artistes.filter(a => {
-        return (
-          a.Categorie === undefined ? false : a.Categorie.indexOf(this.$route.name.slice(0, -4)) > -1
-        );
+        return a.Categorie === undefined
+          ? false
+          : a.Categorie.indexOf(this.$route.name.slice(0, -4)) > -1;
       });
     }
   },
@@ -122,14 +126,14 @@ export default {
     this.labels = await api.methods.getLabels();
     this.leafActive();
     window.addEventListener("resize", this.leafActive);
-    api.methods.getArtistes().then((a) => {
+    api.methods.getArtistes().then(a => {
       this.data.artistes = a;
       setTimeout(() => this.scrollToElement(), 100);
     });
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.leafActive);
-  },
+  }
 };
 </script>
 <style lang="scss">
@@ -159,4 +163,3 @@ export default {
   }
 }
 </style>
-

@@ -39,8 +39,8 @@
                   <div
                     :class="
                       'md-layout ' +
-                      (index == 0 ? '' : 'inverse') +
-                      ' md-alignment-top-space-around'
+                        (index == 0 ? '' : 'inverse') +
+                        ' md-alignment-top-space-around'
                     "
                   >
                     <md-card-media
@@ -54,7 +54,10 @@
                       <h3 class="md-layout-item md-size-100">
                         {{ evt.titre }}
                       </h3>
-                      <p class="md-layout-item md-size-100" v-html="evt.description"></p>
+                      <p
+                        class="md-layout-item md-size-100"
+                        v-html="evt.description"
+                      ></p>
                       <div class="md-layout-item md-size-100 md-layout inverse">
                         <md-button
                           v-if="evt.reservable"
@@ -64,7 +67,10 @@
                         >
                       </div>
                     </div>
-                    <div class="md-layout-item md-size-100 content" v-html="evt.content"></div>
+                    <div
+                      class="md-layout-item md-size-100 content"
+                      v-html="evt.content"
+                    ></div>
                   </div>
                 </md-card-content>
               </md-card>
@@ -84,19 +90,19 @@ export default {
   data() {
     return {
       reservations: null,
-      events: [],
+      events: []
     };
   },
   props: {
     header: {
       type: String,
-      default: require("@/assets/img/carolles1_1.jpg"),
-    },
+      default: require("@/assets/img/carolles1_1.jpg")
+    }
   },
   computed: {
     headerStyle() {
       return {
-        backgroundImage: `url(${this.header})`,
+        backgroundImage: `url(${this.header})`
       };
     },
     spectacles() {
@@ -105,7 +111,7 @@ export default {
         spectacles = spectacles.concat(this.reservations[day].spectacles);
       }
       return spectacles;
-    },
+    }
   },
   async created() {
     this.reservations = await api.methods.getReservations();
@@ -113,9 +119,9 @@ export default {
   },
   methods: {
     onClickReservation(id) {
-      this.$router.push({ name: "index2022", hash: '#reservation' });
-    },
-  },
+      this.$router.push({ name: "index2022", hash: "#reservation" });
+    }
+  }
 };
 </script>
 

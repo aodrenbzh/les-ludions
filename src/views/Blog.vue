@@ -19,13 +19,19 @@
             class="md-layout md-alignment-top-center events"
           >
             <template v-for="(blog, index) in blogs">
-              <md-card :key="blog.id" class="event md-card-plain" :style="{backgroundImage: 'url(' + blog.image + ') !important'}">
+              <md-card
+                :key="blog.id"
+                class="event md-card-plain"
+                :style="{
+                  backgroundImage: 'url(' + blog.image + ') !important'
+                }"
+              >
                 <md-card-content>
                   <div
                     :class="
                       'md-layout ' +
-                      (index == 0 ? '' : 'inverse') +
-                      ' md-alignment-top-space-around'
+                        (index == 0 ? '' : 'inverse') +
+                        ' md-alignment-top-space-around'
                     "
                   >
                     <!-- <md-card-media
@@ -37,11 +43,16 @@
                       class="md-layout-item md-size-45 md-xsmall-size-100 info-event md-layout md-alignment-top-space-between"
                     >
                       <h3 class="md-layout-item md-size-100">
-                        <a :href="`#/blog/${blog.id}/`">{{ blog.titre }}</a>
+                        <a :href="`#/2021/blog/${blog.id}/`">{{
+                          blog.titre
+                        }}</a>
                       </h3>
-                      <p class="md-layout-item md-size-100" v-html="blog.description"></p>
+                      <p
+                        class="md-layout-item md-size-100"
+                        v-html="blog.description"
+                      ></p>
                     </div>
-                  </div> 
+                  </div>
                 </md-card-content>
               </md-card>
             </template>
@@ -59,19 +70,19 @@ export default {
   bodyClass: "blog-page",
   data() {
     return {
-      blogs: [],
+      blogs: []
     };
   },
   props: {
     header: {
       type: String,
-      default: require("@/assets/img/carolles1_1.jpg"),
-    },
+      default: require("@/assets/img/carolles1_1.jpg")
+    }
   },
   computed: {
     headerStyle() {
       return {
-        backgroundImage: `url(${this.header})`,
+        backgroundImage: `url(${this.header})`
       };
     }
   },
@@ -80,9 +91,9 @@ export default {
   },
   methods: {
     onClickReservation(id) {
-      this.$router.push({ name: "index", hash: '#reservation' });
-    },
-  },
+      this.$router.push({ name: "index", hash: "#reservation" });
+    }
+  }
 };
 </script>
 

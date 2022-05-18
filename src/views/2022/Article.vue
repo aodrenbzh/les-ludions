@@ -14,7 +14,7 @@
     <div class="main main-raised">
       <div class="section profile-content">
         <div class="container" v-if="rdy">
-            <h3 :style="{textAlign: 'center', padding: '20px'}">{{article.description}}</h3>
+            <h3 :style="{textAlign: 'center', padding: '20px'}" v-html="article.description"></h3>
 
             <template v-for="(bloc, index) in article.blocs">
                 <!-- <div :key="index">

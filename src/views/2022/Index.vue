@@ -129,7 +129,7 @@
                 v-html="labels.titre"
               ></h2>
               <h5
-                class="description"
+                class=""
                 v-if="labels.main_description"
                 v-html="labels.main_description"
               ></h5>

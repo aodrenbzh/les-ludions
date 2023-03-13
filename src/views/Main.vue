@@ -1,16 +1,16 @@
 
 <template>
     <div class="wrapper">
-        <index2022></index2022>
+        <index2023></index2023>
     </div>
 </template>
 
 <script>
 
-import Index2022 from "./2022/Index.vue";
+import Index2023 from "./2023/Index.vue";
 export default {
   components: {
-      Index2022
+      Index2023
   },
   bodyClass: "index-page",
   mixins: [],

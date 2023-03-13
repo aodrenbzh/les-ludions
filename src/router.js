@@ -12,7 +12,6 @@ import Login from "./views/Login.vue";
 import MainNavbar from "./layout/MainNavbar.vue";
 import MainFooter from "./layout/MainFooter.vue";
 
-
 import Index2022 from "./views/2022/Index.vue";
 import Artistes2022 from "./views/2022/Artistes.vue";
 import Components2022 from "./views/2022/Components.vue";
@@ -24,13 +23,25 @@ import Login2022 from "./views/2022/Login.vue";
 import MainNavbar2022 from "./layout/2022/MainNavbar.vue";
 import MainFooter2022 from "./layout/2022/MainFooter.vue";
 
+import Index2023 from "./views/2023/Index.vue";
+import Artistes2023 from "./views/2023/Artistes.vue";
+import Components2023 from "./views/2023/Components.vue";
+import Profile2023 from "./views/2023/Profile.vue";
+import Blog2023 from "./views/2023/Blog.vue";
+import Article2023 from "./views/2023/Article.vue";
+import Ateliers2023 from "./views/2023/Ateliers.vue";
+import Login2023 from "./views/2023/Login.vue";
+import MainNavbar2023 from "./layout/2023/MainNavbar.vue";
+import MainFooter2023 from "./layout/2023/MainFooter.vue";
+
 Vue.use(Router);
 
 export default new Router({
-    routes: [{
+    routes: [
+        {
             path: "/",
             name: "main",
-            components: { default: Main, header: MainNavbar2022, footer: MainFooter2022 },
+            components: { default: Main, header: MainNavbar2023, footer: MainFooter2023 },
             props: {
                 header: { colorOnScroll: 400 },
                 footer: { backgroundColor: "black" }
@@ -38,8 +49,8 @@ export default new Router({
         },
         {
             path: "/programme",
-            name: "index2022",
-            components: { default: Index2022, header: MainNavbar2022, footer: MainFooter2022 },
+            name: "index2023",
+            components: { default: Index2023, header: MainNavbar2023, footer: MainFooter2023 },
             props: {
                 header: { colorOnScroll: 400 },
                 footer: { backgroundColor: "black" }
@@ -47,8 +58,8 @@ export default new Router({
         },
         {
             path: "/artistes",
-            name: "artistes2022",
-            components: { default: Artistes2022, header: MainNavbar2022, footer: MainFooter2022 },
+            name: "artistes2023",
+            components: { default: Artistes2023, header: MainNavbar2023, footer: MainFooter2023 },
             props: {
                 header: { colorOnScroll: 400 },
                 footer: { backgroundColor: "black" }
@@ -56,8 +67,8 @@ export default new Router({
         },
         {
             path: "/parrains",
-            name: "parrains2022",
-            components: { default: Artistes2022, header: MainNavbar2022, footer: MainFooter2022 },
+            name: "parrains2023",
+            components: { default: Artistes2023, header: MainNavbar2023, footer: MainFooter2023},
             props: {
                 header: { colorOnScroll: 400 },
                 footer: { backgroundColor: "black" }
@@ -65,8 +76,8 @@ export default new Router({
         },
         {
             path: "/partenaires",
-            name: "partenaires2022",
-            components: { default: Artistes2022, header: MainNavbar2022, footer: MainFooter2022 },
+            name: "partenaires2023",
+            components: { default: Artistes2023, header: MainNavbar2023, footer: MainFooter2023},
             props: {
                 header: { colorOnScroll: 400 },
                 footer: { backgroundColor: "black" }
@@ -74,8 +85,8 @@ export default new Router({
         },
         {
             path: "/auteurs",
-            name: "auteurs2022",
-            components: { default: Artistes2022, header: MainNavbar2022, footer: MainFooter2022 },
+            name: "auteurs2023",
+            components: { default: Artistes2023, header: MainNavbar2023, footer: MainFooter2023 },
             props: {
                 header: { colorOnScroll: 400 },
                 footer: { backgroundColor: "black" }
@@ -83,8 +94,8 @@ export default new Router({
         },
         {
             path: "/ateliers",
-            name: "ateliers2022",
-            components: { default: Ateliers2022, header: MainNavbar2022, footer: MainFooter2022 },
+            name: "ateliers2023",
+            components: { default: Ateliers2023, header: MainNavbar2023, footer: MainFooter2023},
             props: {
                 header: { colorOnScroll: 400 },
                 footer: { backgroundColor: "black" }
@@ -92,8 +103,8 @@ export default new Router({
         },
         {
             path: "/blog",
-            name: "blog2022",
-            components: { default: Blog2022, header: MainNavbar2022, footer: MainFooter2022 },
+            name: "blog2023",
+            components: { default: Blog2023, header: MainNavbar2023, footer: MainFooter2023 },
             props: {
                 header: { colorOnScroll: 400 },
                 footer: { backgroundColor: "black" }
@@ -101,8 +112,8 @@ export default new Router({
         },
         {
             path: "/blog/:id",
-            name: "article2022",
-            components: { default: Article2022, header: MainNavbar2022, footer: MainFooter2022 },
+            name: "article2023",
+            components: { default: Article2023, header: MainNavbar2023, footer: MainFooter2023 },
             props: {
                 header: { colorOnScroll: 400 },
                 footer: { backgroundColor: "black" }
@@ -148,6 +159,51 @@ export default new Router({
             path: "/2021/blog/:id",
             name: "article",
             components: { default: Article, header: MainNavbar, footer: MainFooter },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/2022/programme",
+            name: "index",
+            components: { default: Index2022, header: MainNavbar2022, footer: MainFooter2022 },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/2022/artistes",
+            name: "artistes",
+            components: { default: Artistes2022, header: MainNavbar2022, footer: MainFooter2022 },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/2022/ateliers",
+            name: "ateliers",
+            components: { default: Ateliers2022, header: MainNavbar2022, footer: MainFooter2022 },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/2022/blog",
+            name: "blog",
+            components: { default: Blog2022, header: MainNavbar2022, footer: MainFooter2022 },
+            props: {
+                header: { colorOnScroll: 400 },
+                footer: { backgroundColor: "black" }
+            }
+        },
+        {
+            path: "/2022/blog/:id",
+            name: "article",
+            components: { default: Article2022, header: MainNavbar2022, footer: MainFooter2022 },
             props: {
                 header: { colorOnScroll: 400 },
                 footer: { backgroundColor: "black" }

@@ -155,7 +155,10 @@
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
                         <li>
-                          <a href="#/2021/programme">Edition 2021 </a>
+                          <a href="#/2021/programme">Edition 2021</a>
+                        </li>
+                        <li>
+                          <a href="#/programme">Edition 2023</a>
                         </li>
                       </ul>
                     </drop-down>

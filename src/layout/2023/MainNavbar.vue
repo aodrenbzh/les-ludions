@@ -9,7 +9,7 @@
     <div class="md-toolbar-row md-collapse-lateral">
       <a
         class="md-toolbar-section-start"
-        href="#/2021/programme"
+        href="#/programme"
         @click="scrollToTop()"
       >
         <img :src="logo" alt="Logo transparent Image" class="logo img-fluid" />
@@ -32,47 +32,85 @@
               <!-- Here you can add your items from the section-start of your toolbar -->
             </mobile-menu>
             <md-list>
-              <md-list-item href="#/2021/test" v-if="false">
+              <md-list-item href="#/test" v-if="false">
                 <i class="material-icons">content_paste</i>
                 <p>test</p>
               </md-list-item>
 
-              <md-list-item href="#/2021/programme" v-if="!isprogramme">
+              <md-list-item href="#/programme" v-if="!isprogramme">
                 <i class="material-icons">history_edu</i>
                 <p>Programme</p>
               </md-list-item>
 
-              <md-list-item href="#/2021/blog" v-if="!isBlog">
+              <md-list-item href="#/blog" v-if="!isBlog">
                 <i class="material-icons">art_track</i>
                 <p>Blog</p>
               </md-list-item>
 
-              <md-list-item href="#/2021/ateliers" v-if="!isAteliers">
+              <md-list-item href="#/ateliers" v-if="!isAteliers">
                 <i class="material-icons">art_track</i>
                 <p>Ateliers</p>
               </md-list-item>
 
-              <md-list-item href="#/2021/artistes" v-if="!isArtistes">
+              <!-- <md-list-item href="#/artistes" v-if="!isArtistes">
                 <i class="material-icons">view_carousel</i>
                 <p>Artistes</p>
-              </md-list-item>
-
-              <li class="md-list-item" v-if="isArtistes">
+              </md-list-item> -->
+              <li class="md-list-item">
                 <a
                   href="javascript:void(0)"
-                  class="
-                    md-list-item-router md-list-item-container md-button-clean
-                    dropdown
-                  "
+                  class="md-list-item-router md-list-item-container md-button-clean dropdown"
                 >
                   <div class="md-list-item-content">
                     <drop-down direction="down">
                       <md-button
                         slot="title"
-                        class="
-                          md-button md-button-link md-white md-simple
-                          dropdown-toggle
-                        "
+                        class="md-button md-button-link md-white md-simple dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        <i class="material-icons">view_carousel</i>
+                        <p>Qui voir ?</p>
+                      </md-button>
+                      <ul class="dropdown-menu dropdown-with-icons">
+                        <li>
+                          <a href="#/artistes">
+                            <i class="material-icons">brush</i>
+                            <p>Artistes</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#/auteurs">
+                            <i class="material-icons">history_edu</i>
+                            <p>Auteurs</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#/partenaires">
+                            <i class="material-icons">handshake</i>
+                            <p>Partenaires</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#/parrains">
+                            <i class="material-icons">hail</i>
+                            <p>Parrains</p>
+                          </a>
+                        </li>
+                      </ul>
+                    </drop-down>
+                  </div>
+                </a>
+              </li>
+              <!-- <li class="md-list-item" v-if="isArtistes">
+                <a
+                  href="javascript:void(0)"
+                  class="md-list-item-router md-list-item-container md-button-clean dropdown"
+                >
+                  <div class="md-list-item-content">
+                    <drop-down direction="down">
+                      <md-button
+                        slot="title"
+                        class="md-button md-button-link md-white md-simple dropdown-toggle"
                         data-toggle="dropdown"
                       >
                         <i class="material-icons">view_carousel</i>
@@ -99,40 +137,35 @@
                     </drop-down>
                   </div>
                 </a>
-              </li>
+              </li> -->
 
               <li class="md-list-item">
                 <a
                   href="javascript:void(0)"
-                  class="
-                    md-list-item-router md-list-item-container md-button-clean
-                    dropdown
-                  "
+                  class="md-list-item-router md-list-item-container md-button-clean dropdown"
                 >
                   <div class="md-list-item-content">
                     <drop-down direction="down">
                       <md-button
                         slot="title"
-                        class="
-                          md-button md-button-link md-white md-simple
-                          dropdown-toggle
-                        "
+                        class="md-button md-button-link md-white md-simple dropdown-toggle"
                         data-toggle="dropdown"
                       >
                         <i class="material-icons">history</i>
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
                         <li>
-                          <a href="#/2022/programme">Edition 2022 </a>
+                          <a href="#/2021/programme">Edition 2021</a>
                         </li>
                         <li>
-                          <a href="#/programme">Edition 2023</a>
+                          <a href="#/2022/programme">Edition 2022</a>
                         </li>
                       </ul>
                     </drop-down>
                   </div>
                 </a>
               </li>
+
               <md-list-item
                 href="javascript:void(0)"
                 @click="goToBoucheAOreille()"
@@ -159,7 +192,7 @@
                 <md-tooltip md-direction="bottom">Instagram</md-tooltip>
               </md-list-item>
 
-              <md-list-item v-if="false" href="#/2021/login">
+              <md-list-item v-if="false" href="#/login">
                 <i class="fas fa-user"></i>
                 <p class="hidden-lg">Se connecter</p>
                 <md-tooltip md-direction="bottom">Se connecter</md-tooltip>
@@ -185,7 +218,7 @@ function resizeThrottler(actualResizeHandler) {
     }, 66);
   }
 }
-import api from "../api/les-ludions";
+import api from "../../api/2023/les-ludions";
 import MobileMenu from "@/layout/MobileMenu";
 export default {
   components: {
@@ -227,19 +260,19 @@ export default {
   },
   computed: {
     isArtistes() {
-      const excludedRoutes = ["artistes"];
+      const excludedRoutes = ["artistes2023"];
       return excludedRoutes.some((r) => r === this.$route.name);
     },
     isprogramme() {
-      const excludedRoutes = ["index"];
+      const excludedRoutes = ["index2023"];
       return excludedRoutes.some((r) => r === this.$route.name);
     },
     isBlog() {
-      const excludedRoutes = ["blog"];
+      const excludedRoutes = ["blog2023"];
       return excludedRoutes.some((r) => r === this.$route.name);
     },
     isAteliers() {
-      const excludedRoutes = ["ateliers"];
+      const excludedRoutes = ["ateliers2023"];
       return excludedRoutes.some((r) => r === this.$route.name);
     },
   },
@@ -291,7 +324,8 @@ export default {
     },
     goToBoucheAOreille() {
       var that = this;
-      if (this.$route.name !== "index") this.$router.push({ name: "index" });
+      if (this.$route.name !== "index")
+        this.$router.push({ name: "index2023" });
       setTimeout(() => that.scrollToElement("boucheAOreille"), 100);
     },
     scrollListener() {

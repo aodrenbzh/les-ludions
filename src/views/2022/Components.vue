@@ -131,7 +131,7 @@
       </div>
       <div class="md-layout">
         <div class="md-layout-item text-center">
-          <md-button href="#/2021/login" class="md-simple md-success md-lg"
+          <md-button href="#/2022/login" class="md-simple md-success md-lg"
             >View Login Page</md-button
           >
         </div>
@@ -140,26 +140,26 @@
         <div class="container-fluid text-center">
           <div class="md-layout">
             <div class="md-layout-item">
-              <a href="#/2021/artistes" target="_blank">
+              <a href="#/2022/artistes" target="_blank">
                 <img
                   :src="artistes"
                   alt="Rounded Image"
                   class="img-raised rounded img-fluid"
                 />
               </a>
-              <md-button href="#/2021/artistes" class="md-simple md-success md-lg"
+              <md-button href="#/2022/artistes" class="md-simple md-success md-lg"
                 >View ARtistes Page</md-button
               >
             </div>
             <div class="md-layout-item">
-              <a href="#/2021/profile" target="_blank">
+              <a href="#/2022/profile" target="_blank">
                 <img
                   :src="profile"
                   alt="Rounded Image"
                   class="img-raised rounded img-fluid"
                 />
               </a>
-              <md-button href="#/2021/profile" class="md-simple md-success md-lg"
+              <md-button href="#/2022/profile" class="md-simple md-success md-lg"
                 >View Profile Page</md-button
               >
             </div>

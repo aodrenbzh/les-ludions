@@ -153,7 +153,7 @@
                     <div
                       class="md-layout-item md-layout md-alignment-top-right"
                     >
-                      <md-button class="md-success md-round" href="#/ateliers"
+                      <md-button class="md-success md-round" href="#/2022/ateliers"
                         ><md-icon>lightbulb</md-icon>Informations</md-button
                       >
                       <md-button
@@ -175,9 +175,6 @@
                     <div
                       class="md-layout-item md-layout md-alignment-top-right"
                     >
-                      <!-- <md-button class="md-info md-round" href="#/2021/blog"
-                        >Informations</md-button
-                      > -->
                       <md-button
                         class="md-primary md-round"
                         @click="reservation = 'samedi'"
@@ -197,9 +194,6 @@
                     <div
                       class="md-layout-item md-layout md-alignment-top-right"
                     >
-                      <!-- <md-button class="md-info md-round" href="#/2021/blog"
-                        >Informations</md-button
-                      > -->
                       <md-button
                         class="md-primary md-round"
                         @click="reservation = 'dimanche'"

@@ -37,7 +37,7 @@
                       class="md-layout-item md-size-45 md-xsmall-size-100 info-event md-layout md-alignment-top-space-between"
                     >
                       <h3 class="md-layout-item md-size-100">
-                        <a :href="`#/blog/${blog.id}/`">{{ blog.titre }}</a>
+                        <a :href="`#/2022/blog/${blog.id}/`">{{ blog.titre }}</a>
                       </h3>
                       <p class="md-layout-item md-size-100" v-html="blog.description"></p>
                     </div>

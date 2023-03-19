@@ -32,22 +32,22 @@
               <!-- Here you can add your items from the section-start of your toolbar -->
             </mobile-menu>
             <md-list>
-              <md-list-item href="#/test" v-if="false">
+              <md-list-item href="#/2022/test" v-if="false">
                 <i class="material-icons">content_paste</i>
                 <p>test</p>
               </md-list-item>
 
-              <md-list-item href="#/programme" v-if="!isprogramme">
+              <md-list-item href="#/2022/programme" v-if="!isprogramme">
                 <i class="material-icons">history_edu</i>
                 <p>Programme</p>
               </md-list-item>
 
-              <md-list-item href="#/blog" v-if="!isBlog">
+              <md-list-item href="#/2022/blog" v-if="!isBlog">
                 <i class="material-icons">art_track</i>
                 <p>Blog</p>
               </md-list-item>
 
-              <md-list-item href="#/ateliers" v-if="!isAteliers">
+              <md-list-item href="#/2022/ateliers" v-if="!isAteliers">
                 <i class="material-icons">art_track</i>
                 <p>Ateliers</p>
               </md-list-item>
@@ -73,25 +73,25 @@
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
                         <li>
-                          <a href="#/artistes">
+                          <a href="#/2022/artistes">
                             <i class="material-icons">brush</i>
                             <p>Artistes</p>
                           </a>
                         </li>
                         <li>
-                          <a href="#/auteurs">
+                          <a href="#/2022/auteurs">
                             <i class="material-icons">history_edu</i>
                             <p>Auteurs</p>
                           </a>
                         </li>
                         <li>
-                          <a href="#/partenaires">
+                          <a href="#/2022/partenaires">
                             <i class="material-icons">handshake</i>
                             <p>Partenaires</p>
                           </a>
                         </li>
                         <li>
-                          <a href="#/parrains">
+                          <a href="#/2022/parrains">
                             <i class="material-icons">hail</i>
                             <p>Parrains</p>
                           </a>

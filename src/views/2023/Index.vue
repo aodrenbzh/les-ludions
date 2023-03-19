@@ -143,7 +143,7 @@
           <nav-tabs-card no-label tabs-plain>
             <template slot="content">
               <md-tabs class="md-info" md-alignment="left">
-                <md-tab id="tab-friday" md-label="Vendredi 27 Mai">
+                <md-tab id="tab-friday" md-label="Vendredi 19 Mai">
                   <div class="md-layout container">
                     <p
                       class="md-layout-item md-alignment-top-center"
@@ -165,7 +165,7 @@
                   </div>
                 </md-tab>
 
-                <md-tab id="tab-samedi" md-label="Samedi 28 Mai">
+                <md-tab id="tab-samedi" md-label="Samedi 20 Mai">
                   <div class="md-layout container">
                     <p
                       class="md-layout-item md-alignment-top-center"
@@ -181,13 +181,13 @@
                       <md-button
                         class="md-primary md-round"
                         @click="reservation = 'samedi'"
-                        >Réservez</md-button
+                        ><md-icon>library_books</md-icon>Réservez</md-button
                       >
                     </div>
                   </div>
                 </md-tab>
 
-                <md-tab id="tab-dimanche" md-label="Dimanche 29 Mai">
+                <md-tab id="tab-dimanche" md-label="Dimanche 21 Mai">
                   <div class="md-layout container">
                     <p
                       class="md-layout-item md-alignment-top-center"
@@ -203,7 +203,7 @@
                       <md-button
                         class="md-primary md-round"
                         @click="reservation = 'dimanche'"
-                        >Réservez</md-button
+                        ><md-icon>library_books</md-icon>Réservez</md-button
                       >
                     </div>
                   </div>
@@ -245,13 +245,13 @@
         </div>
       </div>
 
-      <div class="section section-carou" v-if="showCarou && lol">
+      <div class="section section-carou" v-if="showCarou">
         <div class="container container-carou">
           <carousel
             :perPageCustom="[
               [300, 1],
               [768, 3],
-              [1024, 5]
+              [1024, 5],
             ]"
             loop
             :speed="700"
@@ -451,34 +451,34 @@ import {
   required,
   email,
   minLength,
-  maxLength
+  maxLength,
 } from "vuelidate/lib/validators";
 
 export default {
   components: {
     Badge,
     NavTabsCard,
-    Modal
+    Modal,
   },
   bodyClass: "index-page",
   mixins: [validationMixin],
   props: {
     header: {
       type: String,
-      default: require("@/assets/img/mont.jpg")
+      default: require("@/assets/img/mont.jpg"),
     },
     logo: {
       type: String,
-      default: require("@/assets/img/logo.jpg")
+      default: require("@/assets/img/logo.jpg"),
     },
     teamImg2: {
       type: String,
-      default: require("@/assets/img/faces/christian.jpg")
+      default: require("@/assets/img/faces/christian.jpg"),
     },
     teamImg3: {
       type: String,
-      default: require("@/assets/img/faces/kendall.jpg")
-    }
+      default: require("@/assets/img/faces/kendall.jpg"),
+    },
   },
   data() {
     return {
@@ -496,7 +496,7 @@ export default {
       pigeon: {
         Auteur: "",
         Contenu: "",
-        Email: ""
+        Email: "",
       },
       pigeonSending: false,
       sharing: {
@@ -510,27 +510,27 @@ export default {
                 Peinture, sculpture, mobile métal, céramique.`,
         quote:
           "Un festival en Normandie, 7 maisons, 16 artistes, déambulations théatrales",
-        hashtags: "ludions,normandie,culture"
+        hashtags: "ludions,normandie,culture",
       },
       networks: [
         {
           network: "email",
           name: "Email",
           icon: "far fah fa-lg fa-envelope",
-          color: "#333333"
+          color: "#333333",
         },
         {
           network: "facebook",
           name: "Facebook",
           icon: "fab fah fa-lg fa-facebook-f",
-          color: "#1877f2"
+          color: "#1877f2",
         },
         {
           network: "twitter",
           name: "Twitter",
           icon: "fab fah fa-lg fa-twitter",
-          color: "#1da1f2"
-        }
+          color: "#1da1f2",
+        },
       ],
       reservations: [],
       reservation: "",
@@ -540,44 +540,44 @@ export default {
         Email: "",
         Phone: null,
         Places: null,
-        Spectacle: ""
+        Spectacle: "",
       },
-      reservationSending: false
+      reservationSending: false,
     };
   },
   validations: {
     pigeon: {
       Auteur: {
-        required
+        required,
       },
       Email: {
-        required
+        required,
       },
       Contenu: {
         required,
-        maxLength: maxLength(255)
-      }
+        maxLength: maxLength(255),
+      },
     },
     demande: {
       Prenom: {
-        required
+        required,
       },
       Nom: {
-        required
+        required,
       },
       Email: {
-        required
+        required,
       },
       Phone: {
-        required
+        required,
       },
       Places: {
-        required
+        required,
       },
       Spectacle: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   computed: {
     contactFormIsValid() {
@@ -588,26 +588,26 @@ export default {
     },
     headerStyle() {
       return {
-        backgroundImage: `url(${this.header})`
+        backgroundImage: `url(${this.header})`,
       };
     },
     galerieComputed() {
       const reducer = (accumulator, currentValue) =>
         accumulator.concat(
           currentValue.galerie
-            .filter(a => !a.name.includes("thumb_profile"))
-            .map(a => ({ ...a, artiste: currentValue.id }))
+            .filter((a) => !a.name.includes("thumb_profile"))
+            .map((a) => ({ ...a, artiste: currentValue.id }))
         );
       const galRed = this.artistes
-        .filter(a => a.Categorie == "artistes")
+        .filter((a) => a.Categorie == "artistes")
         .reduce(reducer, []);
       return this.shuffle(galRed);
     },
     lol() {
       return this.artistes
-        .filter(a => a.Categorie == "artistes")
-        .every(a => a.galerie.length > 0);
-    }
+        .filter((a) => a.Categorie == "artistes")
+        .every((a) => a.galerie.length > 0);
+    },
   },
   methods: {
     closeReservation() {
@@ -633,9 +633,9 @@ export default {
       this.pigeonSending = true;
       let input = {
         ...this.pigeon,
-        Date: new Date()
+        Date: new Date(),
       };
-      api.methods.sendPigeon(input).then(a => {
+      api.methods.sendPigeon(input).then((a) => {
         this.clearForm();
         this.pigeonSending = false;
         this.showSnackbar = true;
@@ -659,12 +659,12 @@ export default {
     sendReservation: function() {
       this.reservationSending = true;
       let input = {
-        ...this.demande
+        ...this.demande,
       };
       let label = this.reservations[this.reservation].spectacles.find(
-        s => s.id == input.Spectacle
+        (s) => s.id == input.Spectacle
       ).label;
-      api.methods.addDemande(input, this.reservation, label).then(a => {
+      api.methods.addDemande(input, this.reservation, label).then((a) => {
         this.clearFormReservation();
         this.reservationSending = false;
         this.reservation = "";
@@ -683,17 +683,17 @@ export default {
       var img = this.$refs[ref];
     },
     isDisplayed(id) {
-      let a = this.artistes.find(a => a.id == id);
+      let a = this.artistes.find((a) => a.id == id);
       return a ? a.Display : false;
     },
     getArtiste(id) {
-      var typed = this.artistes.map(i => ({
+      var typed = this.artistes.map((i) => ({
         ...i,
         Type: ["rose", "default", "info", "success"][
           Math.floor(Math.random() * 4)
-        ]
+        ],
       }));
-      return typed.find(a => a.id == id);
+      return typed.find((a) => a.id == id);
     },
     scrollToElement() {
       if (!this.$route.hash) return true;
@@ -701,10 +701,10 @@ export default {
       if (element_id) {
         window.scrollTo({
           top: element_id.getBoundingClientRect().top - 70,
-          behavior: "smooth"
+          behavior: "smooth",
         });
       }
-    }
+    },
   },
   async created() {
     let that = this;
@@ -715,7 +715,7 @@ export default {
   },
   mounted() {
     setTimeout(() => this.scrollToElement(), 100);
-  }
+  },
 };
 </script>
 

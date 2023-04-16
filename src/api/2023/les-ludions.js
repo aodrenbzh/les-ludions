@@ -219,8 +219,10 @@ export default {
               });
 
             var storageRef = str.ref();
-            var imagesRef = storageRef.child("/2023" + art.id);
+            var imagesRef = storageRef.child("/2023" + art.id + "/resized");
+
             imagesRef.listAll().then(images => {
+              console.log('images')
               var tempI = [];
               images.items.forEach(itemRef => {
                 itemRef.getMetadata().then(meta => {
@@ -247,16 +249,21 @@ export default {
         });
     },
     async getImagesFromArtiste(id) {
+      console.log('lol')
       var that = this;
-      if (this.artistes.value.find(a => a.id == id).galerie)
+      if (this.artistes.value.find(a => a.id == id).galerie) {
+        console.log('mdr')
         return Promise.resolve(
           this.artistes.value.find(a => a.id == id).galerie
         );
+      }
+
       var result = [];
       var storageRef = str.ref();
-      var imagesRef = storageRef.child("/2023" + id);
+      var imagesRef = storageRef.child("/2023" + id + "/resized");
       let images = await imagesRef.listAll();
       images.items.forEach(async itemRef => {
+
         let meta = await itemRef.getMetadata();
         let url = await storageRef.child(meta.fullPath).getDownloadURL();
         result.push({

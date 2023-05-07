@@ -180,7 +180,7 @@
                       > -->
                       <md-button
                         class="md-primary md-round"
-                        @click="reservation = 'samedi'"
+                        @click="reservation = 'Samedi'"
                         ><md-icon>library_books</md-icon>Réservez</md-button
                       >
                     </div>
